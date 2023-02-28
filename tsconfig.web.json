@@ -8,9 +8,9 @@
       "DOM",
       "DOM.Iterable"
     ],
-    "types": [
-      "unplugin-vue-macros/macros-global"
-    ],
+    // "types": [
+    //   "unplugin-vue-macros/macros-global"
+    // ],
     "skipLibCheck": true
   },
   "include": [
