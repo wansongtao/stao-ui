@@ -1,5 +1,5 @@
 import FileSelector from './FileSelector.vue';
-import { withInstall } from '@stao-ui/utils/install';
+import { withInstall } from '@stao-ui/utils';
 
 export type FileSelectorInstance = InstanceType<typeof FileSelector>;
 export * from './FileSelector.vue';
