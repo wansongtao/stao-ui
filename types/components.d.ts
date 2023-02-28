@@ -4,7 +4,7 @@ import '@vue/runtime-core';
 declare module '@vue/runtime-core' {
   // GlobalComponents for Volar
   export interface GlobalComponents {
-    FileSelector: typeof import('../packages/components/FileSelector');
+    STaoFileSelector: typeof import('../packages/components')['STaoFileSelector'];
   }
 }
 
