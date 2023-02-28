@@ -1,60 +1,52 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue';
-import messageNotice from '@stao-ui/utils/messageNotice';
 
-const props = defineProps({
+export interface IFileSelectorProps {
   /**
-   * 是否启用上传目录功能，优先级最高（设置为true后，accept、limit、drag将不生效）
+   * 是否启用上传目录功能，优先级最高，默认false（设置为true后，accept、limit、drag将不生效）
    */
-  webkitdirectory: {
-    type: Boolean,
-    default: false
-  },
+  webkitdirectory?: boolean;
   /**
-   * @description 唯一文件类型说明符，请参考w3c
+   * @description 唯一文件类型说明符，请参考w3c。默认不限制文件类型。
    */
-  accept: {
-    type: String,
-    default: ''
-  },
+  accept?: string;
   /**
-   * @description 允许选择的文件个数
+   * @description 允许选择的文件个数，默认1.
    */
-  limit: {
-    type: Number,
-    validator(value: number) {
-      return value > 0 && Number.isInteger(value);
-    }
-  },
+  limit?: number;
   /**
-   * @description 是否启用拖拽获取文件
+   * @description 是否启用拖拽获取文件，默认false。
    */
-  drag: {
-    type: Boolean,
-    default: false
-  },
+  drag?: boolean;
   /**
-   * @description 超出限制的文件数时，是否允许继续选择文件并替换旧文件
+   * @description 超出限制的文件数时，是否允许继续选择文件并替换旧文件。默认false。
    */
-  excessReplace: {
-    type: Boolean,
-    default: false
-  },
+  excessReplace?: boolean;
   /**
    * @description 单个文件最大字节
    */
-  size: {
-    type: Number,
-    validator(value: number) {
-      return value > 0;
-    }
-  },
-  disabled: {
-    type: Boolean,
-    default: false
-  }
+  size?: number;
+  /**
+   * @description 是否禁用选择，默认fasle。
+   */
+  disabled?: boolean;
+}
+
+const props = withDefaults(defineProps<IFileSelectorProps>(), {
+  webkitdirectory: false,
+  accept: '',
+  limit: 1,
+  drag: false,
+  excessReplace: false,
+  disabled: false
 });
-const emit = defineEmits<{ (event: 'changeFile', files: File[]): void }>();
+const emits = defineEmits<{
+  (e: 'changeFile', files: File[]): void;
+  /**
+   * @description 抛出超出大小的文件列表
+   */
+  (e: 'overSize', overFiles: File[]): void;
+}>();
 
 const verifyFile = (file: File, size?: number, type?: string) => {
   if (size) {
@@ -73,13 +65,19 @@ const verifyFile = (file: File, size?: number, type?: string) => {
 };
 
 const disabled = ref(false || props.disabled);
-watch(() => props.disabled, (value) => {
-  disabled.value = value;
-});
+watch(
+  () => props.disabled,
+  (value) => {
+    disabled.value = value;
+  }
+);
 
 const fileEle = ref<HTMLInputElement | null>(null);
 
-const onOpenFileDialog = () => {
+/**
+ * @description 打开选择文件弹窗
+ */
+const onSelectFile = () => {
   if (!fileEle.value) {
     return;
   }
@@ -97,16 +95,13 @@ const saveFileInfo = (checkedFiles: File[]) => {
     return;
   }
 
-  if (props.size) {
-    const isVerify = checkedFiles.every((value) =>
-      verifyFile(value, props.size)
+  if (props.size && props.size > 0) {
+    const overFiles = checkedFiles.filter((value) =>
+      !verifyFile(value, props.size)
     );
 
-    if (!isVerify) {
-      messageNotice({
-        content: '文件过大，请重新选择',
-        type: 'warning'
-      })
+    if (overFiles.length) {
+      emits('overSize', overFiles);
       return;
     }
   }
@@ -118,19 +113,19 @@ const saveFileInfo = (checkedFiles: File[]) => {
       }
 
       files.value = checkedFiles;
-      emit('changeFile', files.value);
+      emits('changeFile', files.value);
     },
     multipleFile: () => {
       // 多选未限制个数
       if (props.limit === Infinity) {
         files.value.push(...checkedFiles);
-        emit('changeFile', files.value);
+        emits('changeFile', files.value);
         return;
       }
 
       // 多选，限制了个数
       const total = files.value.length + checkedFiles.length;
-      if (total >= (props.limit as number) && !props.excessReplace) {
+      if (total >= props.limit && !props.excessReplace) {
         disabled.value = true;
       }
 
@@ -138,18 +133,18 @@ const saveFileInfo = (checkedFiles: File[]) => {
       // 移除多余的文件
       if (props.excessReplace) {
         const len = newFiles.length;
-        newFiles.splice(0, len - (props.limit as number));
+        newFiles.splice(0, len - props.limit);
       } else {
-        newFiles.splice(props.limit as number);
+        newFiles.splice(props.limit);
       }
 
       files.value = newFiles;
-      emit('changeFile', files.value);
+      emits('changeFile', files.value);
     },
     folder: () => {
       disabled.value = true;
       files.value = checkedFiles;
-      emit('changeFile', files.value);
+      emits('changeFile', files.value);
     }
   };
 
@@ -187,11 +182,12 @@ const deleteFile = (idx: number) => {
 const clearFiles = () => {
   disabled.value = false;
   files.value = [];
+
   // 解决删除文件后，再上传相同文件失败的错误
   (fileEle.value as HTMLInputElement).value = '';
 };
 
-const onSelectFile = (e: Event) => {
+const onChangeFile = (e: Event) => {
   const checkedFiles = (e.target as HTMLInputElement).files;
   if (!checkedFiles) {
     return;
@@ -205,7 +201,7 @@ const onDragFile = (e: DragEvent) => {
 };
 
 defineExpose({
-  onOpenFileDialog,
+  onSelectFile,
   deleteFile,
   clearFiles,
   verifyFile
@@ -222,11 +218,11 @@ defineExpose({
     :multiple="limit !== undefined && limit > 1"
     :accept="accept"
     class="file_input"
-    @change="onSelectFile" />
+    @change="onChangeFile" />
   <div
     class="file_btn"
     :class="disabled ? 'file_btn--stop' : ''"
-    @click="onOpenFileDialog"
+    @click="onSelectFile"
     v-if="!drag || webkitdirectory">
     <slot :disabled="disabled">
       <div class="default_btn">选择文件</div>
@@ -235,7 +231,7 @@ defineExpose({
   <div
     class="file_btn"
     :class="disabled ? 'file_btn--stop' : ''"
-    @click="onOpenFileDialog"
+    @click="onSelectFile"
     @dragenter.prevent
     @dragover.prevent
     @drop.prevent="onDragFile"
