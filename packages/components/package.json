@@ -1,15 +1,21 @@
 {
   "name": "@stao-ui/components",
-  "version": "1.0.5",
+  "version": "1.0.6",
+  "type": "module",
   "description": "",
-  "main": "/lib/index.js",
-  "module": "/es/index.js",
+  "main": "./dist/stao-ui.umd.js",
+  "module": "./dist/stao-ui.mjs",
+  "exports": {
+    ".": {
+      "import": "./dist/stao-ui.mjs",
+      "require": "./dist/stao-ui.umd.js"
+    }
+  },
   "scripts": {
     "build": "vite build"
   },
   "files": [
-    "/es",
-    "/lib"
+    "/dist"
   ],
   "keywords": [
     "vue3",

@@ -9,38 +9,39 @@ export default defineConfig({
     vue(),
     VueJsx(),
     dts({
-      outputDir: 'es',
-      tsConfigFilePath: '../../tsconfig.json'
-    }),
-    //因为这个插件默认打包到es下，我们想让lib目录下也生成声明文件需要再配置一个
-    dts({
-      outputDir: 'lib',
+      outputDir: 'dist',
       tsConfigFilePath: '../../tsconfig.json'
     })
   ],
   build: {
-    target: 'modules',
     lib: {
-      entry: resolve(__dirname, './index.ts')
+      entry: resolve(__dirname, './index.ts'),
+      name: 'StaoUi',
+      fileName: 'stao-ui'
     },
     rollupOptions: {
       external: ['vue', 'ant-design-vue'],
-      output: [
-        {
-          format: 'es',
-          entryFileNames: '[name].js',
-          preserveModules: true,
-          dir: 'es',
-          preserveModulesRoot: './'
-        },
-        {
-          format: 'cjs',
-          entryFileNames: '[name].js',
-          preserveModules: true,
-          dir: 'lib',
-          preserveModulesRoot: './'
+      output: {
+        globals: {
+          vue: 'Vue'
         }
-      ]
+      }
+      // output: [
+      //   {
+      //     format: 'es',
+      //     entryFileNames: '[name].js',
+      //     preserveModules: true,
+      //     dir: 'es',
+      //     preserveModulesRoot: './'
+      //   },
+      //   {
+      //     format: 'cjs',
+      //     entryFileNames: '[name].js',
+      //     preserveModules: true,
+      //     dir: 'lib',
+      //     preserveModulesRoot: './'
+      //   }
+      // ]
     }
   }
 });
