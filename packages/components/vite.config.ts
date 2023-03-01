@@ -29,14 +29,16 @@ export default defineConfig({
         {
           format: 'es',
           entryFileNames: '[name].js',
-          preserveModules: true,
-          dir: 'es'
+          // preserveModules: true,
+          dir: 'es',
+          preserveModulesRoot: '/packages/components'
         },
         {
           format: 'cjs',
           entryFileNames: '[name].js',
-          preserveModules: true,
-          dir: 'lib'
+          // preserveModules: true,
+          dir: 'lib',
+          preserveModulesRoot: '/packages/components'
         }
       ]
     }
