@@ -9,39 +9,32 @@ export default defineConfig({
     vue(),
     VueJsx(),
     dts({
-      outputDir: 'dist',
+      outputDir: 'dist/es',
       tsConfigFilePath: '../../tsconfig.json'
     })
   ],
   build: {
     lib: {
-      entry: resolve(__dirname, './index.ts'),
-      name: 'StaoUi',
-      fileName: 'stao-ui'
+      entry: resolve(__dirname, './index.ts')
     },
     rollupOptions: {
       external: ['vue', 'ant-design-vue'],
-      output: {
-        globals: {
-          vue: 'Vue'
+      output: [
+        {
+          format: 'es',
+          entryFileNames: '[name].js',
+          preserveModules: true,
+          dir: 'dist/es',
+          preserveModulesRoot: './'
+        },
+        {
+          format: 'cjs',
+          entryFileNames: '[name].js',
+          preserveModules: true,
+          dir: 'dist/lib',
+          preserveModulesRoot: './'
         }
-      }
-      // output: [
-      //   {
-      //     format: 'es',
-      //     entryFileNames: '[name].js',
-      //     preserveModules: true,
-      //     dir: 'es',
-      //     preserveModulesRoot: './'
-      //   },
-      //   {
-      //     format: 'cjs',
-      //     entryFileNames: '[name].js',
-      //     preserveModules: true,
-      //     dir: 'lib',
-      //     preserveModulesRoot: './'
-      //   }
-      // ]
+      ]
     }
   }
 });
