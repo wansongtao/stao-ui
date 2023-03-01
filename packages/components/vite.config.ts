@@ -9,13 +9,12 @@ export default defineConfig({
     vue(),
     VueJsx(),
     dts({
-      outputDir: 'dist/es/',
-      //指定使用的tsconfig.json
+      outputDir: 'es',
       tsConfigFilePath: '../../tsconfig.json'
     }),
-    // //因为这个插件默认打包到es下，我们想让lib目录下也生成声明文件需要再配置一个
+    //因为这个插件默认打包到es下，我们想让lib目录下也生成声明文件需要再配置一个
     dts({
-      outputDir: 'dist/lib',
+      outputDir: 'lib',
       tsConfigFilePath: '../../tsconfig.json'
     })
   ],
@@ -30,16 +29,12 @@ export default defineConfig({
         {
           format: 'es',
           entryFileNames: '[name].js',
-          // preserveModules: true,
-          //配置打包根目录
-          dir: 'dist/es'
+          dir: 'es'
         },
         {
           format: 'cjs',
           entryFileNames: '[name].js',
-          // preserveModules: true,
-          //配置打包根目录
-          dir: 'dist/lib'
+          dir: 'lib'
         }
       ]
     }
