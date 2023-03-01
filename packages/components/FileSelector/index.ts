@@ -2,7 +2,7 @@ import FileSelector from './FileSelector.vue';
 import { withInstall } from '@stao-ui/utils';
 
 export type FileSelectorInstance = InstanceType<typeof FileSelector>;
-export * from './FileSelector.vue';
+// export * from './FileSelector.vue';
 
 // 组件名
 FileSelector.name = 'STaoFileSelector';
