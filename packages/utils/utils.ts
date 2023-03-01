@@ -96,3 +96,27 @@ export const debounce = <T = unknown>(
     }, delay);
   };
 };
+
+export interface ICurryBack<T = unknown, B = unknown> {
+  (...params: T[]): B | ICurryBack<T, B>;
+}
+/**
+ * @description 柯里化：将多变量函数拆解为单变量（或部分变量）的多个函数并依次调用
+ * @param fn
+ * @param args
+ * @returns
+ */
+export const curry = <T = unknown, B = unknown>(
+  fn: Function,
+  ...args: T[]
+): B | ICurryBack<T, B> => {
+  const length = fn.length;
+
+  if (args.length < length) {
+    return function (...params: T[]) {
+      return curry(fn, ...args, ...params);
+    };
+  }
+
+  return fn(...args);
+};
