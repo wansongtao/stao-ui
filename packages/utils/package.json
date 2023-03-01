@@ -2,11 +2,19 @@
   "name": "@stao-ui/utils",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
+  "main": "/lib/index.js",
+  "module": "/es/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "vite build"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "files": [
+    "dist/es",
+    "dist/lib"
+  ],
+  "keywords": [
+    "typescript",
+    "utils"
+  ],
+  "author": "songtao",
+  "license": "MIT"
 }
