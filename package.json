@@ -6,8 +6,8 @@
   "main": "index.js",
   "scripts": {
     "app:dev": "pnpm -C apps dev",
-    "utils:publish": "pnpm -C packages/utils build && pnpm -C packages/utils publish --access public",
-    "components:publish": "pnpm -C packages/components build && pnpm -C packages/components publish --access public"
+    "utils:publish": "pnpm -C packages/utils build && pnpm -C packages/utils publish",
+    "components:publish": "pnpm -C packages/components build && pnpm -C packages/components publish"
   },
   "keywords": [],
   "author": "",
