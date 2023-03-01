@@ -13,4 +13,4 @@ getDataType(str) // string
 ```
 
 ## Links
-- [github doc](https://github.com/wansongtao/stao-ui/blob/master/packages/utils/README.md)
+- [github doc](https://github.com/wansongtao/stao-ui)
