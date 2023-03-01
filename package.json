@@ -5,7 +5,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "pnpm -C apps dev"
+    "app:dev": "pnpm -C apps dev",
+    "utils:publish": "pnpm -C packages/utils build && pnpm -C packages/utils publish --access public",
+    "components:publish": "pnpm -C packages/components build && pnpm -C packages/components publish --access public"
   },
   "keywords": [],
   "author": "",
