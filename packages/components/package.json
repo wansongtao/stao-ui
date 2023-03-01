@@ -8,8 +8,8 @@
     "build": "vite build"
   },
   "files": [
-    "es",
-    "lib"
+    "dist/es",
+    "dist/lib"
   ],
   "keywords": [
     "vue3",
