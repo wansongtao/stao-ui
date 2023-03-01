@@ -36,7 +36,7 @@ export const compose = <T = unknown>(...funcs: Function[]) => {
  * @param delay 间隔时间，默认1s，单位ms
  * @returns
  */
-export const throttle = (fn: Function, delay: number = 1000) => {
+export const throttle = <T = unknown>(fn: Function, delay: number = 1000) => {
   if (delay < 0) {
     delay = Math.abs(delay);
   }
@@ -47,7 +47,7 @@ export const throttle = (fn: Function, delay: number = 1000) => {
   }
 
   let lastTime = 0;
-  return function <T = unknown>(this: any, ...args: T[]) {
+  return function (this: any, ...args: T[]) {
     const nowTime = Date.now();
 
     if (nowTime - lastTime < delay) {
