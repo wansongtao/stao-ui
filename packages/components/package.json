@@ -2,13 +2,22 @@
   "name": "@stao-ui/components",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
+  "main": "/lib/index.js",
+  "module": "/es/index.js",
   "scripts": {
     "build": "vite build"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "files": [
+    "es",
+    "lib"
+  ],
+  "keywords": [
+    "vue3",
+    "ui",
+    "stao-ui"
+  ],
+  "author": "songtao",
+  "license": "MIT",
   "dependencies": {
     "@stao-ui/utils": "workspace:*"
   }

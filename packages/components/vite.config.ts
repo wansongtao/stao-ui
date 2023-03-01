@@ -1,33 +1,43 @@
 import { defineConfig } from 'vite';
+import { resolve } from 'path';
 import vue from '@vitejs/plugin-vue';
 import VueJsx from '@vitejs/plugin-vue-jsx';
+import dts from 'vite-plugin-dts';
 
 export default defineConfig({
-  plugins: [vue(), VueJsx()],
+  plugins: [
+    vue(),
+    VueJsx(),
+    dts({
+      outputDir: 'dist/es/',
+      //指定使用的tsconfig.json
+      tsConfigFilePath: '../../tsconfig.json'
+    }),
+    // //因为这个插件默认打包到es下，我们想让lib目录下也生成声明文件需要再配置一个
+    dts({
+      outputDir: 'dist/lib',
+      tsConfigFilePath: '../../tsconfig.json'
+    })
+  ],
   build: {
     target: 'modules',
     lib: {
-      entry: './index.ts',
-      formats: ['es', 'cjs']
+      entry: resolve(__dirname, './index.ts')
     },
     rollupOptions: {
       external: ['vue', 'ant-design-vue'],
-      input: ['./index.ts'],
       output: [
         {
           format: 'es',
-          //不用打包成.es.js,这里我们想把它打包成.js
-          entryFileNames: '[name].es.js',
-          //让打包目录和我们目录对应
-          preserveModules: true,
+          entryFileNames: '[name].js',
+          // preserveModules: true,
           //配置打包根目录
           dir: 'dist/es'
         },
         {
           format: 'cjs',
           entryFileNames: '[name].js',
-          //让打包目录和我们目录对应
-          preserveModules: true,
+          // preserveModules: true,
           //配置打包根目录
           dir: 'dist/lib'
         }
