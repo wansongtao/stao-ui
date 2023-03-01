@@ -2,7 +2,7 @@
   "name": "@stao-ui/utils",
   "version": "1.0.0",
   "description": "",
-  "private": "true",
+  "private": "false",
   "main": "/lib/index.js",
   "module": "/es/index.js",
   "scripts": {
