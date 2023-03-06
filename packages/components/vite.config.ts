@@ -10,31 +10,34 @@ export default defineConfig({
     VueJsx(),
     dts({
       outputDir: 'dist/es',
+      entryRoot: 'dist',
       tsConfigFilePath: '../../tsconfig.json'
     })
   ],
   build: {
+    target: 'es2015',
     lib: {
-      entry: resolve(__dirname, './index.ts')
+      entry: resolve(__dirname, './index.ts'),
+      name: 'STaoui',
+      // the proper extensions will be added
+      fileName: (format, name) => {
+        if (format === 'es') {
+          return name + '.js';
+        } else if (format === 'umd') {
+          return name + '.umd.js';
+        }
+
+        return name + '.' + format + '.js';
+      }
     },
     rollupOptions: {
       external: ['vue', 'ant-design-vue'],
-      output: [
-        {
-          format: 'es',
-          entryFileNames: '[name].js',
-          preserveModules: true,
-          dir: 'dist/es',
-          preserveModulesRoot: './'
-        },
-        {
-          format: 'cjs',
-          entryFileNames: '[name].js',
-          preserveModules: true,
-          dir: 'dist/lib',
-          preserveModulesRoot: './'
+      output: {
+        // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
+        globals: {
+          vue: 'Vue'
         }
-      ]
+      }
     }
   }
 });
