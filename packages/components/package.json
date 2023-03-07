@@ -26,6 +26,6 @@
   "author": "songtao",
   "license": "MIT",
   "dependencies": {
-    "@stao-ui/utils": "workspace:*"
+    "@stao-ui/utils": "workspace:^1.0.4"
   }
 }
