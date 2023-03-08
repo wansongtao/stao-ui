@@ -338,7 +338,7 @@ export const convertTimeZone = (
   time: Date | string | number,
   timeZone: number = 8,
   currTimeZone?: number
-) => {
+): Date => {
   let newTime: Date | null = null;
 
   if (time instanceof Date) {
@@ -377,4 +377,23 @@ export const convertTimeZone = (
 
   const locale = newTime.getTime() + offset + timeZone * 60 * 60 * 1000;
   return new Date(locale);
+};
+
+/**
+ * @description 是否为闰年
+ * @param {number} year 年份
+ * @returns {boolean} 是true，否false
+ */
+export const isLeapYear = (year: number): boolean => {
+  // 能被400整除为闰年
+  if (year % 400 === 0) {
+    return true;
+  }
+
+  // 能被4整除但不能被100整除为闰年
+  if (year % 4 === 0 && year % 100 !== 0) {
+    return true;
+  }
+
+  return false;
 };
