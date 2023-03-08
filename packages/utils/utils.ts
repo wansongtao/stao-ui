@@ -120,3 +120,44 @@ export const curry = <T = unknown, B = unknown>(
 
   return fn(...args);
 };
+
+/**
+ * @description 将文件切片
+ * @param {File} file 文件对象
+ * @param {number} [start = 0] 从文件的哪里开始，默认0
+ * @param {number} [piece = 1024 * 512] 每一块大小，默认512k
+ * @returns {Blob[]} 返回一个文件切片数组
+ */
+export const fileSlice = (
+  file: File,
+  start: number = 0,
+  piece: number = 1024 * 512
+): Blob[] => {
+  const total = file.size;
+  let end = start + piece;
+
+  // 结束位置不能超出文件大小
+  if (end > total) {
+    end = total;
+  }
+
+  const chunks: Blob[] = [];
+  while (end <= total) {
+    const blob = file.slice(start, end);
+    chunks.push(blob);
+
+    if (end === total) {
+      break;
+    }
+
+    start = end;
+    end = start + piece;
+
+    // 结束位置不能超出文件大小
+    if (end > total) {
+      end = total;
+    }
+  }
+
+  return chunks;
+};
