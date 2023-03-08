@@ -205,3 +205,94 @@ export const shellSort = <T = unknown>(
 
   return arr;
 };
+
+/**
+ * @description 深拷贝实现(支持Map、Set、RegExp、Date、Function类型和循环引用，不支持symbol属性)
+ * @param obj
+ * @returns 返回一个新对象
+ */
+export const deepClone = <T = unknown>(obj: T) => {
+  /**
+   * 用来保存引用关系，解决循环引用问题
+   */
+  const copyObj: any = {};
+
+  const clone = (data: any): T => {
+    // 简单数据类型直接返回值
+    if (!(data instanceof Object)) {
+      return data;
+    }
+
+    const newObj: any = Array.isArray(data) ? [] : {};
+
+    for (const key in data) {
+      // 跳过原型上的属性
+      // if (!data.hasOwnProperty(key)) {
+      //   continue;
+      // }
+
+      // 简单数据类型直接返回值
+      if (!(data[key] instanceof Object)) {
+        newObj[key] = data[key];
+        continue;
+      }
+
+      if (data[key] instanceof Date) {
+        newObj[key] = new Date(data[key].getTime());
+        continue;
+      }
+
+      if (data[key] instanceof RegExp) {
+        newObj[key] = new RegExp(data[key]);
+        continue;
+      }
+
+      if (data[key] instanceof Function) {
+        // 处理es6简写方法名的问题，例如：{hi() {return 1;}}
+        const funcStr = data[key].toString().replace(/^function/, '');
+        newObj[key] = new Function(`return function ${funcStr}`)();
+        continue;
+      }
+
+      if (data[key] instanceof Map) {
+        newObj[key] = new Map();
+
+        data[key].forEach((val: any, mapKey: any) => {
+          if (!(mapKey instanceof Object) && !(val instanceof Object)) {
+            newObj[key].set(mapKey, val);
+          } else {
+            newObj[key].set(clone(mapKey), clone(val));
+          }
+        });
+
+        continue;
+      }
+
+      if (data[key] instanceof Set) {
+        newObj[key] = new Set();
+        data[key].forEach((val: any) => {
+          if (!(val instanceof Object)) {
+            newObj[key].add(val);
+          } else {
+            newObj[key].add(clone(val));
+          }
+        });
+
+        continue;
+      }
+
+      // 判断是否为循环引用
+      if (copyObj[key] === data[key]) {
+        newObj[key] = data[key];
+        continue;
+      }
+      copyObj[key] = data[key];
+
+      newObj[key] = clone(data[key]);
+    }
+
+    return newObj;
+  };
+
+  return clone(obj);
+};
