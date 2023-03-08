@@ -397,3 +397,15 @@ export const isLeapYear = (year: number): boolean => {
 
   return false;
 };
+
+/**
+ * @description 使用a标签下载文件到本地
+ * @param {string} url 下载地址
+ * @param {string} filename 下载文件名，默认使用当前时间
+ */
+export const downloadFileToLocale = (url: string, filename?: string) => {
+  const aElement = document.createElement('a');
+  aElement.download = filename || Date.now().toString();
+  aElement.href = url;
+  aElement.click();
+};
