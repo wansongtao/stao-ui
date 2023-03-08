@@ -409,3 +409,22 @@ export const downloadFileToLocale = (url: string, filename?: string) => {
   aElement.href = url;
   aElement.click();
 };
+
+/**
+ * json字符串转换为js对象，为JSON.parse方法加上类型
+ * @param data
+ * @returns
+ */
+export const jsonParse = <T = unknown>(data: string): T | null => {
+  if (!data) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(data);
+  } catch (ex) {
+    console.error(ex);
+
+    return null;
+  }
+};
