@@ -428,3 +428,30 @@ export const jsonParse = <T = unknown>(data: string): T | null => {
     return null;
   }
 };
+
+/**
+ * @description 根据传入的对象，拼接为查询字符串
+ * @param data 值为null或undefined跳过
+ * @param isEncode 是否使用encodeURIComponent()将值编码，默认true
+ * @returns 返回查询字符串（带？），或空字符串
+ */
+export const getQueryString = (
+  data: Record<string, string | number | boolean | null | undefined>,
+  isEncode = true
+) => {
+  let str = '?';
+  
+  for (const key in data) {
+    if (data[key] === null || data[key] === '' || data[key] === undefined) {
+      continue;
+    }
+
+    const value = isEncode
+      ? encodeURIComponent(data[key] as string | number | boolean)
+      : data[key];
+
+    str += `${key}=${value}&`;
+  }
+
+  return str.substring(0, str.length - 1);
+};
