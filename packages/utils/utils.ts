@@ -612,3 +612,19 @@ export const replaceEmoji = (value: string) => {
 
   return value.replace(regexp, '');
 };
+
+/**
+ * @description 将秒转换为hh:mm:ss
+ * @param second
+ * @returns
+ */
+export const secondToTimeString = (second: number) => {
+  const hour = Math.floor(second / 3600);
+  const minute = Math.floor((second - hour * 3600) / 60);
+  const seconds = second - hour * 3600 - minute * 60;
+
+  const hourStr = hour < 10 ? `0${hour}` : `${hour}`;
+  const minuteStr = minute < 10 ? `0${minute}` : `${minute}`;
+  const secondsStr = seconds < 10 ? `0${seconds}` : `${seconds}`;
+  return `${hourStr}:${minuteStr}:${secondsStr}`;
+};
