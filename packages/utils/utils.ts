@@ -455,3 +455,149 @@ export const getQueryString = (
 
   return str.substring(0, str.length - 1);
 };
+
+/**
+ * @description 阿拉伯数字转中文数字，支持小于一亿的数
+ * @param digit 
+ * @returns 
+ */
+export const arabicNumToCNNum = (digit: number): string => {
+  const chineseDigitTable: Record<number | string, string> = {
+    0: '零',
+    1: '一',
+    2: '二',
+    3: '三',
+    4: '四',
+    5: '五',
+    6: '六',
+    7: '七',
+    8: '八',
+    9: '九',
+    10: '十',
+    h: '百',
+    t: '千',
+    tt: '万'
+  };
+
+  const ploy = {
+    /**
+     * @description 小于100的数转换
+     * @param digital
+     * @returns
+     */
+    ltHundred(digital: number) {
+      const ten = Math.trunc(digital / 10);
+      const cnDigit =
+        (ten > 1 ? chineseDigitTable[ten] : '') + chineseDigitTable[10];
+
+      const num = digital % 10;
+      if (num === 0) {
+        return cnDigit;
+      }
+
+      return cnDigit + chineseDigitTable[num];
+    },
+    /**
+     * @description 小于1000的数转换
+     * @param digital
+     * @returns
+     */
+    ltThousand(digital: number) {
+      const cnDigit =
+        chineseDigitTable[Math.trunc(digital / 100)] + chineseDigitTable['h'];
+
+      const num = digital % 100;
+      if (num === 0) {
+        return cnDigit;
+      }
+
+      if (num < 10) {
+        return cnDigit + chineseDigitTable[0] + chineseDigitTable[num];
+      }
+
+      if (num === 10) {
+        return cnDigit + chineseDigitTable[1] + chineseDigitTable[10];
+      }
+
+      return cnDigit + ploy.ltHundred(num);
+    },
+    /**
+     * 小于一万的数转换
+     * @param digital
+     * @returns
+     */
+    ltTenThousand(digital: number) {
+      const cnDigit =
+        chineseDigitTable[Math.trunc(digital / 1000)] + chineseDigitTable['t'];
+
+      const num = digital % 1000;
+      if (num === 0) {
+        return cnDigit;
+      }
+      if (num < 10) {
+        return cnDigit + chineseDigitTable[0] + chineseDigitTable[num];
+      }
+      if (num < 100) {
+        if (num === 10) {
+          return (
+            cnDigit +
+            chineseDigitTable[0] +
+            chineseDigitTable[1] +
+            chineseDigitTable[10]
+          );
+        }
+        return cnDigit + chineseDigitTable[0] + ploy.ltHundred(num);
+      }
+
+      return cnDigit + ploy.ltThousand(num);
+    },
+    /**
+     * @description 小于一亿的转换
+     * @param digital 
+     * @returns 
+     */
+    ltBillion(digital: number) {
+      const digitStr = digital.toString();
+      if (digitStr.length > 8) {
+        return '';
+      }
+
+      const idx = digitStr.length - 4;
+      const ltTenThousand = Number(digitStr.substring(idx));
+      const gtThenThousand = Number(digitStr.substring(0, idx));
+
+      let cnStr = '';
+      cnStr = arabicNumToCNNum(gtThenThousand) + chineseDigitTable['tt'];
+
+      if (ltTenThousand < 1000) {
+        cnStr += chineseDigitTable[0];
+      }
+
+      return cnStr + arabicNumToCNNum(ltTenThousand);
+    }
+  };
+
+  let chineseDigit = '';
+  if (digit < 0) {
+    chineseDigit += '负';
+    digit = Math.abs(digit);
+  }
+  if (digit <= 10) {
+    chineseDigit += chineseDigitTable[digit];
+
+    return chineseDigit;
+  }
+  if (digit < 100) {
+    return chineseDigit + ploy.ltHundred(digit);
+  }
+  if (digit < 1000) {
+    return chineseDigit + ploy.ltThousand(digit);
+  }
+  if (digit < 10000) {
+    return chineseDigit + ploy.ltTenThousand(digit);
+  }
+
+  chineseDigit += ploy.ltBillion(digit);
+
+  return chineseDigit;
+};
