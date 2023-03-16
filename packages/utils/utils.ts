@@ -677,6 +677,7 @@ export const arabicNumToCNNum = (digit: number): string => {
   };
 
   let chineseDigit = '';
+  digit = digit | 0;
   if (digit < 0) {
     chineseDigit += '负';
     digit = Math.abs(digit);
