@@ -457,27 +457,46 @@ export const getQueryString = (
 };
 
 /**
- * @description 阿拉伯数字转中文数字，支持小于一亿的数
+ * @description 阿拉伯数字转中文数字
  * @param digit 
  * @returns 
  */
 export const arabicNumToCNNum = (digit: number): string => {
-  const chineseDigitTable: Record<number | string, string> = {
-    0: '零',
-    1: '一',
-    2: '二',
-    3: '三',
-    4: '四',
-    5: '五',
-    6: '六',
-    7: '七',
-    8: '八',
-    9: '九',
-    10: '十',
-    h: '百',
-    t: '千',
-    tt: '万'
-  };
+  const chineseDigitTable: [
+    '零',
+    '一',
+    '二',
+    '三',
+    '四',
+    '五',
+    '六',
+    '七',
+    '八',
+    '九',
+    '十',
+    '百',
+    '千',
+    '万',
+    '亿',
+    '万亿'
+  ] = [
+    '零',
+    '一',
+    '二',
+    '三',
+    '四',
+    '五',
+    '六',
+    '七',
+    '八',
+    '九',
+    '十',
+    '百',
+    '千',
+    '万',
+    '亿',
+    '万亿'
+  ];
 
   const ploy = {
     /**
@@ -486,6 +505,10 @@ export const arabicNumToCNNum = (digit: number): string => {
      * @returns
      */
     ltHundred(digital: number) {
+      if (digit <= 10) {
+        return chineseDigitTable[digit];
+      }
+
       const ten = Math.trunc(digital / 10);
       const cnDigit =
         (ten > 1 ? chineseDigitTable[ten] : '') + chineseDigitTable[10];
@@ -503,8 +526,8 @@ export const arabicNumToCNNum = (digit: number): string => {
      * @returns
      */
     ltThousand(digital: number) {
-      const cnDigit =
-        chineseDigitTable[Math.trunc(digital / 100)] + chineseDigitTable['h'];
+      let cnDigit =
+        chineseDigitTable[Math.trunc(digital / 100)] + chineseDigitTable[11];
 
       const num = digital % 100;
       if (num === 0) {
@@ -515,8 +538,14 @@ export const arabicNumToCNNum = (digit: number): string => {
         return cnDigit + chineseDigitTable[0] + chineseDigitTable[num];
       }
 
-      if (num === 10) {
-        return cnDigit + chineseDigitTable[1] + chineseDigitTable[10];
+      // 处理110/214等情况 => 二百一十四
+      if (num >= 10 && num < 20) {
+        cnDigit += chineseDigitTable[1] + chineseDigitTable[10];
+        if (num > 10) {
+          cnDigit += chineseDigitTable[num - 10];
+        }
+
+        return cnDigit;
       }
 
       return cnDigit + ploy.ltHundred(num);
@@ -528,7 +557,7 @@ export const arabicNumToCNNum = (digit: number): string => {
      */
     ltTenThousand(digital: number) {
       const cnDigit =
-        chineseDigitTable[Math.trunc(digital / 1000)] + chineseDigitTable['t'];
+        chineseDigitTable[Math.trunc(digital / 1000)] + chineseDigitTable[12];
 
       const num = digital % 1000;
       if (num === 0) {
@@ -552,28 +581,98 @@ export const arabicNumToCNNum = (digit: number): string => {
       return cnDigit + ploy.ltThousand(num);
     },
     /**
-     * @description 小于一亿的转换
-     * @param digital 
-     * @returns 
+     * @description 亿到万亿
+     * @param digital
+     * @returns
      */
-    ltBillion(digital: number) {
-      const digitStr = digital.toString();
-      if (digitStr.length > 8) {
+    gtBillion(digital: number) {
+      let digitString = digital.toString();
+      const digitLen = digitString.length;
+      if (digitLen > 16 || digitLen < 5) {
         return '';
       }
-
-      const idx = digitStr.length - 4;
-      const ltTenThousand = Number(digitStr.substring(idx));
-      const gtThenThousand = Number(digitStr.substring(0, idx));
-
-      let cnStr = '';
-      cnStr = arabicNumToCNNum(gtThenThousand) + chineseDigitTable['tt'];
-
-      if (ltTenThousand < 1000) {
-        cnStr += chineseDigitTable[0];
+      if (digitLen <= 8) {
+        digitString = digitString.padStart(8, '0');
+      } else if (digitLen <= 12) {
+        digitString = digitString.padStart(12, '0');
+      } else {
+        digitString = digitString.padStart(16, '0');
       }
 
-      return cnStr + arabicNumToCNNum(ltTenThousand);
+      // 将大数字拆分，例如：123456789 => ['0001', '2345', '6789']
+      const digits = digitString
+        .split(/([0-9]{4})/)
+        .filter((item) => item !== '');
+
+      let cnDigit = '';
+      const len = digits.length;
+      digits.forEach((item, index) => {
+        const num = Number(item);
+        let text = '';
+        if (num !== 0) {
+          text = arabicNumToCNNum(num);
+        }
+
+        if (index !== 0) {
+          // 这种情况 [0002, 0001] [0010, 3400] 都需要补零
+          if (
+            (num > 0 && num < 1000) ||
+            digits[index - 1].lastIndexOf('0') === 3
+          ) {
+            cnDigit += chineseDigitTable[0];
+          }
+        }
+
+        // 数字小于一亿 => 1万至9999万...
+        if (len === 2) {
+          if (index === 0) {
+            cnDigit = text + chineseDigitTable[13];
+            return;
+          }
+
+          cnDigit += text;
+          return;
+        }
+
+        // 数字小于一万亿
+        if (len === 3) {
+          if (index === 0) {
+            cnDigit = text + chineseDigitTable[14];
+            return;
+          }
+
+          if (index === 1 && num !== 0) {
+            cnDigit += text + chineseDigitTable[13];
+            return;
+          }
+
+          cnDigit += text;
+          return;
+        }
+
+        // 千万亿级别
+        if (len === 4) {
+          if (index === 0) {
+            cnDigit = text + chineseDigitTable[15];
+            return;
+          }
+
+          if (index === 1 && num !== 0) {
+            cnDigit += text + chineseDigitTable[14];
+            return;
+          }
+
+          if (index === 2 && num !== 0) {
+            cnDigit += text + chineseDigitTable[13];
+            return;
+          }
+
+          cnDigit += text;
+          return;
+        }
+      });
+
+      return cnDigit;
     }
   };
 
@@ -581,11 +680,6 @@ export const arabicNumToCNNum = (digit: number): string => {
   if (digit < 0) {
     chineseDigit += '负';
     digit = Math.abs(digit);
-  }
-  if (digit <= 10) {
-    chineseDigit += chineseDigitTable[digit];
-
-    return chineseDigit;
   }
   if (digit < 100) {
     return chineseDigit + ploy.ltHundred(digit);
@@ -597,7 +691,7 @@ export const arabicNumToCNNum = (digit: number): string => {
     return chineseDigit + ploy.ltTenThousand(digit);
   }
 
-  chineseDigit += ploy.ltBillion(digit);
+  chineseDigit += ploy.gtBillion(digit);
 
   return chineseDigit;
 };
