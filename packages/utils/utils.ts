@@ -462,7 +462,7 @@ export const getQueryString = (
  * @returns 
  */
 export const arabicNumToCNNum = (digit: number): string => {
-  const chineseDigitTable: [
+  const chineseDigitTable = [
     '零',
     '一',
     '二',
@@ -479,24 +479,7 @@ export const arabicNumToCNNum = (digit: number): string => {
     '万',
     '亿',
     '万亿'
-  ] = [
-    '零',
-    '一',
-    '二',
-    '三',
-    '四',
-    '五',
-    '六',
-    '七',
-    '八',
-    '九',
-    '十',
-    '百',
-    '千',
-    '万',
-    '亿',
-    '万亿'
-  ];
+  ] as const;
 
   const ploy = {
     /**
