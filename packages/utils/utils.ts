@@ -461,7 +461,7 @@ export const getQueryString = (
  * @param digit 
  * @returns 
  */
-export const arabicNumToCNNum = (digit: number): string => {
+export const convertToChineseNumber = (digit: number): string => {
   const chineseDigitTable = [
     '零',
     '一',
@@ -593,7 +593,7 @@ export const arabicNumToCNNum = (digit: number): string => {
         const num = Number(item);
         let text = '';
         if (num !== 0) {
-          text = arabicNumToCNNum(num);
+          text = convertToChineseNumber(num);
         }
 
         if (index !== 0) {
