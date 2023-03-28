@@ -742,3 +742,29 @@ export const getMimeTypeByFileName = (fileName: string) => {
   };
   return mimeTypes[fileExtension] || '';
 };
+
+/**
+ * @description 判断文件是否可以用浏览器直接打开
+ * @param file 
+ * @returns 
+ */
+export const canOpenInBrowser = (fileType: string) => {
+  if (
+    fileType.startsWith('image/') ||
+    fileType.startsWith('video/') ||
+    fileType.startsWith('audio/') ||
+    fileType === 'text/plain' ||
+    fileType === 'text/html' ||
+    fileType === 'text/css' ||
+    fileType === 'application/javascript' ||
+    fileType === 'application/json' ||
+    fileType === 'application/pdf' ||
+    fileType === 'application/xml' ||
+    fileType === 'text/xml' ||
+    fileType === 'text/markdown'
+  ) {
+    return true;
+  }
+
+  return false;
+};
