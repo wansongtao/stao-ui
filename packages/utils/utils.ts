@@ -706,3 +706,39 @@ export const secondToTimeString = (second: number) => {
   const secondsStr = seconds < 10 ? `0${seconds}` : `${seconds}`;
   return `${hourStr}:${minuteStr}:${secondsStr}`;
 };
+
+/**
+ * @description 通过文件名获取mime类型
+ * @param fileName 
+ * @returns 
+ */
+export const getMimeTypeByFileName = (fileName: string) => {
+  const dotIndex = fileName.lastIndexOf('.');
+  if (dotIndex === -1) {
+    return '';
+  }
+  const fileExtension = fileName.substring(dotIndex + 1).toLocaleLowerCase();
+  const mimeTypes: Record<string, string> = {
+    txt: 'text/plain',
+    html: 'text/html',
+    htm: 'text/html',
+    css: 'text/css',
+    js: 'application/javascript',
+    json: 'application/json',
+    pdf: 'application/pdf',
+    xml: 'application/xml',
+    jpg: 'image/jpeg',
+    jpeg: 'image/jpeg',
+    png: 'image/png',
+    gif: 'image/gif',
+    bmp: 'image/bmp',
+    mp4: 'video/mp4',
+    webm: 'video/webm',
+    ogg: 'audio/ogg',
+    mp3: 'audio/mpeg',
+    wav: 'audio/wav',
+    md: 'text/markdown',
+    markdown: 'text/markdown'
+  };
+  return mimeTypes[fileExtension] || '';
+};
