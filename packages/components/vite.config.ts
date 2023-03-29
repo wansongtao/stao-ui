@@ -16,9 +16,10 @@ export default defineConfig({
   ],
   build: {
     target: 'es2015',
+    cssCodeSplit: true,
     lib: {
       entry: resolve(__dirname, './index.ts'),
-      name: 'STaoui',
+      name: 'stao-ui',
       // the proper extensions will be added
       fileName: (format, name) => {
         if (format === 'es') {
