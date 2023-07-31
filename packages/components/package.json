@@ -35,6 +35,10 @@
   },
   "homepage": "https://github.com/wansongtao/stao-ui#readme",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "dependencies": {
     "@stao-ui/utils": "workspace:*"
   }
