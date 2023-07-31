@@ -27,7 +27,7 @@ export interface IFileSelectorProps {
    */
   size?: number;
   /**
-   * @description 是否禁用选择，默认fasle。
+   * @description 是否禁用选择，默认false。
    */
   disabled?: boolean;
 }
