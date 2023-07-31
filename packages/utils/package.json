@@ -16,6 +16,14 @@
     "typescript",
     "utils"
   ],
-  "author": "songtao",
-  "license": "MIT"
+  "author": "wansongtao",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wansongtao/stao-ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wansongtao/stao-ui/issues"
+  },
+  "homepage": "https://github.com/wansongtao/stao-ui#readme"
 }

@@ -1,6 +1,6 @@
 {
   "name": "@stao-ui/components",
-  "version": "1.0.11",
+  "version": "1.0.0",
   "type": "module",
   "description": "",
   "main": "./dist/index.umd.js",
@@ -8,7 +8,8 @@
   "exports": {
     ".": {
       "import": "./dist/index.js",
-      "require": "./dist/index.umd.js"
+      "require": "./dist/index.umd.js",
+      "types": "./dist/index.d.ts"
     }
   },
   "types": "./dist/index.d.ts",
@@ -18,12 +19,21 @@
   "files": [
     "dist"
   ],
+  "style": "dist/index.css",
   "keywords": [
     "vue3",
     "ui",
     "stao-ui"
   ],
-  "author": "songtao",
+  "author": "wansongtao",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wansongtao/stao-ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wansongtao/stao-ui/issues"
+  },
+  "homepage": "https://github.com/wansongtao/stao-ui#readme",
   "license": "MIT",
   "dependencies": {
     "@stao-ui/utils": "workspace:*"
