@@ -17,15 +17,16 @@ const onClick = () => {
     class="button_box flex_center"
     :class="type === 'line' ? 'line' : ''"
     @click="onClick">
-    <div class="button_box_icon">
+    <span class="button_box_icon">
       <slot> </slot>
-    </div>
+    </span>
     {{ text }}
   </button>
 </template>
 
 <style lang="scss" scoped>
 .button_box {
+  all: unset;
   box-sizing: border-box;
   margin-right: 16px;
   padding: 0;
