@@ -19,7 +19,7 @@
   "files": [
     "dist"
   ],
-  "style": "dist/index.css",
+  "style": "./dist/style.css",
   "keywords": [
     "vue3",
     "ui",

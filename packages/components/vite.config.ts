@@ -16,7 +16,6 @@ export default defineConfig({
   ],
   build: {
     target: 'es2015',
-    cssCodeSplit: true,
     lib: {
       entry: resolve(__dirname, './index.ts'),
       name: 'stao-ui',
@@ -32,7 +31,7 @@ export default defineConfig({
       }
     },
     rollupOptions: {
-      external: ['vue', 'ant-design-vue'],
+      external: ['vue', 'ant-design-vue', '@stao-ui/utils'],
       output: {
         // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
         globals: {
