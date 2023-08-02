@@ -10,7 +10,7 @@
     "app:dev": "pnpm -C apps dev",
     "build:components": "node packages/components/scripts/build.js",
     "utils:publish": "pnpm -C packages/utils build && pnpm -C packages/utils publish",
-    "components:publish": "pnpm -C packages/components build && pnpm -C packages/components publish"
+    "components:publish": "node packages/components/scripts/build.js && pnpm -C packages/components publish"
   },
   "keywords": [],
   "author": "",
