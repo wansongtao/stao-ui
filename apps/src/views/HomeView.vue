@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import ButtonExample from '@/components/ButtonExample/index.vue';
+import ComponentExample from '@/components/FileExample/index.vue'
 </script>
 
 <template>
   <main class="flexbox">
-    <ButtonExample />
+    <ComponentExample />
   </main>
 </template>
 
