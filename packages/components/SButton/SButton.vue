@@ -7,6 +7,9 @@ defineProps<{
 
 <template>
   <button
+    name="button"
+    type="button"
+    autocomplete="off"
     class="s-button"
     :class="{
       's-button-line': type === 'line',
