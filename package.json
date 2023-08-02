@@ -6,6 +6,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "docs:dev": "pnpm -C docs dev",
     "app:dev": "pnpm -C apps dev",
     "build:components": "node packages/components/scripts/build.js",
     "utils:publish": "pnpm -C packages/utils build && pnpm -C packages/utils publish",
