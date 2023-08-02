@@ -7,14 +7,17 @@ defineProps<{
 
 <template>
   <button
-    class="button_box flex_center"
-    :class="{ line: type === 'line', 'btn--disabled': disabled }">
+    class="s-button"
+    :class="{
+      's-button-line': type === 'line',
+      's-button--disabled': disabled
+    }">
     <slot />
   </button>
 </template>
 
 <style lang="scss" scoped>
-.button_box {
+.s-button {
   all: unset;
   box-sizing: border-box;
   display: flex;
@@ -31,13 +34,13 @@ defineProps<{
   cursor: pointer;
 }
 
-.line {
+.s-button-line {
   color: #2f54eb;
   background: #fff;
   border: 1px solid #2f54eb;
 }
 
-.btn--disabled {
+.s-button--disabled {
   cursor: not-allowed;
 }
 </style>
