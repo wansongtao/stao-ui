@@ -1,26 +1,15 @@
 <script lang="ts" setup>
 defineProps<{
   type?: 'default' | 'line';
-  text: string;
+  disabled?: boolean;
 }>();
-const emits = defineEmits<{
-  (e: 'onClick'): void;
-}>();
-
-const onClick = () => {
-  emits('onClick');
-};
 </script>
 
 <template>
   <button
     class="button_box flex_center"
-    :class="type === 'line' ? 'line' : ''"
-    @click="onClick">
-    <span class="button_box_icon">
-      <slot> </slot>
-    </span>
-    {{ text }}
+    :class="{ line: type === 'line', 'btn--disabled': disabled }">
+    <slot />
   </button>
 </template>
 
@@ -28,9 +17,11 @@ const onClick = () => {
 .button_box {
   all: unset;
   box-sizing: border-box;
-  margin-right: 16px;
-  padding: 0;
-  width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  width: 100%;
   height: 48px;
   background: #2f54eb;
   border-radius: 4px;
@@ -38,18 +29,15 @@ const onClick = () => {
   font-size: 16px;
   color: #fff;
   cursor: pointer;
-
-  .button_box_icon {
-    overflow: hidden;
-    margin-right: 4px;
-    width: 18px;
-    height: 18px;
-  }
 }
 
 .line {
   color: #2f54eb;
   background: #fff;
   border: 1px solid #2f54eb;
+}
+
+.btn--disabled {
+  cursor: not-allowed;
 }
 </style>
