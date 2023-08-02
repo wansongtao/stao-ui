@@ -1,12 +1,13 @@
 {
   "name": "stao-ui",
   "private": true,
+  "type": "module",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "app:dev": "pnpm -C apps dev",
-    "build:components": "pnpm -C packages/components build",
+    "build:components": "node packages/components/scripts/build.js",
     "utils:publish": "pnpm -C packages/utils build && pnpm -C packages/utils publish",
     "components:publish": "pnpm -C packages/components build && pnpm -C packages/components publish"
   },
