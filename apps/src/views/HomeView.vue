@@ -1,9 +1,18 @@
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+import ButtonExample from '@/components/ButtonExample/index.vue';
 </script>
 
 <template>
-  <main>
-    <TheWelcome />
+  <main class="flexbox">
+    <ButtonExample />
   </main>
 </template>
+
+<style lang="scss">
+.flexbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+</style>
