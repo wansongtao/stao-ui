@@ -2,9 +2,9 @@
 layout: home
 
 hero:
-  name: stao-ui 组件库
+  name: stao-ui
   text: 基于 Vue 3 的组件库.
-  tagline: 掌握 Vue3 组件编写
+  tagline: 个人学习、工作积累，主要是二次封装组件与常用方法
   actions:
     - theme: brand
       text: 快速开始
@@ -12,9 +12,12 @@ hero:
 
 features:
   - icon: 🛠️
-    title: 组件库构建流程
-    details: Vue3 组件库构建 ...
-  - icon: ⚙️
-    title: 组件库单元测试
-    details: Vue3 组件库测试 ...
+    title: 持续开发中
+    details: 学习、工作中常用vue3组件、hooks ...
+  - icon: 💡
+    title: Vue3组件库
+    details: 基于vite打包和TypeScript开发
+  - icon: 📦
+    title: 工具库
+    details: 已发布到npm上的工具库教程
 ---
