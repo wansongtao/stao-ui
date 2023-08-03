@@ -25,6 +25,7 @@ importers:
       typescript: ^4.9.5
       vite: ^4.1.3
       vite-plugin-dts: ^2.0.2
+      vitepress: 1.0.0-beta.7
       vue: ^3.3.4
     dependencies:
       '@stao-ui/components': link:packages/components
@@ -49,6 +50,7 @@ importers:
       typescript: 4.9.5
       vite: 4.4.7_skzbw4zrmn3j3pi5fqs4yuvro4
       vite-plugin-dts: 2.3.0_h3vqtby7ixowpbtvnqwextyt3a
+      vitepress: 1.0.0-beta.7_skzbw4zrmn3j3pi5fqs4yuvro4
       vue: 3.3.4
 
   apps:
@@ -4035,6 +4037,50 @@ packages:
       minisearch: 6.1.0
       shiki: 0.14.3
       vite: 4.4.7
+      vue: 3.3.4
+    transitivePeerDependencies:
+      - '@algolia/client-search'
+      - '@types/node'
+      - '@types/react'
+      - '@vue/composition-api'
+      - async-validator
+      - axios
+      - change-case
+      - drauu
+      - fuse.js
+      - idb-keyval
+      - jwt-decode
+      - less
+      - lightningcss
+      - nprogress
+      - qrcode
+      - react
+      - react-dom
+      - sass
+      - search-insights
+      - sortablejs
+      - stylus
+      - sugarss
+      - terser
+      - universal-cookie
+    dev: true
+
+  /vitepress/1.0.0-beta.7_skzbw4zrmn3j3pi5fqs4yuvro4:
+    resolution: {integrity: sha512-P9Rw+FXatKIU4fVdtKxqwHl6fby8E/8zE3FIfep6meNgN4BxbWqoKJ6yfuuQQR9IrpQqwnyaBh4LSabyll6tWg==}
+    hasBin: true
+    dependencies:
+      '@docsearch/css': 3.5.1
+      '@docsearch/js': 3.5.1
+      '@vitejs/plugin-vue': 4.2.3_vite@4.4.7+vue@3.3.4
+      '@vue/devtools-api': 6.5.0
+      '@vueuse/core': 10.3.0_vue@3.3.4
+      '@vueuse/integrations': 10.3.0_focus-trap@7.5.2+vue@3.3.4
+      body-scroll-lock: 4.0.0-beta.0
+      focus-trap: 7.5.2
+      mark.js: 8.11.1
+      minisearch: 6.1.0
+      shiki: 0.14.3
+      vite: 4.4.7_skzbw4zrmn3j3pi5fqs4yuvro4
       vue: 3.3.4
     transitivePeerDependencies:
       - '@algolia/client-search'

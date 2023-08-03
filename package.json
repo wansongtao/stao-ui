@@ -8,9 +8,9 @@
   "scripts": {
     "docs:dev": "pnpm -C docs dev",
     "app:dev": "pnpm -C apps dev",
-    "build:components": "node packages/components/scripts/build.js",
-    "utils:publish": "pnpm -C packages/utils build && pnpm -C packages/utils publish",
-    "components:publish": "pnpm -C packages/components build && pnpm -C packages/components publish"
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs",
+    "build:components": "node packages/components/scripts/build.js"
   },
   "keywords": [],
   "author": "",
@@ -39,6 +39,7 @@
     "typescript": "^4.9.5",
     "vite": "^4.1.3",
     "vite-plugin-dts": "^2.0.2",
+    "vitepress": "1.0.0-beta.7",
     "vue": "^3.3.4"
   }
 }
