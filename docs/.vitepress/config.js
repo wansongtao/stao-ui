@@ -1,19 +1,18 @@
 module.exports = {
-  title: 'stao-ui',
-  description: 'Vue3 STAO UI',
+  title: 'STao UI',
   themeConfig: {
     lastUpdated: '最后更新时间',
     docsDir: 'docs',
-    editLinks: true,
-    editLinkText: '编辑此网站',
-    repo: 'https://gitee.com/login',
     footer: {
       message: 'Released under the MIT License.',
-      copyright: 'Copyright © 2022-present Timly'
+      copyright: 'Copyright © 2023-present wansongtao'
     },
     nav: [
       { text: '指南', link: '/guide/installation', activeMatch: '/guide/' },
-      { text: '组件', link: '/component/icon', activeMatch: '/component/' }
+      { text: '组件', link: '/components/button/', activeMatch: '/components/' }
+    ],
+    socialLinks: [
+      { icon: 'github', link: 'https://github.com/wansongtao/stao-ui' }
     ],
     sidebar: {
       '/guide/': [
@@ -25,12 +24,15 @@ module.exports = {
           ]
         }
       ],
-      '/component/': [
+      '/components/': [
         {
           text: '基础组件',
-          items: [{ text: 'Icon', link: '/component/icon' }]
+          items: [{ text: 'Button', link: '/components/button/' }]
         }
       ]
     }
+  },
+  server: {
+    open: true
   }
 };
