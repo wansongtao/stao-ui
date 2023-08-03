@@ -9,7 +9,8 @@ module.exports = {
     },
     nav: [
       { text: '指南', link: '/guide/installation', activeMatch: '/guide/' },
-      { text: '组件', link: '/components/button/', activeMatch: '/components/' }
+      { text: '组件', link: '/components/button/', activeMatch: '/components/' },
+      { text: '方法库', link: '/utils/common/', activeMatch: '/utils/' }
     ],
     socialLinks: [
       { icon: 'github', link: 'https://github.com/wansongtao/stao-ui' }
@@ -27,7 +28,10 @@ module.exports = {
       '/components/': [
         {
           text: '基础组件',
-          items: [{ text: 'Button', link: '/components/button/' }]
+          items: [
+            { text: '按钮', link: '/components/button/' },
+            { text: '文件选择', link: '/components/upload/' }
+          ]
         }
       ]
     }
