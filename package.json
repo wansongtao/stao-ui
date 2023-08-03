@@ -10,7 +10,8 @@
     "app:dev": "pnpm -C apps dev",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
-    "build:components": "node packages/components/scripts/build.js"
+    "components:build": "node packages/components/scripts/build.js",
+    "utils:build": "vite build packages/utils"
   },
   "keywords": [],
   "author": "",

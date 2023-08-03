@@ -5,33 +5,19 @@ import dts from 'vite-plugin-dts';
 export default defineConfig({
   plugins: [
     dts({
-      outputDir: 'es',
-      tsConfigFilePath: '../../tsconfig.json'
-    }),
-    dts({
-      outputDir: 'lib',
+      outputDir: 'dist/types',
       tsConfigFilePath: '../../tsconfig.json'
     })
   ],
   build: {
-    target: 'modules',
+    target: 'es2015',
     lib: {
-      entry: resolve(__dirname, './index.ts')
+      entry: resolve(__dirname, './index.ts'),
+      name: 'utils',
+      fileName: 'stao-ui-utils'
     },
     rollupOptions: {
-      external: ['vue', 'ant-design-vue'],
-      output: [
-        {
-          format: 'es',
-          entryFileNames: '[name].js',
-          dir: 'es'
-        },
-        {
-          format: 'cjs',
-          entryFileNames: '[name].js',
-          dir: 'lib'
-        }
-      ]
+      external: ['vue', 'ant-design-vue']
     }
   }
 });

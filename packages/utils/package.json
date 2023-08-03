@@ -2,16 +2,19 @@
   "name": "@stao-ui/utils",
   "version": "1.0.7",
   "description": "",
-  "main": "/lib/index.js",
-  "module": "/es/index.js",
-  "scripts": {
-    "build": "vite build",
-    "publish": "npm publish"
-  },
   "files": [
-    "/es",
-    "/lib"
+    "dist"
   ],
+  "main": "./dist/stao-ui-utils.umd.cjs",
+  "module": "./dist/stao-ui-utils.js",
+  "typings": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/stao-ui-utils.js",
+      "require": "./dist/stao-ui-utils.umd.cjs",
+      "types": "./dist/types/index.d.ts"
+    }
+  },
   "keywords": [
     "typescript",
     "utils"
