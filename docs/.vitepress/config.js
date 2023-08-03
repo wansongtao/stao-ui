@@ -34,5 +34,6 @@ module.exports = {
   },
   server: {
     open: true
-  }
+  },
+  base: '/stao-ui/'
 };
