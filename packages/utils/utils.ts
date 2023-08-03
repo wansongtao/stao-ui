@@ -1,14 +1,17 @@
+// #region getDataType
 /**
  * @description 获取传入数据的类型，返回类型小写字符串
  * @param obj
  * @returns
  */
-export const getDataType = (obj: any): string => {
+export const getDataType = (obj: unknown): string => {
   let res = Object.prototype.toString.call(obj).split(' ')[1];
   res = res.substring(0, res.length - 1).toLowerCase();
   return res;
 };
+// #endregion getDataType
 
+// #region compose
 /**
  * @description 函数式编程实现，从左往右执行，函数返回值会传给下一个执行的函数
  * @param funcs
@@ -29,7 +32,9 @@ export const compose = <T = unknown>(...funcs: Function[]) => {
     };
   });
 };
+// #endregion compose
 
+// #region throttle
 /**
  * @description 节流函数，触发一次后，下次触发需要间隔一定的时间
  * @param fn 需要执行的函数
@@ -58,7 +63,9 @@ export const throttle = <T = unknown>(fn: Function, delay: number = 1000) => {
     fn.apply(this, args);
   };
 };
+// #endregion throttle
 
+// #region debounce
 /**
  * @description 防抖函数，一定时间内多次触发，只执行最后触发的一次，可能永远不会执行
  * @param fn 需要防抖的函数
@@ -96,7 +103,9 @@ export const debounce = <T = unknown>(
     }, delay);
   };
 };
+// #endregion debounce
 
+// #region curry
 export interface ICurryBack<T = unknown, B = unknown> {
   (...params: T[]): B | ICurryBack<T, B>;
 }
@@ -120,7 +129,9 @@ export const curry = <T = unknown, B = unknown>(
 
   return fn(...args);
 };
+// #endregion curry
 
+// #region fileSlice
 /**
  * @description 将文件切片
  * @param {File} file 文件对象
@@ -161,7 +172,9 @@ export const fileSlice = (
 
   return chunks;
 };
+// #endregion fileSlice
 
+// #region shellSort
 /**
  * @description 希尔排序，改变原数组
  * @param arr 待排序的数组
@@ -205,7 +218,9 @@ export const shellSort = <T = unknown>(
 
   return arr;
 };
+// #endregion shellSort
 
+// #region deepClone
 /**
  * @description 深拷贝实现(支持Map、Set、RegExp、Date、Function类型和循环引用，不支持symbol属性)
  * @param obj
@@ -296,7 +311,9 @@ export const deepClone = <T = unknown>(obj: T) => {
 
   return clone(obj);
 };
+// #endregion deepClone
 
+// #region preloadImages
 /**
  * @description 预加载图片
  * @param imgs 图片列表
@@ -326,7 +343,9 @@ export const preloadImages = (imgs: string[]) => {
 
   return Promise.all(imgs.map((item) => loadImg(item)));
 };
+// #endregion preloadImages
 
+// #region convertTimeZone
 /**
  * @description 时区转换
  * @param {Date | string | number} time 待转换时间
@@ -378,13 +397,15 @@ export const convertTimeZone = (
   const locale = newTime.getTime() + offset + timeZone * 60 * 60 * 1000;
   return new Date(locale);
 };
+// #endregion convertTimeZone
 
+// #region isLeapYear
 /**
  * @description 是否为闰年
  * @param {number} year 年份
  * @returns {boolean} 是true，否false
  */
-export const isLeapYear = (year: number): boolean => {
+export const isLeapYear = (year: number) => {
   // 能被400整除为闰年
   if (year % 400 === 0) {
     return true;
@@ -397,7 +418,9 @@ export const isLeapYear = (year: number): boolean => {
 
   return false;
 };
+// #endregion isLeapYear
 
+// #region downloadFileToLocale
 /**
  * @description 使用a标签下载文件到本地
  * @param {string} url 下载地址
@@ -409,26 +432,9 @@ export const downloadFileToLocale = (url: string, filename?: string) => {
   aElement.href = url;
   aElement.click();
 };
+// #endregion downloadFileToLocale
 
-/**
- * json字符串转换为js对象，为JSON.parse方法加上类型
- * @param data
- * @returns
- */
-export const jsonParse = <T = unknown>(data: string): T | null => {
-  if (!data) {
-    return null;
-  }
-
-  try {
-    return JSON.parse(data);
-  } catch (ex) {
-    console.error(ex);
-
-    return null;
-  }
-};
-
+// #region getQueryString
 /**
  * @description 根据传入的对象，拼接为查询字符串
  * @param data 值为null或undefined跳过
@@ -455,231 +461,9 @@ export const getQueryString = (
 
   return str.substring(0, str.length - 1);
 };
+// #endregion getQueryString
 
-/**
- * @description 阿拉伯数字转中文数字
- * @param digit 
- * @returns 
- */
-export const convertToChineseNumber = (digit: number): string => {
-  const chineseDigitTable = [
-    '零',
-    '一',
-    '二',
-    '三',
-    '四',
-    '五',
-    '六',
-    '七',
-    '八',
-    '九',
-    '十',
-    '百',
-    '千',
-    '万',
-    '亿',
-    '万亿'
-  ] as const;
-
-  const ploy = {
-    /**
-     * @description 小于100的数转换
-     * @param digital
-     * @returns
-     */
-    ltHundred(digital: number) {
-      if (digit <= 10) {
-        return chineseDigitTable[digit];
-      }
-
-      const ten = Math.trunc(digital / 10);
-      const cnDigit =
-        (ten > 1 ? chineseDigitTable[ten] : '') + chineseDigitTable[10];
-
-      const num = digital % 10;
-      if (num === 0) {
-        return cnDigit;
-      }
-
-      return cnDigit + chineseDigitTable[num];
-    },
-    /**
-     * @description 小于1000的数转换
-     * @param digital
-     * @returns
-     */
-    ltThousand(digital: number) {
-      let cnDigit =
-        chineseDigitTable[Math.trunc(digital / 100)] + chineseDigitTable[11];
-
-      const num = digital % 100;
-      if (num === 0) {
-        return cnDigit;
-      }
-
-      if (num < 10) {
-        return cnDigit + chineseDigitTable[0] + chineseDigitTable[num];
-      }
-
-      // 处理110/214等情况 => 二百一十四
-      if (num >= 10 && num < 20) {
-        cnDigit += chineseDigitTable[1] + chineseDigitTable[10];
-        if (num > 10) {
-          cnDigit += chineseDigitTable[num - 10];
-        }
-
-        return cnDigit;
-      }
-
-      return cnDigit + ploy.ltHundred(num);
-    },
-    /**
-     * 小于一万的数转换
-     * @param digital
-     * @returns
-     */
-    ltTenThousand(digital: number) {
-      const cnDigit =
-        chineseDigitTable[Math.trunc(digital / 1000)] + chineseDigitTable[12];
-
-      const num = digital % 1000;
-      if (num === 0) {
-        return cnDigit;
-      }
-      if (num < 10) {
-        return cnDigit + chineseDigitTable[0] + chineseDigitTable[num];
-      }
-      if (num < 100) {
-        if (num === 10) {
-          return (
-            cnDigit +
-            chineseDigitTable[0] +
-            chineseDigitTable[1] +
-            chineseDigitTable[10]
-          );
-        }
-        return cnDigit + chineseDigitTable[0] + ploy.ltHundred(num);
-      }
-
-      return cnDigit + ploy.ltThousand(num);
-    },
-    /**
-     * @description 亿到万亿
-     * @param digital
-     * @returns
-     */
-    gtBillion(digital: number) {
-      let digitString = digital.toString();
-      const digitLen = digitString.length;
-      if (digitLen > 16 || digitLen < 5) {
-        return '';
-      }
-      if (digitLen <= 8) {
-        digitString = digitString.padStart(8, '0');
-      } else if (digitLen <= 12) {
-        digitString = digitString.padStart(12, '0');
-      } else {
-        digitString = digitString.padStart(16, '0');
-      }
-
-      // 将大数字拆分，例如：123456789 => ['0001', '2345', '6789']
-      const digits = digitString
-        .split(/([0-9]{4})/)
-        .filter((item) => item !== '');
-
-      let cnDigit = '';
-      const len = digits.length;
-      digits.forEach((item, index) => {
-        const num = Number(item);
-        let text = '';
-        if (num !== 0) {
-          text = convertToChineseNumber(num);
-        }
-
-        if (index !== 0) {
-          // 这种情况 [0002, 0001] [0010, 3400] 都需要补零
-          if (
-            (num > 0 && num < 1000) ||
-            digits[index - 1].lastIndexOf('0') === 3
-          ) {
-            cnDigit += chineseDigitTable[0];
-          }
-        }
-
-        // 数字小于一亿 => 1万至9999万...
-        if (len === 2) {
-          if (index === 0) {
-            cnDigit = text + chineseDigitTable[13];
-            return;
-          }
-
-          cnDigit += text;
-          return;
-        }
-
-        // 数字小于一万亿
-        if (len === 3) {
-          if (index === 0) {
-            cnDigit = text + chineseDigitTable[14];
-            return;
-          }
-
-          if (index === 1 && num !== 0) {
-            cnDigit += text + chineseDigitTable[13];
-            return;
-          }
-
-          cnDigit += text;
-          return;
-        }
-
-        // 千万亿级别
-        if (len === 4) {
-          if (index === 0) {
-            cnDigit = text + chineseDigitTable[15];
-            return;
-          }
-
-          if (index === 1 && num !== 0) {
-            cnDigit += text + chineseDigitTable[14];
-            return;
-          }
-
-          if (index === 2 && num !== 0) {
-            cnDigit += text + chineseDigitTable[13];
-            return;
-          }
-
-          cnDigit += text;
-          return;
-        }
-      });
-
-      return cnDigit;
-    }
-  };
-
-  let chineseDigit = '';
-  digit = digit | 0;
-  if (digit < 0) {
-    chineseDigit += '负';
-    digit = Math.abs(digit);
-  }
-  if (digit < 100) {
-    return chineseDigit + ploy.ltHundred(digit);
-  }
-  if (digit < 1000) {
-    return chineseDigit + ploy.ltThousand(digit);
-  }
-  if (digit < 10000) {
-    return chineseDigit + ploy.ltTenThousand(digit);
-  }
-
-  chineseDigit += ploy.gtBillion(digit);
-
-  return chineseDigit;
-};
-
+// #region replaceEmoji
 /**
  * @description 过滤emoji表情
  * @param value 
@@ -690,7 +474,9 @@ export const replaceEmoji = (value: string) => {
 
   return value.replace(regexp, '');
 };
+// #endregion replaceEmoji
 
+// #region secondToTimeString
 /**
  * @description 将秒转换为hh:mm:ss
  * @param second
@@ -706,7 +492,9 @@ export const secondToTimeString = (second: number) => {
   const secondsStr = seconds < 10 ? `0${seconds}` : `${seconds}`;
   return `${hourStr}:${minuteStr}:${secondsStr}`;
 };
+// #endregion secondToTimeString
 
+// #region getMimeTypeByFileName
 /**
  * @description 通过文件名获取mime类型
  * @param fileName 
@@ -742,7 +530,9 @@ export const getMimeTypeByFileName = (fileName: string) => {
   };
   return mimeTypes[fileExtension] || '';
 };
+// #endregion getMimeTypeByFileName
 
+// #region canOpenInBrowser
 /**
  * @description 判断文件是否可以用浏览器直接打开
  * @param file 
@@ -768,3 +558,4 @@ export const canOpenInBrowser = (fileType: string) => {
 
   return false;
 };
+// #endregion canOpenInBrowser
