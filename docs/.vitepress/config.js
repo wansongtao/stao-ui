@@ -1,15 +1,29 @@
-module.exports = {
+/**
+ * @type {import('vitepress').UserConfig}
+ */
+const config = {
   title: 'STao UI',
+  lastUpdated: true,
+  lang: 'zh-CN',
   themeConfig: {
-    lastUpdated: '最后更新时间',
+    lastUpdatedText: '最后更新时间',
     docsDir: 'docs',
+    outlineTitle: '这一页',
     footer: {
       message: 'Released under the MIT License.',
       copyright: 'Copyright © 2023-present wansongtao'
     },
+    docFooter: {
+      prev: '上一页',
+      next: '下一页'
+    },
     nav: [
       { text: '指南', link: '/guide/installation', activeMatch: '/guide/' },
-      { text: '组件', link: '/components/button/', activeMatch: '/components/' },
+      {
+        text: '组件',
+        link: '/components/button/',
+        activeMatch: '/components/'
+      },
       { text: '工具函数', link: '/utils/common/', activeMatch: '/utils/' }
     ],
     socialLinks: [
@@ -20,8 +34,8 @@ module.exports = {
         {
           text: '指南',
           items: [
-            { text: '安装', link: '/guide/installation' },
-            { text: '快速开始', link: '/guide/quickStart' }
+            { text: '快速开始', link: '/guide/quickStart' },
+            { text: '安装', link: '/guide/installation' }
           ]
         }
       ],
@@ -37,9 +51,7 @@ module.exports = {
       '/utils/': [
         {
           text: '工具函数',
-          items: [
-            { text: '常用方法', link: '/utils/common/' }
-          ]
+          items: [{ text: '常用方法', link: '/utils/common/' }]
         }
       ]
     }
@@ -49,3 +61,5 @@ module.exports = {
   },
   base: '/stao-ui/'
 };
+
+export default config;
