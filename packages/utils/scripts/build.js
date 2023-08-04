@@ -1,8 +1,8 @@
 import {
   __dirname,
   deleteFolderRecursive
-} from '../../components/scripts/file.js';
-import cmd from '../../components/scripts/cmd.js';
+} from './file.js';
+import cmd from './cmd.js';
 import { resolve } from 'path';
 
 const componentPath = resolve(__dirname, '../');

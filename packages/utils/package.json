@@ -3,15 +3,18 @@
   "version": "1.0.7",
   "type": "module",
   "description": "",
+  "scripts": {
+    "build": "vite build"
+  },
   "files": [
     "dist"
   ],
   "main": "./dist/stao-ui-utils.umd.cjs",
-  "module": "./dist/stao-ui-utils.mjs",
+  "module": "./dist/stao-ui-utils.js",
   "typings": "./dist/types/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/stao-ui-utils.mjs",
+      "import": "./dist/stao-ui-utils.js",
       "require": "./dist/stao-ui-utils.umd.cjs",
       "types": "./dist/types/index.d.ts"
     }
