@@ -42,7 +42,7 @@ const onChangeFile = (files: File[]) => {
 :::
 
 ::: details 源代码
-<<< ../../../packages/components/FileSelector/FileSelector.vue
+<<< ../../../packages/components/src/FileSelector/FileSelector.vue
 :::
 
 ## 基础用法

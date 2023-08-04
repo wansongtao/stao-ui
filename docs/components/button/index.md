@@ -18,7 +18,7 @@
 :::  
 
 ::: details 源代码
-<<< ../../../packages/components/SButton/SButton.vue
+<<< ../../../packages/components/src/SButton/SButton.vue
 :::
 
 ## 基础用法
