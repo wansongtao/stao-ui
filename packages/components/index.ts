@@ -1,2 +1,2 @@
-export * from './FileSelector'
-export * from './SButton'
+export * from './src/FileSelector'
+export * from './src/SButton'
