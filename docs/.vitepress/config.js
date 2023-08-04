@@ -24,7 +24,7 @@ const config = {
         link: '/components/button/',
         activeMatch: '/components/'
       },
-      { text: '工具函数', link: '/utils/common/', activeMatch: '/utils/' }
+      { text: '工具', link: '/utils/common/', activeMatch: '/utils/' }
     ],
     socialLinks: [
       { icon: 'github', link: 'https://github.com/wansongtao/stao-ui' }
@@ -50,8 +50,15 @@ const config = {
       ],
       '/utils/': [
         {
-          text: '工具函数',
+          text: '工具',
           items: [{ text: '常用方法', link: '/utils/common/' }]
+        },
+        {
+          text: '已发布库',
+          items: [
+            { text: 'number2chinesenumber', link: '/utils/library/chinesenumber/' },
+            { text: 'web-storage-plus', link: '/utils/library/storage/' }
+          ]
         }
       ]
     }
