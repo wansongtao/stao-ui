@@ -9,10 +9,10 @@
     ".": {
       "import": "./dist/index.js",
       "require": "./dist/index.umd.js",
-      "types": "./dist/index.d.ts"
+      "types": "./dist/types/index.d.ts"
     }
   },
-  "types": "./dist/index.d.ts",
+  "types": "./dist/types/index.d.ts",
   "scripts": {
     "build": "vite build"
   },
