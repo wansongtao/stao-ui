@@ -1,10 +1,13 @@
 # 常用工具方法
+
 ## 安装方法
+
 ```bash
-$ npm install @stao-ui/utils --save
+$ pnpm add @stao-ui/utils
 ```
 
 ## 使用示例
+
 ```javascript
 import { getDataType } from '@stao-ui/utils'
 
@@ -13,4 +16,5 @@ getDataType(str) // string
 ```
 
 ## Links
-- [github doc](https://github.com/wansongtao/stao-ui)
+
+详情参考文档-[STaoUI](https://wansongtao.github.io/stao-ui/utils/common/)
