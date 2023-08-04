@@ -1,6 +1,7 @@
 {
   "name": "@stao-ui/utils",
   "version": "1.0.7",
+  "type": "module",
   "description": "",
   "files": [
     "dist"

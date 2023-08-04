@@ -11,7 +11,7 @@
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
     "components:build": "node packages/components/scripts/build.js",
-    "utils:build": "vite build packages/utils"
+    "utils:build": "node packages/utils/scripts/build.js"
   },
   "keywords": [],
   "author": "",
