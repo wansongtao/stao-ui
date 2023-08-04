@@ -446,7 +446,7 @@ export const getQueryString = (
   isEncode = true
 ) => {
   let str = '?';
-  
+
   for (const key in data) {
     if (data[key] === null || data[key] === '' || data[key] === undefined) {
       continue;
@@ -463,42 +463,135 @@ export const getQueryString = (
 };
 // #endregion getQueryString
 
-// #region replaceEmoji
+// #region filterEmoji
 /**
  * @description 过滤emoji表情
- * @param value 
- * @returns 
+ * @param value
+ * @returns
  */
-export const replaceEmoji = (value: string) => {
-  const regexp = /(?:[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff]|[\u0023-\u0039]\ufe0f?\u20e3|\u3299|\u3297|\u303d|\u3030|\u24c2|\ud83c[\udd70-\udd71]|\ud83c[\udd7e-\udd7f]|\ud83c\udd8e|\ud83c[\udd91-\udd9a]|\ud83c[\udde6-\uddff]|\ud83c[\ude01-\ude02]|\ud83c\ude1a|\ud83c\ude2f|\ud83c[\ude32-\ude3a]|\ud83c[\ude50-\ude51]|\u203c|\u2049|[\u25aa-\u25ab]|\u25b6|\u25c0|[\u25fb-\u25fe]|\u00a9|\u00ae|\u2122|\u2139|\ud83c\udc04|[\u2600-\u26FF]|\u2b05|\u2b06|\u2b07|\u2b1b|\u2b1c|\u2b50|\u2b55|\u231a|\u231b|\u2328|\u23cf|[\u23e9-\u23f3]|[\u23f8-\u23fa]|\ud83c\udccf|\u2934|\u2935|[\u2190-\u21ff])/g
+export const filterEmoji = (value: string) => {
+  const regexp =
+    /(?:[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff]|[\u0023-\u0039]\ufe0f?\u20e3|\u3299|\u3297|\u303d|\u3030|\u24c2|\ud83c[\udd70-\udd71]|\ud83c[\udd7e-\udd7f]|\ud83c\udd8e|\ud83c[\udd91-\udd9a]|\ud83c[\udde6-\uddff]|\ud83c[\ude01-\ude02]|\ud83c\ude1a|\ud83c\ude2f|\ud83c[\ude32-\ude3a]|\ud83c[\ude50-\ude51]|\u203c|\u2049|[\u25aa-\u25ab]|\u25b6|\u25c0|[\u25fb-\u25fe]|\u00a9|\u00ae|\u2122|\u2139|\ud83c\udc04|[\u2600-\u26FF]|\u2b05|\u2b06|\u2b07|\u2b1b|\u2b1c|\u2b50|\u2b55|\u231a|\u231b|\u2328|\u23cf|[\u23e9-\u23f3]|[\u23f8-\u23fa]|\ud83c\udccf|\u2934|\u2935|[\u2190-\u21ff])/g;
 
   return value.replace(regexp, '');
 };
-// #endregion replaceEmoji
+// #endregion filterEmoji
 
-// #region secondToTimeString
+// #region formatTime
 /**
- * @description 将秒转换为hh:mm:ss
- * @param second
- * @returns
+ * @description 格式化时间
+ * @param {Date} [date] Date对象，默认当前时间
+ * @param {String} [format] 输出格式字符串，默认：yyyy/MM/dd HH:mm:ss。yy: 输出两位数的年份，
+ * h：输出12小时制，H：输出24小时制，M：月份，m：分钟，一位字母则不补零
+ * @returns {String}
  */
-export const secondToTimeString = (second: number) => {
-  const hour = Math.floor(second / 3600);
-  const minute = Math.floor((second - hour * 3600) / 60);
-  const seconds = second - hour * 3600 - minute * 60;
+export const formatTime = (
+  date: Date = new Date(),
+  format: string = 'yyyy/MM/dd HH:mm:ss'
+): string => {
+  if (!format) {
+    return format;
+  }
 
-  const hourStr = hour < 10 ? `0${hour}` : `${hour}`;
-  const minuteStr = minute < 10 ? `0${minute}` : `${minute}`;
-  const secondsStr = seconds < 10 ? `0${seconds}` : `${seconds}`;
-  return `${hourStr}:${minuteStr}:${secondsStr}`;
+  const formatObj = {
+    yy: () => {
+      return date.getFullYear().toString().substring(2, 4);
+    },
+    yyyy: () => {
+      return date.getFullYear().toString();
+    },
+    M: () => {
+      const month = date.getMonth() + 1;
+      return month.toString();
+    },
+    MM: () => {
+      const month = date.getMonth() + 1;
+      return month.toString().padStart(2, '0');
+    },
+    d: () => {
+      return date.getDate().toString();
+    },
+    dd: () => {
+      return date.getDate().toString().padStart(2, '0');
+    },
+    h: () => {
+      let hours = date.getHours();
+      if (hours > 12) {
+        hours -= 12;
+      }
+
+      return hours.toString();
+    },
+    hh: () => {
+      let hours = date.getHours();
+      if (hours > 12) {
+        hours -= 12;
+      }
+
+      return hours.toString().padStart(2, '0');
+    },
+    H: () => {
+      return date.getHours().toString();
+    },
+    HH: () => {
+      return date.getHours().toString().padStart(2, '0');
+    },
+    m: () => {
+      return date.getMinutes().toString();
+    },
+    mm: () => {
+      return date.getMinutes().toString().padStart(2, '0');
+    },
+    s: () => {
+      return date.getSeconds().toString();
+    },
+    ss: () => {
+      return date.getSeconds().toString().padStart(2, '0');
+    }
+  };
+
+  type key =
+    | 'yy'
+    | 'yyyy'
+    | 'MM'
+    | 'M'
+    | 'd'
+    | 'dd'
+    | 'h'
+    | 'hh'
+    | 'H'
+    | 'HH'
+    | 'm'
+    | 'mm'
+    | 's'
+    | 'ss';
+  const replaceFunc = (val: string): string => {
+    let func = formatObj[val as key];
+    if (func instanceof Function) {
+      return func();
+    }
+
+    func = formatObj[val.toLowerCase() as key];
+    if (func instanceof Function) {
+      return func();
+    }
+
+    // 没有匹配的方法，返回原字符串
+    return val;
+  };
+
+  return format.replace(
+    /([Yy]{2,4}|[M]+|[Dd]+|[Hh]+|[m]+|[Ss]+)/g,
+    replaceFunc
+  );
 };
-// #endregion secondToTimeString
+// #endregion formatTime
 
 // #region getMimeTypeByFileName
 /**
  * @description 通过文件名获取mime类型
- * @param fileName 
- * @returns 
+ * @param fileName
+ * @returns
  */
 export const getMimeTypeByFileName = (fileName: string) => {
   const dotIndex = fileName.lastIndexOf('.');
@@ -535,8 +628,8 @@ export const getMimeTypeByFileName = (fileName: string) => {
 // #region canOpenInBrowser
 /**
  * @description 判断文件是否可以用浏览器直接打开
- * @param file 
- * @returns 
+ * @param file
+ * @returns
  */
 export const canOpenInBrowser = (fileType: string) => {
   if (
@@ -559,3 +652,90 @@ export const canOpenInBrowser = (fileType: string) => {
   return false;
 };
 // #endregion canOpenInBrowser
+
+// #region getMaxDayOfMonth
+/**
+ * 获取一个月的最大天数
+ * @param year
+ * @param month 月份（1-12）
+ * @returns
+ */
+export const getMaxDayOfMonth = (year: number, month: number) => {
+  /**
+   * Date对象的构造函数接收月份索引（0-11）。
+   * 将月份设置为下个月且天数设置为0，Date对象将自动设置为上个月最后一天。
+   */
+  const maxDay = new Date(year, month, 0).getDate();
+  return maxDay;
+};
+// #endregion getMaxDayOfMonth
+
+// #region aliOssImageResize
+/**
+ * @description 阿里云图片缩放
+ * 详情参考：https://help.aliyun.com/document_detail/44688.html?spm=a2c4g.11186623.6.742.e60658cduqjUhj
+ * @param {string} url 阿里云图片链接
+ * @param {object} data
+ * @param {string} [data.m='fill'] 缩放模式，默认fill，等比缩放对超出部分进行居中裁剪
+ * @param {number} [data.w] 宽度
+ * @param {number} [data.h] 高度
+ * @param {number} [data.l] 指定长边
+ * @param {number} [data.s] 指定短边
+ * @param {number} [data.limit] 指定当目标缩放图大于原图时是否进行缩放。
+ * @param {string} [data.color] 当缩放模式选择为pad（缩放填充）时，可以设置填充的颜色。
+ */
+export const aliOssImageResize = (
+  url: string,
+  data: {
+    m: 'lfit' | 'mfit' | 'fill' | 'pad' | 'fixed';
+    w: number;
+    h: number;
+    l: number;
+    s: number;
+    limit: 0 | 1;
+    color: string;
+  }
+) => {
+  let suffix = 'x-oss-process=image/resize';
+
+  if (data.m) {
+    suffix += `,m_${data.m}`;
+  } else {
+    suffix += ',m_fill';
+  }
+
+  if (data.w) {
+    suffix += `,w_${data.w}`;
+  }
+
+  if (data.h) {
+    suffix += `,h_${data.h}`;
+  }
+
+  if (data.l) {
+    suffix += `,l_${data.l}`;
+  }
+
+  if (data.s) {
+    suffix += `,s_${data.s}`;
+  }
+
+  if (data.limit) {
+    suffix += `,limit_${data.limit}`;
+  }
+
+  if (data.color) {
+    suffix += `,color_${data.color}`;
+  }
+
+  if (url.indexOf('?') > -1) {
+    // eslint-disable-next-line no-param-reassign
+    url += `&${suffix}`;
+  } else {
+    // eslint-disable-next-line no-param-reassign
+    url += `?${suffix}`;
+  }
+
+  return url;
+};
+// #endregion aliOssImageResize
