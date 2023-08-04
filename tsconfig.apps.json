@@ -14,6 +14,7 @@
     "types/env.d.ts",
     "apps/main.ts",
     "apps/env.d.ts",
-    "apps/src/**/*"
+    "apps/src/**/*",
+    "scripts/**/*"
   ]
 }

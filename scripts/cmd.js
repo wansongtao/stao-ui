@@ -2,8 +2,8 @@ import { spawn } from 'child_process';
 
 /**
  * 执行命令行命令
- * @param {string} command 
- * @param {string} path 
+ * @param {string} command
+ * @param {string} path
  * @returns {Promise<void>}
  */
 const cmd = async (command, path) => {

@@ -1,9 +1,10 @@
 import fs from 'fs';
-import { resolve, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { resolve } from 'path';
 
-export const __dirname = dirname(fileURLToPath(import.meta.url));
-
+/**
+ * 删除文件夹及其子文件
+ * @param {string} path 
+ */
 export const deleteFolderRecursive = async (path = '') => {
   if (fs.existsSync(path)) {
     fs.readdirSync(path).forEach(async (file) => {
@@ -24,9 +25,9 @@ export const deleteFolderRecursive = async (path = '') => {
 };
 
 /**
- * 向js文件里插入内容
- * @param {string} path 
- * @param {string} content 
+ * 向文件里插入内容
+ * @param {string} path
+ * @param {string} content
  * @param {(data: string) => string} updateFn
  */
 export const insertContent = (path, content, updateFn) => {

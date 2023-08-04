@@ -1,7 +1,9 @@
-import { __dirname, deleteFolderRecursive, insertContent } from './file.js';
-import cmd from './cmd.js';
-import { resolve } from 'path';
+import { deleteFolderRecursive, insertContent } from '../../../scripts/file.js';
+import cmd from '../../../scripts/cmd.js';
+import { resolve, dirname } from 'path';
+import { fileURLToPath } from 'url';
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
 const componentPath = resolve(__dirname, '../');
 
 const removeDist = async () => {
