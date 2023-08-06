@@ -13,7 +13,7 @@ getDataType(true); // boolean
 ```
 
 ::: details 点击查看代码
-<<< ../../../packages/utils/utils.ts#getDataType
+<<< ../../../packages/utils/src/utils.ts#getDataType
 :::
 
 ## 格式化时间
@@ -32,7 +32,7 @@ formatTime(date, 'h:mm:ss'); // 1:52:31
 ```
 
 ::: details 点击查看代码
-<<< ../../../packages/utils/utils.ts#formatTime
+<<< ../../../packages/utils/src/utils.ts#formatTime
 :::
 
 ## 节流函数
@@ -50,7 +50,7 @@ fn();
 ```
 
 ::: details 点击查看代码
-<<< ../../../packages/utils/utils.ts#throttle
+<<< ../../../packages/utils/src/utils.ts#throttle
 :::
 
 ## 防抖函数
@@ -68,7 +68,7 @@ fn();
 ```
 
 ::: details 点击查看代码
-<<< ../../../packages/utils/utils.ts#debounce
+<<< ../../../packages/utils/src/utils.ts#debounce
 :::
 
 ## 函数式编程实现
@@ -88,7 +88,7 @@ fn(1); // 7
 ```
 
 ::: details 点击查看代码
-<<< ../../../packages/utils/utils.ts#compose
+<<< ../../../packages/utils/src/utils.ts#compose
 :::
 
 ## 柯里化函数
@@ -108,7 +108,7 @@ fn(1, 2)(3); // 6
 ```
 
 ::: details 点击查看代码
-<<< ../../../packages/utils/utils.ts#curry
+<<< ../../../packages/utils/src/utils.ts#curry
 :::
 
 ## 深拷贝
@@ -129,7 +129,7 @@ const cloneObj = deepClone(obj); // { a: 1, b: { c: 2 } }
 ```
 
 ::: details 点击查看代码
-<<< ../../../packages/utils/utils.ts#deepClone
+<<< ../../../packages/utils/src/utils.ts#deepClone
 :::
 
 ## 文件切片函数
@@ -143,7 +143,7 @@ const files = fileSlice(file, undefined, 1024 * 512);
 ```
 
 ::: details 点击查看代码
-<<< ../../../packages/utils/utils.ts#fileSlice
+<<< ../../../packages/utils/src/utils.ts#fileSlice
 :::
 
 ## 希尔排序
@@ -158,7 +158,7 @@ shellSort(arr, (a, b) => a.a - b.a > 0); // [{ a: 100 }, { a: 20 }, { a: 10 }]
 ```
 
 ::: details 点击查看代码
-<<< ../../../packages/utils/utils.ts#shellSort
+<<< ../../../packages/utils/src/utils.ts#shellSort
 :::
 
 ## 预加载图片
@@ -182,7 +182,7 @@ preloadImages(imgs)
 ```
 
 ::: details 点击查看代码
-<<< ../../../packages/utils/utils.ts#preloadImages
+<<< ../../../packages/utils/src/utils.ts#preloadImages
 :::
 
 ## 时区转换
@@ -197,7 +197,7 @@ convertTimeZone(date, 9); // 东八区时间转换为东九区时间
 ```
 
 ::: details 点击查看代码
-<<< ../../../packages/utils/utils.ts#convertTimeZone
+<<< ../../../packages/utils/src/utils.ts#convertTimeZone
 :::
 
 ## 润平年判断
@@ -211,7 +211,7 @@ isLeapYear(2012); // true
 ```
 
 ::: details 点击查看代码
-<<< ../../../packages/utils/utils.ts#isLeapYear
+<<< ../../../packages/utils/src/utils.ts#isLeapYear
 :::
 
 ## a 标签下载文件
@@ -225,7 +225,7 @@ downloadFileToLocale('url', '图片.jpeg');
 ```
 
 ::: details 点击查看代码
-<<< ../../../packages/utils/utils.ts#downloadFileToLocale
+<<< ../../../packages/utils/src/utils.ts#downloadFileToLocale
 :::
 
 ## 过滤 emoji 表情
@@ -239,7 +239,7 @@ filterEmoji('😀😁😂🤣😃😄😅😆😉😊'); // ''
 ```
 
 ::: details 点击查看代码
-<<< ../../../packages/utils/utils.ts#filterEmoji
+<<< ../../../packages/utils/src/utils.ts#filterEmoji
 :::
 
 ## 获取文件的 MIME 类型
@@ -253,7 +253,7 @@ getMimeTypeByFileName('fileName.jpeg'); // image/jpeg
 ```
 
 ::: details 点击查看代码
-<<< ../../../packages/utils/utils.ts#getMimeTypeByFileName
+<<< ../../../packages/utils/src/utils.ts#getMimeTypeByFileName
 :::
 
 ## 文件是否可以在浏览器打开
@@ -267,7 +267,7 @@ canOpenInBrowser('fileName.jpeg'); // true
 ```
 
 ::: details 点击查看代码
-<<< ../../../packages/utils/utils.ts#canOpenInBrowser
+<<< ../../../packages/utils/src/utils.ts#canOpenInBrowser
 :::
 
 ## 获取一个月的最大天数
@@ -281,7 +281,7 @@ getMaxDayOfMonth(2023, 2); // 28
 ```
 
 ::: details 点击查看代码
-<<< ../../../packages/utils/utils.ts#getMaxDayOfMonth
+<<< ../../../packages/utils/src/utils.ts#getMaxDayOfMonth
 :::
 
 ## 阿里云图片缩放
@@ -299,5 +299,5 @@ aliOssImageResize('oss url', {
 });
 ```
 ::: details 点击查看代码
-<<< ../../../packages/utils/utils.ts#aliOssImageResize
+<<< ../../../packages/utils/src/utils.ts#aliOssImageResize
 :::
