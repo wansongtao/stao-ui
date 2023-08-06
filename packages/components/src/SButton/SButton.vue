@@ -35,12 +35,22 @@ defineProps<{
   font-size: 16px;
   color: #fff;
   cursor: pointer;
+
+  &:hover, &:focus {
+    background-color: #5572e8;
+  }
 }
 
 .s-button-line {
   color: #2f54eb;
   background: #fff;
   border: 1px solid #2f54eb;
+
+  &:hover, &:focus {
+    border-color: #95a4e0;
+    color: #95a4e0;
+    background-color: transparent;
+  }
 }
 
 .s-button--disabled {
