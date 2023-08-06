@@ -60,6 +60,7 @@ const config = {
           items: [
             { text: '常用方法', link: '/utils/common/' },
             { text: 'websocket', link: '/utils/websocket/' },
+            { text: 'CSS', link: '/utils/css/' }
           ]
         },
         {
