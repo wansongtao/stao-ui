@@ -51,7 +51,10 @@ const config = {
       '/utils/': [
         {
           text: '工具',
-          items: [{ text: '常用方法', link: '/utils/common/' }]
+          items: [
+            { text: '常用方法', link: '/utils/common/' },
+            { text: 'websocket', link: '/utils/websocket/' },
+          ]
         },
         {
           text: '已发布库',
@@ -62,9 +65,6 @@ const config = {
         }
       ]
     }
-  },
-  server: {
-    open: true
   },
   base: '/stao-ui/'
 };
