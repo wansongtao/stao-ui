@@ -1,3 +1,4 @@
+// #region createWebSocket
 /**
  * 创建一个 WebSocket 连接
  * @param url
@@ -14,19 +15,25 @@ export const createWebSocket = (
     ws.onerror = (err) => reject(err);
   });
 };
+// #endregion createWebSocket
 
-export const listenWebSocketClose = (ws: WebSocket) => {
+// #region onCloseWebSocket
+export const onCloseWebSocket = (ws: WebSocket) => {
   return new Promise<CloseEvent>((resolve) => {
     ws.onclose = (e) => resolve(e);
   });
 };
+// #endregion onCloseWebSocket
 
-export const listenWebSocketMessage = <T = string>(ws: WebSocket) => {
+// #region onMessageWebSocket
+export const onMessageWebSocket = <T = string>(ws: WebSocket) => {
   return new Promise<{ data: T; event: MessageEvent }>((resolve) => {
     ws.onmessage = (e) => resolve({ data: e.data, event: e });
   });
 };
+// #endregion onMessageWebSocket
 
+// #region sendMessageWebSocket
 export const sendMessageWebSocket = (
   ws: WebSocket,
   message: string | ArrayBuffer | Blob | ArrayBufferView
@@ -40,3 +47,4 @@ export const sendMessageWebSocket = (
     resolve();
   });
 };
+// #endregion sendMessageWebSocket
