@@ -24,7 +24,7 @@ const config = {
         link: '/components/button/',
         activeMatch: '/components/'
       },
-      { text: '工具', link: '/utils/common/', activeMatch: '/utils/' }
+      { text: '函数', link: '/utils/common/', activeMatch: '/utils/' }
     ],
     socialLinks: [
       { icon: 'github', link: 'https://github.com/wansongtao/stao-ui' }
@@ -50,14 +50,12 @@ const config = {
         },
         {
           text: 'antd组件',
-          items: [
-            { text: '确认对话框', link: '/components/modal/' }
-          ]
+          items: [{ text: '确认对话框', link: '/components/modal/' }]
         }
       ],
       '/utils/': [
         {
-          text: '工具',
+          text: '函数',
           items: [
             { text: '常用方法', link: '/utils/common/' },
             { text: 'websocket', link: '/utils/websocket/' },
@@ -65,9 +63,18 @@ const config = {
           ]
         },
         {
+          text: 'hooks',
+          items: [
+            { text: 'useTextEllipsis', link: '/utils/hooks/useTextEllipsis/' }
+          ]
+        },
+        {
           text: '已发布库',
           items: [
-            { text: 'number2chinesenumber', link: '/utils/library/chinesenumber/' },
+            {
+              text: 'number2chinesenumber',
+              link: '/utils/library/chinesenumber/'
+            },
             { text: 'web-storage-plus', link: '/utils/library/storage/' }
           ]
         }
