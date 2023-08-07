@@ -45,7 +45,7 @@ const onChangeText = (value: boolean) => {
   border: 1px dotted #ccc;
 }
 .container {
-  width: 240px;
+  width: 200px;
   height: 32px;
   line-height: 32px;
   cursor: pointer;
