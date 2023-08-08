@@ -1,4 +1,4 @@
-import { ref, onMounted, onUpdated, Ref } from 'vue';
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 
 const getPadding = (el: HTMLElement) => {
   const style = window.getComputedStyle(el, null);
@@ -27,14 +27,10 @@ const checkEllipsis = (el: HTMLElement) => {
 
 /**
  * 文本是否溢出（创建block元素来包裹inline元素）
- * @param isAutoUpdate dom变化后是否在onUpdated函数里自动更新状态（可能有副作用），默认为true
+ * @param isAutoUpdate dom变化后是否自动更新状态（MutationObserver），默认为true
  * @returns
  */
-export default function useTextEllipsis(isAutoUpdate = true): {
-  textEllipsisRef: Ref<HTMLElement | null>;
-  isOverflow: Ref<boolean>;
-  updateTextEllipsisStatus: () => void;
-} {
+export default function useTextEllipsis(isAutoUpdate = true) {
   const textEllipsisRef = ref<HTMLElement | null>(null);
   const isOverflow = ref(false);
   const updateTextEllipsisStatus = () => {
@@ -46,9 +42,27 @@ export default function useTextEllipsis(isAutoUpdate = true): {
     isOverflow.value = checkEllipsis(element);
   };
 
-  onMounted(updateTextEllipsisStatus);
+  let observer: MutationObserver | null = null;
+  onMounted(() => {
+    if (isAutoUpdate) {
+      observer = new MutationObserver(updateTextEllipsisStatus);
+      observer.observe(textEllipsisRef.value!, {
+        childList: true,
+        subtree: true,
+        characterData: true
+      });
+    }
+
+    updateTextEllipsisStatus();
+  });
+
   if (isAutoUpdate) {
-    onUpdated(updateTextEllipsisStatus);
+    onBeforeUnmount(() => {
+      if (observer) {
+        observer.disconnect();
+        observer = null;
+      }
+    });
   }
 
   return {
