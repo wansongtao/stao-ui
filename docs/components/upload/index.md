@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { STaoFileSelector } from '@stao-ui/components';
 import { ref } from 'vue'
+import advancedExample from './advanced.vue'
 
 const checkedFiles = ref<File[]>([])
 const onChangeFile = (files: File[]) => {
@@ -175,3 +176,9 @@ const onChangeFile = (files: File[]) => {
 ```
 
 </details>
+
+上传图片示例
+<advancedExample />
+::: details 查看代码
+<<< ./advanced.vue
+:::
