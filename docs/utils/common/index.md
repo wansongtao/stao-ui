@@ -146,21 +146,6 @@ const files = fileSlice(file, undefined, 1024 * 512);
 <<< ../../../packages/utils/src/utils.ts#fileSlice
 :::
 
-## 希尔排序
-
-传入一个数组，返回一个排序后的数组，改变原数组。支持设置排序规则。
-
-```ts
-import { shellSort } from '@stao-ui/utils';
-
-const arr = [{ a: 100 }, { a: 10 }, { a: 20 }];
-shellSort(arr, (a, b) => a.a - b.a > 0); // [{ a: 100 }, { a: 20 }, { a: 10 }]
-```
-
-::: details 点击查看代码
-<<< ../../../packages/utils/src/utils.ts#shellSort
-:::
-
 ## 预加载图片
 
 传入一个图片地址列表，返回一个 Promise 对象。支持设置图片加载成功与失败的回调，全部加载成功才会执行成功回调，只要有一个加载失败就会执行失败回调并抛出失败的图片 url。
@@ -284,20 +269,29 @@ getMaxDayOfMonth(2023, 2); // 28
 <<< ../../../packages/utils/src/utils.ts#getMaxDayOfMonth
 :::
 
-## 阿里云图片缩放
+## 系统判断
+判断是否为iPhone/iPad。
+```js
+/**
+ * @description 判断是否为iPhone/iPad
+ * @returns {Boolean}
+ */
+const isIos = () => {
+  const { userAgent } = navigator;
 
-传入图片地址与缩放参数，返回一个缩放后的图片地址。
-
-```ts
-import { aliOssImageResize } from '@stao-ui/utils';
-
-aliOssImageResize('oss url', {
-  m: 'fill',
-  w: 100,
-  h: 100,
-  color: 'fff'
-});
+  return userAgent.indexOf('iPhone') > -1 || userAgent.indexOf('iPad') > -1;
+};
 ```
-::: details 点击查看代码
-<<< ../../../packages/utils/src/utils.ts#aliOssImageResize
-:::
+判断是否为手机打开(含iPad)。
+```js
+/**
+ * @description 判断是否为手机打开(含iPad)
+ * @returns {Boolean}
+ */
+const isMobile = () => {
+  const clientTexts = ['iPhone', 'iPad', 'Android', 'Mobile'];
+  const { userAgent } = navigator;
+
+  return clientTexts.some((item) => userAgent.indexOf(item) > -1);
+};
+```

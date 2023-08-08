@@ -58,6 +58,7 @@ const config = {
           text: '函数',
           items: [
             { text: '常用方法', link: '/utils/common/' },
+            { text: '特殊方法', link: '/utils/feature/' },
             { text: 'websocket', link: '/utils/websocket/' },
             { text: 'CSS', link: '/utils/css/' }
           ]
