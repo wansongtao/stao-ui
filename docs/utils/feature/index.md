@@ -62,3 +62,11 @@ isPrime(4); // false
 ::: details 点击查看代码
 <<< ../../../packages/utils/src/api/upload.ts
 :::
+
+## 获取项目tag版本号
+通过shelljs获取项目的git信息，进而获取tag版本信息。  
+***使用场景：配合vite的环境变量设置网站版本号。***
+
+::: details 点击查看代码
+<<< ../../../packages/utils/src/version.ts
+:::
