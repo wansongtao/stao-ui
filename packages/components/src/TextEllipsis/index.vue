@@ -21,7 +21,7 @@ watch(
 
 <template>
   <div ref="textEllipsisRef" class="ellipsis">
-    <span><slot /></span>
+    <span><slot :isOverflow="isOverflow" /></span>
   </div>
 </template>
 
