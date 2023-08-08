@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ComponentExample from '@/components/FileExample/index.vue'
+import ComponentExample from '@/components/TextEllipsisExample/index.vue'
 </script>
 
 <template>
