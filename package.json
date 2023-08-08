@@ -18,7 +18,8 @@
   "license": "ISC",
   "dependencies": {
     "@stao-ui/components": "workspace:^1.0.0",
-    "@stao-ui/utils": "workspace:^1.0.0"
+    "@stao-ui/utils": "workspace:^1.0.0",
+    "axios": "^1.4.0"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.2.0",
