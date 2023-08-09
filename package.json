@@ -20,7 +20,8 @@
     "@stao-ui/components": "workspace:^1.0.0",
     "@stao-ui/utils": "workspace:^1.0.0",
     "exceljs": "^4.3.0",
-    "file-saver": "^2.0.5"
+    "file-saver": "^2.0.5",
+    "vue-router": "^4.1.6"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.2.0",
