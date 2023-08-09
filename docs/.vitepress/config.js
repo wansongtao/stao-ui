@@ -60,6 +60,7 @@ const config = {
             { text: '常用方法', link: '/utils/common/' },
             { text: '特殊方法', link: '/utils/feature/' },
             { text: 'websocket', link: '/utils/websocket/' },
+            { text: 'exceljs', link: '/utils/exceljs/' },
             { text: 'CSS', link: '/utils/css/' }
           ]
         },
