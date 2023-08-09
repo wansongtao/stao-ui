@@ -18,10 +18,13 @@
   "license": "ISC",
   "dependencies": {
     "@stao-ui/components": "workspace:^1.0.0",
-    "@stao-ui/utils": "workspace:^1.0.0"
+    "@stao-ui/utils": "workspace:^1.0.0",
+    "exceljs": "^4.3.0",
+    "file-saver": "^2.0.5"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.2.0",
+    "@types/file-saver": "^2.0.5",
     "@types/jsdom": "^21.1.0",
     "@types/node": "^18.14.1",
     "@types/shelljs": "^0.8.12",
