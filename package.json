@@ -19,6 +19,10 @@
   "dependencies": {
     "@stao-ui/components": "workspace:^1.0.0",
     "@stao-ui/utils": "workspace:^1.0.0",
+    "@vuemap/vue-amap": "^2.0.18",
+    "dayjs": "^1.11.9",
+    "echarts": "^5.4.3",
+    "element-plus": "^2.3.9",
     "exceljs": "^4.3.0",
     "file-saver": "^2.0.5",
     "vue-router": "^4.1.6"
