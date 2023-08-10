@@ -5,8 +5,10 @@ import { STaoButton } from '@stao-ui/components';
 <template>
   <div class="container">
     <STaoButton>默认按钮</STaoButton>
-    <STaoButton class="ml-20" type="line">线框按钮</STaoButton>
-    <STaoButton class="ml-20" type="line" :disabled="true">禁用按钮</STaoButton>
+    <div class="p-20">
+      <STaoButton type="line">线框按钮</STaoButton>
+    </div>
+    <STaoButton type="line" :disabled="true">禁用按钮</STaoButton>
   </div>
 </template>
 
@@ -17,7 +19,8 @@ import { STaoButton } from '@stao-ui/components';
   justify-content: space-around;
 }
 
-.ml-20 {
-  margin-left: 20px;
+.p-20 {
+  padding: 0 20px;
+  width: 100%;
 }
 </style>
