@@ -4,7 +4,7 @@ layout: home
 hero:
   name: stao-ui
   text: 基于 Vue 3 的组件库.
-  tagline: 个人学习、工作积累，主要是二次封装组件与常用方法
+  tagline: 个人积累，主要含个人组件、封装大型组件库的组件、常用方法、hooks、css
   actions:
     - theme: brand
       text: 快速开始
