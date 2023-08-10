@@ -1,14 +1,9 @@
 <script setup>
 import simpleExample from './simple.vue';
 </script>
-<style scoped>
-details {
-  cursor: pointer;
-}
-</style>
-# exceljs使用封装
+# exceljs封装
 
-针对生成并下载excel文件的封装，使用的是`exceljs`与`file-saver`库。
+针对生成与下载excel文件的封装，使用的是`exceljs`与`file-saver`库。[exceljs官方文档](https://github.com/exceljs/exceljs/blob/HEAD/README_zh.md)。
 
 ::: details 查看封装exceljs源码
 <<< ../../../packages/utils/src/excel.ts  
@@ -25,7 +20,7 @@ details {
 :::
 
 ```bash
-pnpm i exceljs @stao-ui/utils
+pnpm i exceljs file-saver @stao-ui/utils
 ```
 
 ## 使用示例
