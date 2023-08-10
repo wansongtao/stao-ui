@@ -8,7 +8,7 @@ import { useRouter } from 'vue-router';
  * @param queryKey 路由参数的key，默认为tab
  * @returns
  */
-export default function useTabsRouter(defaultKey = '0', queryKey = 'tab') {
+export default function useTabsHistory(defaultKey = '0', queryKey = 'tab') {
   const router = useRouter();
   const name = router.currentRoute.value.query[queryKey] ?? defaultKey;
   const activeKey = ref(name as string);
