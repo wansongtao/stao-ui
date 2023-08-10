@@ -48,6 +48,9 @@ importers:
       '@types/node':
         specifier: ^18.14.1
         version: 18.17.1
+      '@types/nprogress':
+        specifier: ^0.2.0
+        version: 0.2.0
       '@types/shelljs':
         specifier: ^0.8.12
         version: 0.8.12
@@ -84,6 +87,9 @@ importers:
       npm-run-all:
         specifier: ^4.1.5
         version: 4.1.5
+      nprogress:
+        specifier: ^0.2.0
+        version: 0.2.0
       pinia:
         specifier: ^2.1.6
         version: 2.1.6(typescript@4.9.5)(vue@3.3.4)
@@ -107,7 +113,7 @@ importers:
         version: 2.3.0(@types/node@18.17.1)(vite@4.4.8)
       vitepress:
         specifier: 1.0.0-beta.7
-        version: 1.0.0-beta.7(@algolia/client-search@4.19.1)(@types/node@18.17.1)(axios@1.4.0)(sass@1.64.2)(search-insights@2.7.0)
+        version: 1.0.0-beta.7(@algolia/client-search@4.19.1)(@types/node@18.17.1)(axios@1.4.0)(nprogress@0.2.0)(sass@1.64.2)(search-insights@2.7.0)
       vue:
         specifier: ^3.3.4
         version: 3.3.4
@@ -172,7 +178,7 @@ importers:
     devDependencies:
       vitepress:
         specifier: 1.0.0-beta.7
-        version: 1.0.0-beta.7(@algolia/client-search@4.19.1)(@types/node@18.17.1)(axios@1.4.0)(sass@1.64.2)(search-insights@2.7.0)
+        version: 1.0.0-beta.7(@algolia/client-search@4.19.1)(@types/node@18.17.1)(axios@1.4.0)(nprogress@0.2.0)(sass@1.64.2)(search-insights@2.7.0)
 
   packages/components:
     dependencies:
@@ -1238,6 +1244,10 @@ packages:
     resolution: {integrity: sha512-xlR1jahfizdplZYRU59JlUx9uzF1ARa8jbhM11ccpCJya8kvos5jwdm2ZAgxSCwOl0fq21svP18EVwPBXMQudw==}
     dev: true
 
+  /@types/nprogress@0.2.0:
+    resolution: {integrity: sha512-1cYJrqq9GezNFPsWTZpFut/d4CjpZqA0vhqDUPFWYKF1oIyBz5qnoYMzR+0C/T96t3ebLAC1SSnwrVOm5/j74A==}
+    dev: true
+
   /@types/semver@7.5.0:
     resolution: {integrity: sha512-G8hZ6XJiHnuhQKR7ZmysCeJWE08o8T0AXtk5darsCaTVsYZhhgUrq53jizaR2FvsoeCwJhlmwTjkXBY5Pn/ZHw==}
     dev: true
@@ -1676,7 +1686,7 @@ packages:
       - vue
     dev: false
 
-  /@vueuse/integrations@10.3.0(axios@1.4.0)(focus-trap@7.5.2)(vue@3.3.4):
+  /@vueuse/integrations@10.3.0(axios@1.4.0)(focus-trap@7.5.2)(nprogress@0.2.0)(vue@3.3.4):
     resolution: {integrity: sha512-Jgiv7oFyIgC6BxmDtiyG/fxyGysIds00YaY7sefwbhCZ2/tjEx1W/1WcsISSJPNI30in28+HC2J4uuU8184ekg==}
     peerDependencies:
       async-validator: '*'
@@ -1721,6 +1731,7 @@ packages:
       '@vueuse/shared': 10.3.0(vue@3.3.4)
       axios: 1.4.0
       focus-trap: 7.5.2
+      nprogress: 0.2.0
       vue-demi: 0.14.5(vue@3.3.4)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -3671,6 +3682,10 @@ packages:
       string.prototype.padend: 3.1.4
     dev: true
 
+  /nprogress@0.2.0:
+    resolution: {integrity: sha512-I19aIingLgR1fmhftnbWWO3dXc0hSxqHQHQb3H8m+K3TnEn/iSeTZZOyvKXWqQESMwuUVnatlCnZdLBZZt2VSA==}
+    dev: true
+
   /nth-check@2.1.1:
     resolution: {integrity: sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==}
     dependencies:
@@ -4619,7 +4634,7 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vitepress@1.0.0-beta.7(@algolia/client-search@4.19.1)(@types/node@18.17.1)(axios@1.4.0)(sass@1.64.2)(search-insights@2.7.0):
+  /vitepress@1.0.0-beta.7(@algolia/client-search@4.19.1)(@types/node@18.17.1)(axios@1.4.0)(nprogress@0.2.0)(sass@1.64.2)(search-insights@2.7.0):
     resolution: {integrity: sha512-P9Rw+FXatKIU4fVdtKxqwHl6fby8E/8zE3FIfep6meNgN4BxbWqoKJ6yfuuQQR9IrpQqwnyaBh4LSabyll6tWg==}
     hasBin: true
     dependencies:
@@ -4628,7 +4643,7 @@ packages:
       '@vitejs/plugin-vue': 4.2.3(vite@4.4.8)(vue@3.3.4)
       '@vue/devtools-api': 6.5.0
       '@vueuse/core': 10.3.0(vue@3.3.4)
-      '@vueuse/integrations': 10.3.0(axios@1.4.0)(focus-trap@7.5.2)(vue@3.3.4)
+      '@vueuse/integrations': 10.3.0(axios@1.4.0)(focus-trap@7.5.2)(nprogress@0.2.0)(vue@3.3.4)
       body-scroll-lock: 4.0.0-beta.0
       focus-trap: 7.5.2
       mark.js: 8.11.1
