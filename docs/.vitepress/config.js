@@ -45,7 +45,8 @@ const config = {
           items: [
             { text: '按钮', link: '/components/button/' },
             { text: '文件选择', link: '/components/upload/' },
-            { text: '文本省略', link: '/components/textellipsis/' }
+            { text: '文本省略', link: '/components/textellipsis/' },
+            { text: '标签页', link: '/components/tabs/' }
           ]
         },
         {
