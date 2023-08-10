@@ -43,10 +43,10 @@ const config = {
         {
           text: '基础组件',
           items: [
-            { text: '按钮', link: '/components/button/' },
-            { text: '文件选择', link: '/components/upload/' },
-            { text: '文本省略', link: '/components/textellipsis/' },
-            { text: '标签页', link: '/components/tabs/' }
+            { text: 'Button 按钮', link: '/components/button/' },
+            { text: 'FileSelector 文件选择', link: '/components/upload/' },
+            { text: 'TextEllipsis 文本省略', link: '/components/textellipsis/' },
+            { text: 'Tabs 标签页', link: '/components/tabs/' }
           ]
         },
         {
