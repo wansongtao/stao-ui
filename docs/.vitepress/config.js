@@ -67,7 +67,8 @@ const config = {
         {
           text: 'hooks',
           items: [
-            { text: 'useTextEllipsis', link: '/utils/hooks/useTextEllipsis/' }
+            { text: 'useTextEllipsis', link: '/utils/hooks/useTextEllipsis/' },
+            { text: 'useTabsHistory', link: '/utils/hooks/useTabsHistory/' },
           ]
         },
         {
