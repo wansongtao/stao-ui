@@ -126,14 +126,26 @@ function changeIndicator({ ele, index, activeClass, inactiveClass }) {
 // document.addEventListener('DOMContentLoaded', () => {
 //   // 这里的代码会在页面DOM加载完成后执行
 //   let index = 0;
+//   const ele = document.querySelector('.swiper-wrapper');
+//   const swiperIndicator = document.querySelector('.swiper-indicator');
 
 //   setInterval(() => {
 //     index++;
-//     swiperTo(index, (index) => {
-//       index = idx;
+//     changeCarousel({
+//       index,
+//       ele,
+//       changeIdx: (idx) => {
+//         index = idx;
+//       }
 //     });
-//     changeIndicator(index);
-//   }, 2000);
+
+//     changeIndicator({
+//       ele: swiperIndicator,
+//       index,
+//       activeClass: 'swiper-indicator-item--active',
+//       inactiveClass: 'swiper-indicator-item'
+//     });
+//   }, 5000);
 // });
 
 onMounted(() => {
