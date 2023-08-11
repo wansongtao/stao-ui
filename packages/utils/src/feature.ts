@@ -151,9 +151,9 @@ export const aliOssImageResize = (
 // #region ajax
 /**
  * 使用XHR发送请求，获取数据
- * @param param 
- * @param beforeRequest 
- * @returns 
+ * @param param
+ * @param beforeRequest
+ * @returns
  */
 export const ajax = <T = unknown>(
   param: {
@@ -228,3 +228,101 @@ export const ajax = <T = unknown>(
   });
 };
 // #endregion ajax
+
+// #region changeCarousel
+/**
+ * 切换轮播图
+ * @param {object} options
+ * @param {HTMLElement} options.ele 轮播图容器元素
+ * @param {number} options.index 要切换到的索引
+ * @param {(idx: number) => void} options.changeIdx 最后一个切换到第一个时或
+ * 第一个切换到最后一个时的回调函数，参数为当前索引
+ * @param {'horizontal' | 'vertical'} options.direction
+ * @param {number} options.duration 动画时长，单位ms（默认500ms）
+ */
+export const changeCarousel = ({
+  index,
+  ele,
+  changeIdx,
+  duration = 500,
+  direction = 'horizontal'
+}: {
+  index: number;
+  ele: HTMLElement;
+  changeIdx: (idx: number) => void;
+  duration: number;
+  direction: 'horizontal' | 'vertical';
+}) => {
+  if (!ele || ele.style.display === 'none' || !ele.children.length) {
+    return;
+  }
+
+  const itemSize =
+    direction === 'horizontal' ? ele.clientWidth : ele.clientHeight;
+  const translate = direction === 'horizontal' ? 'translateX' : 'translateY';
+
+  const moveDistance = -index * itemSize;
+  let style = ele.getAttribute('style') ?? '';
+  if (style) {
+    style = style.replace(
+      /(transition-duration: [0-9]+ms;[ ]?)?(transform: translate[XY]\([-]?[0-9]+px\);[ ]?)?/g,
+      ''
+    );
+  }
+
+  ele.setAttribute(
+    'style',
+    `${style}transition-duration: ${duration}ms; transform: ${translate}(${moveDistance}px);`
+  );
+
+  const itemTotal = ele.childElementCount;
+  // 从最后一个切换到第一个，需要做特殊处理，以实现无缝滚动的效果
+  if (index === itemTotal) {
+    // 将第一个子元素移动到最后一个元素的后面
+    const childStyle = ele.children[0].getAttribute('style') ?? '';
+    const styleStr = childStyle.replace('[object CSSStyleDeclaration];', '');
+
+    ele.children[0].setAttribute(
+      'style',
+      `${styleStr};transform: ${translate}(${-moveDistance}px);`
+    );
+
+    if (typeof changeIdx === 'function') {
+      changeIdx(0);
+    }
+
+    // 当移动到第一项时，等动画结束后，重置样式
+    setTimeout(() => {
+      ele.setAttribute('style', `${style}transform: ${translate}(0px);`);
+
+      ele.children[0].setAttribute('style', styleStr);
+    }, duration);
+    return;
+  }
+
+  // 从第一个切换到最后一个，做特殊处理以实现无缝滚动效果
+  if (index === -1) {
+    const lastIdx = itemTotal - 1;
+    const moveSize = lastIdx * itemSize;
+    const childStyle = ele.children[lastIdx].getAttribute('style') ?? '';
+    const styleStr = childStyle.replace('[object CSSStyleDeclaration];', '');
+
+    ele.children[lastIdx].setAttribute(
+      'style',
+      `${styleStr}transform: ${translate}(-${itemSize * itemTotal}px);`
+    );
+
+    if (typeof changeIdx === 'function') {
+      changeIdx(lastIdx);
+    }
+
+    setTimeout(() => {
+      ele.setAttribute(
+        'style',
+        `${style}transform: ${translate}(-${moveSize}px);`
+      );
+      ele.children[lastIdx].setAttribute('style', styleStr);
+    }, duration);
+  }
+};
+// #endregion changeCarousel
