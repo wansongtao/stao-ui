@@ -29,12 +29,14 @@ aliOssImageResize('oss url', {
   color: 'fff'
 });
 ```
+
 ::: details 点击查看代码
 <<< ../../../packages/utils/src/feature.ts#aliOssImageResize
 :::
 
-## html2canvas封装
-使用Promise封装html2canvas，返回图片url。
+## html2canvas 封装
+
+使用 Promise 封装 html2canvas，返回图片 url。
 
 ::: details 点击查看代码
 <<< ../../../packages/utils/src/html2canvas.js
@@ -55,18 +57,47 @@ isPrime(4); // false
 <<< ../../../packages/utils/src/feature.ts#isPrime
 :::
 
-## 前端直传文件到阿里云OSS
+## 前端直传文件到阿里云 OSS
 
-使用axios封装，支持进度回调。具体参数请查看以下代码。
+使用 axios 封装，支持进度回调。具体参数请查看以下代码。
 
 ::: details 点击查看代码
 <<< ../../../packages/utils/src/api/upload.ts
 :::
 
-## 获取项目tag版本号
-通过shelljs获取项目的git信息，进而获取tag版本信息。  
-***使用场景：配合vite的环境变量设置网站版本号。***
+## 获取项目 tag 版本号
+
+通过 shelljs 获取项目的 git 信息，进而获取 tag 版本信息。  
+**_使用场景：配合 vite 的环境变量设置网站版本号。_**
 
 ::: details 点击查看代码
 <<< ../../../packages/utils/src/version.ts
 :::
+
+## Ajax, 封装 XMLHttpRequest
+
+封装 XMLHttpRequest，支持进度回调等。具体参数请查看以下代码。
+
+::: details 点击查看代码
+<<< ../../../packages/utils/src/feature.ts#ajax
+:::
+
+### 使用示例
+
+```ts
+import { ajax } from '@stao-ui/utils';
+
+ajax({
+  url: 'url',
+  method: 'GET',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  params: {
+    a: 1
+  }
+}).then((res) => {
+  const { data, xhr } = res;
+  console.log(data, xhr);
+});
+```
