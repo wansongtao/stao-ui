@@ -3,35 +3,53 @@ import { onMounted } from 'vue';
 
 /**
  * 轮播图切换
- * @param {number} idx 要切换到的索引
- * @param {(idx: number) => void} changeIdx 最后一个切换到第一个时或
+ * @param {object} options
+ * @param {HTMLElement} options.ele 轮播图容器元素
+ * @param {number} options.index 要切换到的索引
+ * @param {(idx: number) => void} options.changeIdx 最后一个切换到第一个时或
  * 第一个切换到最后一个时的回调函数，参数为当前索引
- * @param {number} duration 动画时长，单位ms（默认500ms）
+ * @param {'horizontal' | 'vertical'} options.direction
+ * @param {number} options.duration 动画时长，单位ms（默认500ms）
  */
-function swiperTo(idx, changeIdx, duration = 500) {
-  const ele = document.querySelector('.swiper-wrapper');
-  if (!ele || ele.style.display === 'none') {
+function changeCarousel({
+  index,
+  ele,
+  changeIdx,
+  duration = 500,
+  direction = 'horizontal'
+}) {
+  if (!ele || ele.style.display === 'none' || !ele.children.length) {
     return;
   }
 
-  const itemWidth = ele.clientWidth;
-  const moveDistance = -idx * itemWidth;
+  const itemSize =
+    direction === 'horizontal' ? ele.clientWidth : ele.clientHeight;
+  const translate = direction === 'horizontal' ? 'translateX' : 'translateY';
+
+  const moveDistance = -index * itemSize;
+  let style = ele.getAttribute('style') ?? '';
+  if (style) {
+    style = style.replace(
+      /(transition-duration: [0-9]+ms;[ ]?)?(transform: translate[XY]\([-]?[0-9]+px\);[ ]?)?/g,
+      ''
+    );
+  }
 
   ele.setAttribute(
     'style',
-    `transition-duration: ${duration}ms; transform: translateX(${moveDistance}px);`
+    `${style}transition-duration: ${duration}ms; transform: ${translate}(${moveDistance}px);`
   );
 
   const itemTotal = ele.childElementCount;
   // 从最后一个切换到第一个，需要做特殊处理，以实现无缝滚动的效果
-  if (idx === itemTotal) {
+  if (index === itemTotal) {
     // 将第一个子元素移动到最后一个元素的后面
     const childStyle = ele.children[0].getAttribute('style') ?? '';
     const styleStr = childStyle.replace('[object CSSStyleDeclaration];', '');
 
     ele.children[0].setAttribute(
       'style',
-      `${styleStr};transform: translateX(${-moveDistance}px);`
+      `${styleStr};transform: ${translate}(${-moveDistance}px);`
     );
 
     if (typeof changeIdx === 'function') {
@@ -40,7 +58,7 @@ function swiperTo(idx, changeIdx, duration = 500) {
 
     // 当移动到第一项时，等动画结束后，重置样式
     setTimeout(() => {
-      ele.setAttribute('style', `transform: translateX(0px);`);
+      ele.setAttribute('style', `${style}transform: ${translate}(0px);`);
 
       ele.children[0].setAttribute('style', styleStr);
     }, duration);
@@ -48,15 +66,15 @@ function swiperTo(idx, changeIdx, duration = 500) {
   }
 
   // 从第一个切换到最后一个，做特殊处理以实现无缝滚动效果
-  if (idx === -1) {
+  if (index === -1) {
     const lastIdx = itemTotal - 1;
-    const moveWidth = lastIdx * itemWidth;
+    const moveSize = lastIdx * itemSize;
     const childStyle = ele.children[lastIdx].getAttribute('style') ?? '';
     const styleStr = childStyle.replace('[object CSSStyleDeclaration];', '');
 
     ele.children[lastIdx].setAttribute(
       'style',
-      `${styleStr}transform: translateX(-${itemWidth * itemTotal}px);`
+      `${styleStr}transform: ${translate}(-${itemSize * itemTotal}px);`
     );
 
     if (typeof changeIdx === 'function') {
@@ -64,7 +82,10 @@ function swiperTo(idx, changeIdx, duration = 500) {
     }
 
     setTimeout(() => {
-      ele.setAttribute('style', `transform: translateX(-${moveWidth}px);`);
+      ele.setAttribute(
+        'style',
+        `${style}transform: ${translate}(-${moveSize}px);`
+      );
       ele.children[lastIdx].setAttribute('style', styleStr);
     }, duration);
   }
@@ -72,25 +93,31 @@ function swiperTo(idx, changeIdx, duration = 500) {
 
 /**
  * 切换指示器
- * @param {number} idx 要切换到的索引
+ * @param {object} options
+ * @param {HTMLElement} options.ele 指示器容器元素
+ * @param {number} options.index 要切换到的索引
+ * @param {string} options.activeClass 激活状态的类名
+ * @param {string} options.inactiveClass 非激活状态的类名
  */
-function changeIndicator(idx) {
-  const swiperIndicator = document.querySelector('.swiper-indicator');
-  const indicatorList = swiperIndicator.children;
+function changeIndicator({ ele, index, activeClass, inactiveClass }) {
+  if (!ele || !ele.children.length || !activeClass || !inactiveClass) {
+    return;
+  }
+
+  const indicatorList = ele.children;
   const itemTotal = indicatorList.length;
 
-  if (idx > itemTotal) {
-    idx = 0;
-  } else if (idx < 0) {
-    idx = itemTotal - 1;
+  if (index > itemTotal) {
+    index = 0;
+  } else if (index < 0) {
+    index = itemTotal - 1;
   }
 
   for (let i = 0; i < itemTotal; i++) {
-    if (i === idx) {
-      indicatorList[i].className =
-        'swiper-indicator-item swiper-indicator-item--active';
+    if (i === index) {
+      indicatorList[i].className = `${activeClass} ${inactiveClass}`;
     } else {
-      indicatorList[i].className = 'swiper-indicator-item';
+      indicatorList[i].className = inactiveClass;
     }
   }
 }
@@ -102,7 +129,7 @@ function changeIndicator(idx) {
 
 //   setInterval(() => {
 //     index++;
-//     swiperTo(index, (idx) => {
+//     swiperTo(index, (index) => {
 //       index = idx;
 //     });
 //     changeIndicator(index);
@@ -111,13 +138,25 @@ function changeIndicator(idx) {
 
 onMounted(() => {
   let index = 0;
+  const ele = document.querySelector('.swiper-wrapper');
+  const swiperIndicator = document.querySelector('.swiper-indicator');
 
   setInterval(() => {
     index++;
-    swiperTo(index, (idx) => {
-      index = idx;
+    changeCarousel({
+      index,
+      ele,
+      changeIdx: (idx) => {
+        index = idx;
+      }
     });
-    changeIndicator(index);
+
+    changeIndicator({
+      ele: swiperIndicator,
+      index,
+      activeClass: 'swiper-indicator-item--active',
+      inactiveClass: 'swiper-indicator-item'
+    });
   }, 5000);
 });
 </script>
@@ -159,6 +198,10 @@ onMounted(() => {
 .swiper-wrapper {
   display: flex;
   height: 100%;
+}
+
+.vertical {
+  flex-direction: column;
 }
 
 .swiper-slide {
