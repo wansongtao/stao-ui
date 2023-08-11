@@ -48,6 +48,7 @@ const config = {
             { text: 'TextEllipsis 文本省略', link: '/components/textellipsis/' },
             { text: 'Tabs 标签页', link: '/components/tabs/' },
             { text: 'DatePanel 日期面板', link: '/components/datepanel/' },
+            { text: 'Swipe 轮播图', link: '/components/swipe/' },
           ]
         },
         {
