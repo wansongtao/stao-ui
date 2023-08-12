@@ -9,11 +9,15 @@ import nativeExample from './nativeExample.vue'
 
 ## 原生js实现轮播图效果
 
-只使用原生js、html、css实现的轮播图组件，不依赖任何第三方库。如需使用，只需分别复制js、html、css代码插入您项目文件的对应位置即可。
+使用原生js、html、css实现的轮播图组件，不依赖任何第三方库。如需使用，只需分别复制js、html、css代码插入您项目文件的对应位置即可。
 
 <nativeExample />
 
-::: details 源代码
-<<< ./nativeExample.vue
+::: details 水平轮播源代码
+<<< ./index.html
+:::
+
+::: details 垂直轮播源代码
+<<< ./vertical.html
 :::
 

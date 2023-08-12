@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>carousel vertical</title>
+    <style>
+      .swiper-container {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        height: 100px;
+        border-radius: 20px;
+      }
+
+      .swiper-wrapper {
+        height: 100%;
+      }
+
+      .swiper-slide {
+        position: relative;
+        flex-shrink: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .swiper-indicator {
+        position: absolute;
+        top: 0;
+        left: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 8px;
+        height: 100%;
+        z-index: 9;
+      }
+
+      .swiper-indicator-item {
+        width: 8px;
+        height: 8px;
+        margin: 4px 0;
+        border-radius: 50%;
+        background-color: #fff;
+        transition: background-color 0.3s ease-in-out;
+      }
+
+      .swiper-indicator-item--active {
+        background-color: #f8b62c;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" style="background-color: rgb(196, 221, 243)">
+          1
+        </div>
+        <div class="swiper-slide" style="background-color: rgb(204, 126, 194)">
+          2
+        </div>
+        <div class="swiper-slide" style="background-color: rgb(235, 240, 148)">
+          3
+        </div>
+        <div class="swiper-slide" style="background-color: rgb(196, 243, 203)">
+          4
+        </div>
+      </div>
+      <div class="swiper-indicator">
+        <div class="swiper-indicator-item swiper-indicator-item--active"></div>
+        <div class="swiper-indicator-item"></div>
+        <div class="swiper-indicator-item"></div>
+        <div class="swiper-indicator-item"></div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        let index = 0;
+        const ele = document.querySelector('.swiper-wrapper');
+        const swiperIndicator = document.querySelector('.swiper-indicator');
+
+        setInterval(() => {
+          index++;
+          changeCarousel({
+            index,
+            ele,
+            direction: 'vertical',
+            timingFunc: 'ease-in-out'
+          });
+
+          if (index >= ele.childElementCount) {
+            index = 0;
+          }
+
+          if (index < 0) {
+            index = ele.childElementCount - 1;
+          }
+
+          changeIndicator({
+            ele: swiperIndicator,
+            index,
+            activeClass: 'swiper-indicator-item--active',
+            inactiveClass: 'swiper-indicator-item'
+          });
+        }, 2000);
+      });
+
+      /**
+       * 切换轮播图
+       * @param {object} options
+       * @param {HTMLElement} options.ele 轮播图容器元素
+       * @param {number} options.index 要切换到的索引，从0开始
+       * @param {'horizontal' | 'vertical'} options.direction
+       * @param {number} options.duration 动画时长，单位ms（默认500ms）
+       * @param {'ease' | 'linear' | 'ease-in' | 'ease-out' | 'ease-in-out'} options.timingFunc 动画函数（默认ease）
+       * @param {(currentIndex: number) => void} options.beforeChange 切换前的回调
+       * @param {(currentIndex: number) => void} options.afterChange 切换后的回调
+       */
+      function changeCarousel({
+        index,
+        ele,
+        duration = 500,
+        direction = 'horizontal',
+        timingFunc = 'ease',
+        beforeChange,
+        afterChange
+      }) {
+        if (!ele || ele.style.display === 'none' || !ele.children.length) {
+          return;
+        }
+
+        const emitAfterChange = (currentIndex, duration) => {
+          if (!afterChange) {
+            return;
+          }
+
+          if (duration <= 0) {
+            afterChange(currentIndex);
+            return;
+          }
+
+          setTimeout(() => {
+            afterChange(currentIndex);
+          }, duration);
+        };
+
+        const filterStyle = (style, timingFunction = '') => {
+          if (!style) {
+            return '';
+          }
+
+          const regexp = new RegExp(
+            `(transition: transform [0-9]+ms ${timingFunction} 0s; ?)?(transform: translate3d\\(-?[0-9]+px, -?[0-9]+px, 0px\\); ?)?`,
+            'g'
+          );
+
+          return style.replace(regexp, '');
+        };
+
+        const translate3d = {
+          horizontal: (x) => `translate3d(${x}px, 0px, 0px)`,
+          vertical: (y) => `translate3d(0px, ${y}px, 0px)`
+        };
+        const getTranslate3d = translate3d[direction];
+
+        const itemTotal = ele.childElementCount;
+        if (index < 0) {
+          index = itemTotal - 1;
+        } else if (index >= itemTotal) {
+          index = 0;
+        }
+
+        if (beforeChange) {
+          beforeChange(index);
+        }
+
+        const style = ele.getAttribute('style') ?? '';
+        const nativeStyle = filterStyle(style, timingFunc);
+        const itemSize =
+          direction === 'horizontal' ? ele.clientWidth : ele.clientHeight;
+
+        // 从最后一个切换到第一个，需要做特殊处理，以实现无缝滚动的效果
+        if (
+          index === 0 &&
+          style.indexOf(getTranslate3d(-(itemTotal - 1) * itemSize)) > -1
+        ) {
+          const childStyle = filterStyle(
+            ele.children[0].getAttribute('style') ?? '',
+            timingFunc
+          );
+
+          // 将第一个子元素移动到最后一个元素的后面
+          ele.children[0].setAttribute(
+            'style',
+            `${childStyle};transform: ${getTranslate3d(itemSize * itemTotal)};`
+          );
+
+          ele.setAttribute(
+            'style',
+            `${nativeStyle}transition: transform ${duration}ms ${timingFunc} 0s; transform: ${getTranslate3d(
+              -(itemSize * itemTotal)
+            )};`
+          );
+
+          // 等动画结束后，将第一个子元素复位
+          if (duration <= 0) {
+            ele.setAttribute(
+              'style',
+              `${nativeStyle}transform: translate3d(0px, 0px, 0px);`
+            );
+            ele.children[0].setAttribute('style', childStyle);
+          } else {
+            setTimeout(() => {
+              ele.setAttribute(
+                'style',
+                `${nativeStyle}transform: translate3d(0px, 0px, 0px);`
+              );
+              ele.children[0].setAttribute('style', childStyle);
+            }, duration);
+          }
+          emitAfterChange(index, duration);
+          return;
+        }
+
+        // 从第一个切换到最后一个
+        if (
+          index === itemTotal - 1 &&
+          (style.indexOf(getTranslate3d(0)) > -1 ||
+            style.indexOf('transform') === -1)
+        ) {
+          const childStyle = filterStyle(
+            ele.children[index].getAttribute('style') ?? '',
+            timingFunc
+          );
+
+          // 将最后一个子元素移动到第一个元素的前面
+          ele.children[index].setAttribute(
+            'style',
+            `${childStyle};transform: ${getTranslate3d(-itemSize * itemTotal)};`
+          );
+
+          ele.setAttribute(
+            'style',
+            `${nativeStyle}transition: transform ${duration}ms ${timingFunc} 0s; transform: ${getTranslate3d(
+              itemSize
+            )};`
+          );
+
+          // 等动画结束后，将最后一个子元素复位
+          if (duration <= 0) {
+            ele.children[index].setAttribute('style', childStyle);
+            ele.setAttribute(
+              'style',
+              `${nativeStyle}transform: ${getTranslate3d(-index * itemSize)};`
+            );
+          } else {
+            setTimeout(() => {
+              ele.children[index].setAttribute('style', childStyle);
+              ele.setAttribute(
+                'style',
+                `${nativeStyle}transform: ${getTranslate3d(-index * itemSize)};`
+              );
+            }, duration);
+          }
+
+          emitAfterChange(index, duration);
+          return;
+        }
+
+        ele.setAttribute(
+          'style',
+          `${nativeStyle}transition: transform ${duration}ms ${timingFunc} 0s; transform: ${getTranslate3d(
+            -index * itemSize
+          )};`
+        );
+        emitAfterChange(index, duration);
+      }
+
+      /**
+       * 切换指示器
+       * @param {object} options
+       * @param {HTMLElement} options.ele 指示器容器元素
+       * @param {number} options.index 要切换到的索引
+       * @param {string} options.activeClass 激活状态的类名
+       * @param {string} options.inactiveClass 非激活状态的类名
+       */
+      function changeIndicator({ ele, index, activeClass, inactiveClass }) {
+        if (!ele || !ele.children.length || !activeClass || !inactiveClass) {
+          return;
+        }
+
+        const indicatorList = ele.children;
+        const itemTotal = indicatorList.length;
+
+        if (index > itemTotal) {
+          index = 0;
+        } else if (index < 0) {
+          index = itemTotal - 1;
+        }
+
+        for (let i = 0; i < itemTotal; i++) {
+          if (i === index) {
+            indicatorList[i].className = `${activeClass} ${inactiveClass}`;
+          } else {
+            indicatorList[i].className = inactiveClass;
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
