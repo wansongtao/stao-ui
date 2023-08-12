@@ -101,3 +101,36 @@ ajax({
   console.log(data, xhr);
 });
 ```
+
+## 轮播方法
+
+该方法接受一个对象参数，对象包含以下属性：
+1. `options.index`: 需要切换的轮播项索引；
+2. `options.ele`: 轮播图容器元素，直接子元素为轮播项；
+3. `options.duration`: 可选，切换动画时间，单位ms，默认`500ms`；
+4. `options.timingFunc`: 可选，切换动画缓动函数，默认`ease`；
+5. `options.direction`: 可选，切换方向，默认`horizontal`，可选`vertical`。
+6. `options.beforeChange`: 可选，切换前回调函数，参数当前索引；
+7. `options.afterChange`: 可选，切换后回调函数，参数当前索引。
+
+```ts
+let index = 0;
+// 轮播图容器元素，直接子元素为轮播项
+const ele = document.querySelector('.wrapper');
+
+setInterval(() => {
+  index++;
+  changeCarousel({
+    index,
+    ele
+  });
+
+  if (index >= ele.childElementCount) {
+    index = 0;
+  }
+}, 5000);
+```
+
+::: details 点击查看代码
+<<< ../../../packages/utils/src/feature.ts#changeCarousel
+:::
