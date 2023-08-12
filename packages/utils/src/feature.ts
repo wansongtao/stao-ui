@@ -234,95 +234,177 @@ export const ajax = <T = unknown>(
  * 切换轮播图
  * @param {object} options
  * @param {HTMLElement} options.ele 轮播图容器元素
- * @param {number} options.index 要切换到的索引
- * @param {(idx: number) => void} options.changeIdx 最后一个切换到第一个时或
- * 第一个切换到最后一个时的回调函数，参数为当前索引
+ * @param {number} options.index 要切换到的索引，从0开始
  * @param {'horizontal' | 'vertical'} options.direction
  * @param {number} options.duration 动画时长，单位ms（默认500ms）
+ * @param {'ease' | 'linear' | 'ease-in' | 'ease-out' | 'ease-in-out'} options.timingFunc 动画函数（默认ease）
+ * @param {(currentIndex: number) => void} options.beforeChange 切换前的回调
+ * @param {(currentIndex: number) => void} options.afterChange 切换后的回调
  */
 export const changeCarousel = ({
   index,
   ele,
-  changeIdx,
   duration = 500,
-  direction = 'horizontal'
+  direction = 'horizontal',
+  timingFunc = 'ease',
+  beforeChange,
+  afterChange
 }: {
   index: number;
   ele: HTMLElement;
-  changeIdx: (idx: number) => void;
-  duration: number;
-  direction: 'horizontal' | 'vertical';
+  duration?: number;
+  direction?: 'horizontal' | 'vertical';
+  timingFunc?: 'ease' | 'linear' | 'ease-in' | 'ease-out' | 'ease-in-out';
+  beforeChange?: (currentIndex: number) => void;
+  afterChange?: (currentIndex: number) => void;
 }) => {
   if (!ele || ele.style.display === 'none' || !ele.children.length) {
     return;
   }
 
+  const emitAfterChange = (currentIndex: number, duration: number) => {
+    if (!afterChange) {
+      return;
+    }
+
+    if (duration <= 0) {
+      afterChange(currentIndex);
+      return;
+    }
+
+    setTimeout(() => {
+      afterChange(currentIndex);
+    }, duration);
+  };
+
+  const filterStyle = (style: string, timingFunction = '') => {
+    if (!style) {
+      return '';
+    }
+
+    const regexp = new RegExp(
+      `(\\[object CSSStyleDeclaration\\]; ?)?(transition: transform [0-9]+ms ${timingFunction} 0s; ?)?(transform: translate3d\\(-?[0-9]+px, -?[0-9]+px, 0px\\); ?)?`,
+      'g'
+    );
+
+    return style.replace(regexp, '');
+  };
+
+  const translate3d = {
+    horizontal: (x: number) => `translate3d(${x}px, 0px, 0px)`,
+    vertical: (y: number) => `translate3d(0px, ${y}px, 0px)`
+  } as const;
+  const getTranslate3d = translate3d[direction];
+
+  const itemTotal = ele.childElementCount;
+  if (index < 0) {
+    index = itemTotal - 1;
+  } else if (index >= itemTotal) {
+    index = 0;
+  }
+
+  if (beforeChange) {
+    beforeChange(index);
+  }
+
+  const style = ele.getAttribute('style') ?? '';
+  const nativeStyle = filterStyle(style, timingFunc);
   const itemSize =
     direction === 'horizontal' ? ele.clientWidth : ele.clientHeight;
-  const translate = direction === 'horizontal' ? 'translateX' : 'translateY';
 
-  const moveDistance = -index * itemSize;
-  let style = ele.getAttribute('style') ?? '';
-  if (style) {
-    style = style.replace(
-      /(transition-duration: [0-9]+ms;[ ]?)?(transform: translate[XY]\([-]?[0-9]+px\);[ ]?)?/g,
-      ''
+  // 从最后一个切换到第一个，需要做特殊处理，以实现无缝滚动的效果
+  if (
+    index === 0 &&
+    style.indexOf(getTranslate3d(-(itemTotal - 1) * itemSize)) > -1
+  ) {
+    const childStyle = filterStyle(
+      ele.children[0].getAttribute('style') ?? '',
+      timingFunc
     );
+
+    // 将第一个子元素移动到最后一个元素的后面
+    ele.children[0].setAttribute(
+      'style',
+      `${childStyle};transform: ${getTranslate3d(itemSize * itemTotal)};`
+    );
+
+    ele.setAttribute(
+      'style',
+      `${nativeStyle}transition: transform ${duration}ms ${timingFunc} 0s; transform: ${getTranslate3d(
+        -(itemSize * itemTotal)
+      )};`
+    );
+
+    // 等动画结束后，将第一个子元素复位
+    if (duration <= 0) {
+      ele.setAttribute(
+        'style',
+        `${nativeStyle}transform: translate3d(0px, 0px, 0px);`
+      );
+      ele.children[0].setAttribute('style', childStyle);
+    } else {
+      setTimeout(() => {
+        ele.setAttribute(
+          'style',
+          `${nativeStyle}transform: translate3d(0px, 0px, 0px);`
+        );
+        ele.children[0].setAttribute('style', childStyle);
+      }, duration);
+    }
+    emitAfterChange(index, duration);
+    return;
+  }
+
+  // 从第一个切换到最后一个
+  if (
+    index === itemTotal - 1 &&
+    (style.indexOf(getTranslate3d(0)) > -1 || style.indexOf('transform') === -1)
+  ) {
+    const childStyle = filterStyle(
+      ele.children[index].getAttribute('style') ?? '',
+      timingFunc
+    );
+
+    // 将最后一个子元素移动到第一个元素的前面
+    ele.children[index].setAttribute(
+      'style',
+      `${childStyle};transform: ${getTranslate3d(-itemSize * itemTotal)};`
+    );
+
+    ele.setAttribute(
+      'style',
+      `${nativeStyle}transition: transform ${duration}ms ${timingFunc} 0s; transform: ${getTranslate3d(
+        itemSize
+      )};`
+    );
+
+    // 等动画结束后，将最后一个子元素复位
+    if (duration <= 0) {
+      ele.children[index].setAttribute('style', childStyle);
+      ele.setAttribute(
+        'style',
+        `${nativeStyle}transform: ${getTranslate3d(-index * itemSize)};`
+      );
+    } else {
+      setTimeout(() => {
+        ele.children[index].setAttribute('style', childStyle);
+        ele.setAttribute(
+          'style',
+          `${nativeStyle}transform: ${getTranslate3d(-index * itemSize)};`
+        );
+      }, duration);
+    }
+
+    emitAfterChange(index, duration);
+    return;
   }
 
   ele.setAttribute(
     'style',
-    `${style}transition-duration: ${duration}ms; transform: ${translate}(${moveDistance}px);`
+    `${nativeStyle}transition: transform ${duration}ms ${timingFunc} 0s; transform: ${getTranslate3d(
+      -index * itemSize
+    )};`
   );
-
-  const itemTotal = ele.childElementCount;
-  // 从最后一个切换到第一个，需要做特殊处理，以实现无缝滚动的效果
-  if (index === itemTotal) {
-    // 将第一个子元素移动到最后一个元素的后面
-    const childStyle = ele.children[0].getAttribute('style') ?? '';
-    const styleStr = childStyle.replace('[object CSSStyleDeclaration];', '');
-
-    ele.children[0].setAttribute(
-      'style',
-      `${styleStr};transform: ${translate}(${-moveDistance}px);`
-    );
-
-    if (typeof changeIdx === 'function') {
-      changeIdx(0);
-    }
-
-    // 当移动到第一项时，等动画结束后，重置样式
-    setTimeout(() => {
-      ele.setAttribute('style', `${style}transform: ${translate}(0px);`);
-
-      ele.children[0].setAttribute('style', styleStr);
-    }, duration);
-    return;
-  }
-
-  // 从第一个切换到最后一个，做特殊处理以实现无缝滚动效果
-  if (index === -1) {
-    const lastIdx = itemTotal - 1;
-    const moveSize = lastIdx * itemSize;
-    const childStyle = ele.children[lastIdx].getAttribute('style') ?? '';
-    const styleStr = childStyle.replace('[object CSSStyleDeclaration];', '');
-
-    ele.children[lastIdx].setAttribute(
-      'style',
-      `${styleStr}transform: ${translate}(-${itemSize * itemTotal}px);`
-    );
-
-    if (typeof changeIdx === 'function') {
-      changeIdx(lastIdx);
-    }
-
-    setTimeout(() => {
-      ele.setAttribute(
-        'style',
-        `${style}transform: ${translate}(-${moveSize}px);`
-      );
-      ele.children[lastIdx].setAttribute('style', styleStr);
-    }, duration);
-  }
+  emitAfterChange(index, duration);
 };
 // #endregion changeCarousel
