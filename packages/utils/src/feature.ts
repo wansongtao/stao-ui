@@ -283,7 +283,7 @@ export const changeCarousel = ({
     }
 
     const regexp = new RegExp(
-      `(\\[object CSSStyleDeclaration\\]; ?)?(transition: transform [0-9]+ms ${timingFunction} 0s; ?)?(transform: translate3d\\(-?[0-9]+px, -?[0-9]+px, 0px\\); ?)?`,
+      `(transition: transform [0-9]+ms ${timingFunction} 0s; ?)?(transform: translate3d\\(-?[0-9]+px, -?[0-9]+px, 0px\\); ?)?`,
       'g'
     );
 
