@@ -2,6 +2,7 @@
 import { STextEllipsis } from '@stao-ui/components';
 import { ref } from 'vue';
 import { Tooltip as ATooltip } from 'ant-design-vue';
+import 'ant-design-vue/es/tooltip/style/index.css';
 
 const text = ref('不过是大梦一场空，不过是孤影照惊鸿。');
 const changeText = () => {
