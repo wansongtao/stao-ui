@@ -6,6 +6,20 @@ const config = {
   lastUpdated: true,
   lang: 'zh-CN',
   themeConfig: {
+    search: {
+      provider: 'algolia',
+      options: {
+        appId: 'F3YRIXSJG1',
+        apiKey: 'ece1f73ceff1e9fdbb88b45aa83b3ce2',
+        indexName: 'stao-ui',
+        placeholder: '请输入关键词',
+        translations: {
+          button: {
+            buttonText: '搜索'
+          }
+        }
+      }
+    },
     lastUpdatedText: '最后更新时间',
     docsDir: 'docs',
     outlineTitle: '这一页',
@@ -45,10 +59,13 @@ const config = {
           items: [
             { text: 'Button 按钮', link: '/components/button/' },
             { text: 'FileSelector 文件选择', link: '/components/upload/' },
-            { text: 'TextEllipsis 文本省略', link: '/components/textellipsis/' },
+            {
+              text: 'TextEllipsis 文本省略',
+              link: '/components/textellipsis/'
+            },
             { text: 'Tabs 标签页', link: '/components/tabs/' },
             { text: 'DatePanel 日期面板', link: '/components/datepanel/' },
-            { text: 'carousel 轮播图', link: '/components/carousel/' },
+            { text: 'carousel 轮播图', link: '/components/carousel/' }
           ]
         },
         {
@@ -71,7 +88,7 @@ const config = {
           text: 'hooks',
           items: [
             { text: 'useTextEllipsis', link: '/utils/hooks/useTextEllipsis/' },
-            { text: 'useTabsHistory', link: '/utils/hooks/useTabsHistory/' },
+            { text: 'useTabsHistory', link: '/utils/hooks/useTabsHistory/' }
           ]
         },
         {
