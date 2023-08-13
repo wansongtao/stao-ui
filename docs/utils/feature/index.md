@@ -113,23 +113,7 @@ ajax({
 6. `options.beforeChange`: 可选，切换前回调函数，参数当前索引；
 7. `options.afterChange`: 可选，切换后回调函数，参数当前索引。
 
-```ts
-let index = 0;
-// 轮播图容器元素，直接子元素为轮播项
-const ele = document.querySelector('.wrapper');
-
-setInterval(() => {
-  index++;
-  changeCarousel({
-    index,
-    ele
-  });
-
-  if (index >= ele.childElementCount) {
-    index = 0;
-  }
-}, 5000);
-```
+[使用参考](../../components/carousel/index#原生js实现轮播图效果)
 
 ::: details 点击查看代码
 <<< ../../../packages/utils/src/feature.ts#changeCarousel
