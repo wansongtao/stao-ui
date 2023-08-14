@@ -1,12 +1,22 @@
 import type { RouteRecordRaw } from 'vue-router'
 
-const modules = import.meta.glob<{ default: RouteRecordRaw }>('../views/**/router/index.ts', {
-  eager: true
-})
+const getModuleRoutes = () => {
+  const moduleRoutes: RouteRecordRaw[] = []
 
-const moduleRoutes: RouteRecordRaw[] = []
-for (const path in modules) {
-  moduleRoutes.push(modules[path].default)
+  try {
+    const modules = import.meta.glob<{ default: RouteRecordRaw }>('../views/**/router/index.ts', {
+      eager: true
+    })
+
+    for (const path in modules) {
+      moduleRoutes.push(modules[path].default)
+    }
+  } catch (ex) {
+    console.error(ex)
+  }
+
+  return moduleRoutes
 }
 
+const moduleRoutes = getModuleRoutes()
 export default moduleRoutes
