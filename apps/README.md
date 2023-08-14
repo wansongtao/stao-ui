@@ -1,6 +1,6 @@
 # apps
 
-This template should help get you started developing with Vue 3 in Vite.
+组件库的开发环境，测试组件库的使用。使用的是模块化路由技术。
 
 ## Recommended IDE Setup
 
