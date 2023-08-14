@@ -237,7 +237,7 @@ export const ajax = <T = unknown>(
  * @param {number} options.index 要切换到的索引，从0开始
  * @param {'horizontal' | 'vertical'} options.direction
  * @param {number} options.duration 动画时长，单位ms（默认500ms）
- * @param {'ease' | 'linear' | 'ease-in' | 'ease-out' | 'ease-in-out'} options.timingFunc 动画函数（默认ease）
+ * @param {string} options.timingFunc 动画函数（默认ease）
  * @param {(currentIndex: number) => void} options.beforeChange 切换前的回调
  * @param {(currentIndex: number) => void} options.afterChange 切换后的回调
  */
@@ -254,7 +254,7 @@ export const changeCarousel = ({
   ele: HTMLElement;
   duration?: number;
   direction?: 'horizontal' | 'vertical';
-  timingFunc?: 'ease' | 'linear' | 'ease-in' | 'ease-out' | 'ease-in-out';
+  timingFunc?: string;
   beforeChange?: (currentIndex: number) => void;
   afterChange?: (currentIndex: number) => void;
 }) => {
