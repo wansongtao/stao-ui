@@ -49,7 +49,7 @@ import simpleExample from './simpleExample.vue'
 
 ## API
 
-### SCarousel Props
+### Props
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
@@ -66,7 +66,7 @@ import simpleExample from './simpleExample.vue'
 | beforeChange | 切换前的回调函数 | _(from: number, to: number) => void_ | - |
 | afterChange | 切换后的回调函数 | _(current: number) => void_ | - |
 
-### Tabs Methods
+### SCarousel Methods
 
 | 方法名 | 说明 | 参数 |
 | --- | --- | --- | 
