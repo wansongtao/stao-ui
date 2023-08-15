@@ -176,11 +176,12 @@ defineExpose({
         's-carousel-dot--right s-carousel-dot--v': dotPosition === 'right'
       }"
     >
-      <li v-for="(item, index) in total" :key="item" @click="onGoTo(index)">
+      <li v-for="(item, index) in total" :key="item">
         <slot name="dot" :active="activeIndex === index" :index="index">
           <button
             class="s-carousel-dot-item"
             :class="{ 'dot-item--active': activeIndex === index }"
+            @click="onGoTo(index)"
           ></button>
         </slot>
       </li>
@@ -283,6 +284,11 @@ defineExpose({
   padding: 0;
   z-index: 9;
   list-style: none;
+
+  li {
+    margin: 0;
+    padding: 0;
+  }
 }
 
 .s-carousel-dot--h {
