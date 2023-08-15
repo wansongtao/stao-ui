@@ -38,7 +38,7 @@ import AdvancedExample from './AdvancedExample.vue'
 上传图片示例
 
 <UploadImg />
-::: details 查看代码
+::: details 查看示例代码
 <<< ./UploadImg.vue
 :::
 
@@ -67,9 +67,9 @@ import AdvancedExample from './AdvancedExample.vue'
 
 | 方法名 | 说明 | 参数 |
 | --- | --- | --- |
-| onSelectFile | 打开选择文件弹窗 | - |
+| onSelectFile | 打开选择文件弹窗 | `() => void` |
 | deleteFile | 删除已选择文件 | `(index: number) => void` |
-| clearFiles | 清空所有已选择文件 | - |
+| clearFiles | 清空所有已选择文件 | `() => void` |
 | verifyFile | 校验文件 | `(file: File, size?: number, type?: string) => boolean` |
 
 ### Slots

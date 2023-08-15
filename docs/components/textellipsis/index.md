@@ -30,7 +30,7 @@ details {
 点击文本，切换文本内容，查看文本是否超出范围。
 <simple-example />
 
-::: details 查看代码
+::: details 查看示例代码
 <<< ./simple.vue
 :::
 
@@ -39,7 +39,7 @@ details {
 配合Antd的Tooltip组件，超出范围时，才显示浮层。点击文本，可以切换文本内容。
 <advanced-example />
 
-::: details 查看代码
+::: details 查看示例代码
 <<< ./advanced.vue
 :::
 
