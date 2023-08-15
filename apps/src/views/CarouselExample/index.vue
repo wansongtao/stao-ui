@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import SCarousel from '../../components/SCarousel/index.vue'
-import SCarouselItem from '../../components/SCarouselItem/index.vue'
+import { SCarousel, SCarouselItem } from '@stao-ui/components'
 
 defineOptions({
   name: 'CarouselExample'
@@ -9,7 +8,7 @@ defineOptions({
 
 <template>
   <div class="container">
-    <SCarousel auto-play easing="linear" dot-position="bottom" :interval="2000" :default-index="2">
+    <SCarousel auto-play :interval="5000">
       <SCarouselItem>
         <div class="item" style="background-color: rgb(67, 149, 149)">1</div>
       </SCarouselItem>
