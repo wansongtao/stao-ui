@@ -33,4 +33,4 @@ import SimpleExample from './SimpleExample.vue'
 
 | 事件名 | 说明 | 参数 |
 | --- | --- | --- |
-| changeDate | 选中文本改变时触发 | _{ startDate: string; endDate: string; }_ |
+| changeDate | 选中文本改变时触发 | _(data: { startDate: string; endDate: string; }) => void_ |
