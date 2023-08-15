@@ -71,3 +71,9 @@ import AdvancedExample from './AdvancedExample.vue'
 | deleteFile | 删除已选择文件 | `(index: number) => void` |
 | clearFiles | 清空所有已选择文件 | - |
 | verifyFile | 校验文件 | `(file: File, size?: number, type?: string) => boolean` |
+
+### Slots
+
+| 名称 | 说明 | 参数 | 
+| --- | --- | --- |
+| default | 自定义按钮内容 | `{ disabled: boolean }` |
