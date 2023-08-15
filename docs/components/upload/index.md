@@ -6,7 +6,7 @@ import AdvancedExample from './AdvancedExample.vue'
 # 文件选择组件
 
 主要功能：限制文件数量，限制文件大小，限制文件类型，拖拽选择文件，自定义按钮内容，自定义按钮样式，禁用，目录上传。  
-使用场景：不需要大型组件库那么多功能的上传组件，或者需要高度自定义的上传组件。
+***使用场景：不需要大型组件库那么多功能的上传组件，或者需要高度自定义的上传组件。***
 
 ::: tip
 目前建议复制源代码到自己的项目中使用，因为组件库还在开发中，不稳定，不建议直接使用。  
@@ -60,9 +60,14 @@ import AdvancedExample from './AdvancedExample.vue'
 
 | 事件名称 | 说明 | 回调参数 |
 | --- | --- | --- | 
-| changeFile | 选择文件回调 | `Function(files: File[]){}` | 
-| overSize | 选择文件超出大小回调 | `Function(overFiles: File[]){}` | 
-| onSelectFile | 打开选择文件弹窗（实例方法） | `Function(){}` | 
-| deleteFile | 删除已选择文件（实例方法） | `Function(index: number){}` | 
-| clearFiles | 清空所有已选择文件（实例方法） | `Function(){}` | 
-| verifyFile | 校验文件（实例方法） | `Function(file: File, size?: number, type?: string): boolean {}` | 
+| changeFile | 改变选择文件触发 | `(files: File[]) => void` | 
+| overSize | 文件大小超出触发 | `(overFiles: File[]) => void` | 
+
+### Methods
+
+| 方法名 | 说明 | 参数 |
+| --- | --- | --- |
+| onSelectFile | 打开选择文件弹窗 | - |
+| deleteFile | 删除已选择文件 | `(index: number) => void` |
+| clearFiles | 清空所有已选择文件 | - |
+| verifyFile | 校验文件 | `(file: File, size?: number, type?: string) => boolean` |
