@@ -1,6 +1,8 @@
 <script lang="ts" setup>
-import { onMounted, ref, onBeforeUnmount, watch } from 'vue'
+import { onMounted, ref, onScopeDispose, watch } from 'vue'
 import { changeCarousel } from '@stao-ui/utils'
+import IconArrowLeft from '../icons/IconArrowLeft.vue'
+import IconArrowRight from '../icons/IconArrowRight.vue'
 
 defineOptions({
   name: 'SCarousel'
@@ -17,6 +19,7 @@ const $props = withDefaults(
     duration?: number
     easing?: string
     defaultIndex?: number
+    arrow?: 'always' | 'hover' | 'never'
     beforeChange?: (from: number, to: number) => void
     afterChange?: (current: number) => void
   }>(),
@@ -29,7 +32,8 @@ const $props = withDefaults(
     showDot: true,
     duration: 500,
     easing: 'ease',
-    defaultIndex: 0
+    defaultIndex: 0,
+    arrow: 'hover'
   }
 )
 
@@ -46,11 +50,20 @@ const changeIndex = (index: number, total: number, loop = true) => {
 const activeIndex = ref<number>(0)
 const total = ref<number>(0)
 const carouselRef = ref<HTMLElement>()
-let timer: number | null = null
+
+let timer: NodeJS.Timer | null = null
+onScopeDispose(() => {
+  if (timer) {
+    clearInterval(timer)
+  }
+})
 
 const autoplayCarousel = () => {
   if (!$props.autoPlay) {
     return
+  }
+  if (timer) {
+    clearInterval(timer)
   }
 
   timer = setInterval(() => {
@@ -74,13 +87,17 @@ const autoplayCarousel = () => {
   }, $props.interval)
 }
 const init = () => {
-  activeIndex.value = $props.defaultIndex
-  const element = carouselRef.value!
+  const element = carouselRef.value
+  if (!element) {
+    return
+  }
+
   total.value = element.children.length
   if (!total.value) {
     return
   }
 
+  activeIndex.value = $props.defaultIndex
   // set default index
   if (activeIndex.value) {
     changeCarousel({
@@ -96,11 +113,6 @@ const init = () => {
 
 onMounted(() => {
   init()
-})
-onBeforeUnmount(() => {
-  if (timer) {
-    clearInterval(timer)
-  }
 })
 watch(
   () => $props,
@@ -118,9 +130,9 @@ const onGoTo = (index: number) => {
     clearInterval(timer)
   }
 
-  $props.beforeChange?.(activeIndex.value, index)
-
-  activeIndex.value = changeIndex(index, total.value, $props.loop)
+  const idx = changeIndex(index, total.value, $props.loop)
+  $props.beforeChange?.(activeIndex.value, idx)
+  activeIndex.value = idx
   changeCarousel({
     index: activeIndex.value,
     ele: carouselRef.value!,
@@ -164,16 +176,37 @@ defineExpose({
         's-carousel-dot--right s-carousel-dot--v': dotPosition === 'right'
       }"
     >
-      <slot name="dot" :activeIndex="activeIndex">
-        <li v-for="item in total" :key="item">
+      <li v-for="(item, index) in total" :key="item" @click="onGoTo(index)">
+        <slot name="dot" :active="activeIndex === index" :index="index">
           <button
-            @click="onGoTo(item - 1)"
             class="s-carousel-dot-item"
-            :class="{ 's-carousel-dot-item--active': activeIndex === item - 1 }"
+            :class="{ 'dot-item--active': activeIndex === index }"
           ></button>
-        </li>
-      </slot>
+        </slot>
+      </li>
     </ul>
+    <div
+      class="s-arrow s-arrow--left"
+      :class="{ 's-arrow--always': arrow === 'always' }"
+      v-if="arrow !== 'never'"
+    >
+      <slot name="arrowLeft">
+        <button class="arrow-button" @click="onPrev">
+          <IconArrowLeft />
+        </button>
+      </slot>
+    </div>
+    <div
+      class="s-arrow s-arrow--right"
+      :class="{ 's-arrow--always': arrow === 'always' }"
+      v-if="arrow !== 'never'"
+    >
+      <slot name="arrowRight">
+        <button class="arrow-button" @click="onNext">
+          <IconArrowRight />
+        </button>
+      </slot>
+    </div>
   </div>
 </template>
 
@@ -190,6 +223,54 @@ defineExpose({
 
   .s-carousel-wrapper {
     height: 100%;
+  }
+
+  .s-arrow {
+    position: absolute;
+    top: 50%;
+    opacity: 0;
+    transform: translateY(-50%);
+    transition: all 0.3s ease;
+
+    &.s-arrow--always {
+      opacity: 1;
+    }
+  }
+
+  &:hover .s-arrow {
+    opacity: 1;
+  }
+}
+
+.s-arrow--left {
+  left: 15px;
+}
+
+.s-arrow--right {
+  right: 15px;
+}
+
+.arrow-button--none {
+  opacity: 0;
+}
+
+.arrow-button {
+  all: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover,
+  &:focus {
+    background-color: rgba(0, 0, 0, 0.6);
   }
 }
 
@@ -245,11 +326,16 @@ defineExpose({
 
   &:hover,
   &:focus {
-    opacity: 0.8;
+    opacity: 0.7;
   }
-}
 
-.s-carousel-dot-item--active {
-  opacity: 1;
+  &.dot-item--active {
+    opacity: 1;
+
+    &:hover,
+    &:focus {
+      opacity: 1;
+    }
+  }
 }
 </style>
