@@ -10,15 +10,19 @@ details {
 
 # 文本省略组件
 
-文本超出范围显示省略号，并抛出事件。提供一个默认 slot，用于显示文本，建议只传入 inline/text 元素。  
-使用场景：需要获取文本是否超出范围状态，即是否显示了省略号。
+获取文本是否超出了宽度显示了省略号。  
+***使用场景：配合tooltip组件，显示了省略号才显示提示框。***
 
 ::: tip 提示
 目前建议复制源代码到自己的项目中使用，因为组件库还在开发中，不稳定，不建议直接使用。  
 :::
 
-::: details 源代码
+::: details 组件源代码
 <<< ../../../packages/components/src/TextEllipsis/index.vue
+:::
+
+::: details useTextEllipsis 源码
+<<< ../../../packages/utils/src/hooks/useTextEllipsis.ts
 :::
 
 ## 基础用法
@@ -38,3 +42,17 @@ details {
 ::: details 查看代码
 <<< ./advanced.vue
 :::
+
+## API
+
+### Events
+
+| 事件名 | 说明 | 参数 |
+| --- | --- | --- |
+| changeStatus | 是否超出范围状态改变时触发 | `(isOverflow: boolean) => void` |
+
+### Slots
+
+| 名称 | 说明 | 参数 | 
+| --- | --- | --- |
+| default | 默认插槽，用于显示文本，建议只传入 inline/text 元素 | `{ isOverflow: boolean }` |
