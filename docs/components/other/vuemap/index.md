@@ -12,15 +12,16 @@
 <<< ../../../../apps/src/components/SMap/index.vue
 :::
 
-换成你自己的高德地图key。
-::: details vue-amap 初始化代码
-<<< ../../../../apps/src/utils/initMap.ts
-:::
-
 在main.ts中引入并注册组件。
 ```ts
-import '@/utils/initMap'
-import VueAMap from '@vuemap/vue-amap'
+import VueAMap, { initAMapApiLoader } from '@vuemap/vue-amap'
+import '@vuemap/vue-amap/dist/style.css'
+
+// 去高德地图开发者平台申请key
+initAMapApiLoader({
+  key: '',
+  securityJsCode: ''
+})
 
 const app = createApp(App)
 app.use(VueAMap)
