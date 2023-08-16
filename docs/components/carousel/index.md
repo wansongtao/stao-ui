@@ -49,7 +49,7 @@ import simpleExample from './simpleExample.vue'
 
 ## API
 
-### Props
+### SCarousel Props
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |

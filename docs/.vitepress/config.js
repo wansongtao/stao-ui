@@ -69,8 +69,14 @@ const config = {
           ]
         },
         {
+          text: '其他组件',
+          items: [
+            { text: 'vueamap 地图组件', link: '/components/other/vuemap/' },
+          ]
+        },
+        {
           text: 'antd组件',
-          items: [{ text: '确认对话框', link: '/components/modal/' }]
+          items: [{ text: '确认对话框', link: '/components/antd/modal/' }]
         }
       ],
       '/utils/': [
