@@ -26,7 +26,7 @@ echarts.use([
 
 const $props = defineProps<{
   options?: EChartsOption;
-  series?: PieSeriesOption[];
+  data?: PieSeriesOption['data'];
 }>();
 
 const option: EChartsOption = {
@@ -69,14 +69,31 @@ const option: EChartsOption = {
       label: {
         formatter: '{b} ({d}%) \n￥{c}',
         color: '#666'
-      },
-      data: $props.series && $props.series[0].data
+      }
     }
   ]
 };
 
 const pieChartRef = ref<HTMLElement | null>(null);
 let myChart: echarts.ECharts | null = null;
+const setChartOption = () => {
+  if (!myChart) {
+    return;
+  }
+
+  if ($props.options) {
+    myChart.setOption($props.options);
+  }
+  if ($props.data) {
+    myChart.setOption({
+      series: [
+        {
+          data: $props.data
+        }
+      ]
+    });
+  }
+};
 
 onMounted(() => {
   if (!pieChartRef.value) {
@@ -84,11 +101,8 @@ onMounted(() => {
   }
 
   myChart = echarts.init(pieChartRef.value);
-  if (!$props.options) {
-    myChart.setOption(option);
-  } else {
-    myChart.setOption({ ...option, ...$props.options });
-  }
+  myChart.setOption(option);
+  setChartOption();
 
   const resizeObserver = new ResizeObserver(() => {
     myChart?.resize();
@@ -97,15 +111,13 @@ onMounted(() => {
 });
 
 watch(
-  () => $props.series,
-  (newVal) => {
-    if (!myChart || !newVal) {
+  [() => $props.data, () => $props.options],
+  ([data, options]) => {
+    if (!myChart || (!data && !options)) {
       return;
     }
 
-    myChart.setOption({
-      series: newVal
-    });
+    setChartOption();
   },
   {
     deep: true
