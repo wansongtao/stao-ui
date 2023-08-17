@@ -25,7 +25,7 @@ echarts.use([
 ]);
 
 const $props = defineProps<{
-  units?: string;
+  defaultUnit?: string;
   data?: {
     xAxisData: string[];
     series: LineSeriesOption[];
@@ -62,7 +62,7 @@ const option: EChartsOption = {
     },
     padding: 8,
     valueFormatter: (value) => {
-      return value + ($props.units ?? '');
+      return value + ($props.defaultUnit ?? '');
     }
   },
   legend: {
@@ -95,8 +95,7 @@ const option: EChartsOption = {
     },
     axisLabel: {
       color: '#999999'
-    },
-    data: $props.data?.xAxisData ?? []
+    }
   },
   yAxis: {
     type: 'value',
@@ -114,39 +113,51 @@ const option: EChartsOption = {
   },
   series: [
     {
-      name: $props.data?.series[0].name ?? '',
       type: 'line',
       smooth: true,
       emphasis: {
         focus: 'series'
-      },
-      data: $props.data?.series[0].data ?? []
+      }
     },
     {
-      name: $props.data?.series[1].name ?? '',
       type: 'line',
       smooth: true,
       emphasis: {
         focus: 'series'
-      },
-      data: $props.data?.series[1].data ?? []
+      }
     }
   ]
 };
 
 const lineChartRef = ref<HTMLElement | null>(null);
 let myChart: echarts.ECharts | null = null;
+const setChartOption = () => {
+  if (!myChart) {
+    return;
+  }
+
+  if ($props.options) {
+    myChart.setOption($props.options);
+  }
+
+  if ($props.data) {
+    myChart.setOption({
+      xAxis: {
+        data: $props.data.xAxisData
+      },
+      series: $props.data.series
+    });
+  }
+}
+
 onMounted(() => {
   if (!lineChartRef.value) {
     return;
   }
 
   myChart = echarts.init(lineChartRef.value);
-  if (!$props.options) {
-    myChart.setOption(option);
-  } else {
-    myChart.setOption({ ...option, ...$props.options });
-  }
+  myChart.setOption(option);
+  setChartOption();
 
   const resizeObserver = new ResizeObserver(() => {
     myChart?.resize();
@@ -155,18 +166,13 @@ onMounted(() => {
 });
 
 watch(
-  () => $props.data,
-  (data) => {
-    if (!myChart || !data) {
+  [() => $props.data, () => $props.options],
+  ([data, options]) => {
+    if (!myChart || (!data && !options)) {
       return;
     }
 
-    myChart.setOption({
-      xAxis: {
-        data: data.xAxisData
-      },
-      series: data.series
-    });
+    setChartOption();
   },
   {
     deep: true
