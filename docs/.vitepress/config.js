@@ -84,6 +84,12 @@ const config = {
         {
           text: 'antd组件',
           items: [{ text: '确认对话框', link: '/components/antd/modal/' }]
+        },
+        {
+          text: 'elementPlus组件',
+          items: [
+            { text: 'ButtonConfirm 确认按钮', link: '/components/element-plus/confirm-btn/' }
+          ]
         }
       ],
       '/utils/': [
