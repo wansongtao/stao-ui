@@ -75,6 +75,12 @@ const config = {
           ]
         },
         {
+          text: 'echarts组件',
+          items: [
+            { text: 'PieChart 饼图', link: '/components/echarts/pie/' },
+          ]
+        },
+        {
           text: 'antd组件',
           items: [{ text: '确认对话框', link: '/components/antd/modal/' }]
         }
