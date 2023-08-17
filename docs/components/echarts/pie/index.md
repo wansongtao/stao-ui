@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import SimpleExample from './SimpleExample.vue'
+import SimpleExample from './simpleExample.vue'
 import AdvancedExample from './advanced.vue'
 </script>
 # PieChart 饼图
