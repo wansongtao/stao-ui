@@ -78,6 +78,7 @@ const config = {
           text: 'echarts组件',
           items: [
             { text: 'PieChart 饼图', link: '/components/echarts/pie/' },
+            { text: 'LineChart 折线图', link: '/components/echarts/line/' },
           ]
         },
         {
