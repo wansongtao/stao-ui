@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import SimpleExample from './SimpleExample.vue'
 </script>
-# 日期面板组件
+# DatePanel 日期面板
 
 通过点击面板中的文本，可以快速选择日期范围。
 ::: tip

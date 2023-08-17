@@ -3,7 +3,7 @@ import UploadImg from './UploadImg.vue'
 import SimpleExample from './SimpleExample.vue'
 import AdvancedExample from './AdvancedExample.vue'
 </script>
-# 文件选择组件
+# FileSelector 文件选择
 
 主要功能：限制文件数量，限制文件大小，限制文件类型，拖拽选择文件，自定义按钮内容，自定义按钮样式，禁用，目录上传。  
 ***使用场景：不需要大型组件库那么多功能的上传组件，或者需要高度自定义的上传组件。***

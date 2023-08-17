@@ -2,7 +2,7 @@
 import SimpleExample from './SimpleExample.vue'
 </script>
 
-# 按钮组件
+# Button 按钮
 
 简单按钮组件，支持自定义样式，支持自定义内容。  
 ***使用场景：高度自定义按钮(一些大型组件库的按钮改起来麻烦)。***

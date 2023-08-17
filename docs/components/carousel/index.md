@@ -2,7 +2,7 @@
 import nativeExample from './nativeExample.vue'
 import simpleExample from './simpleExample.vue'
 </script>
-# 轮播图组件
+# Carousel 轮播图
 
 ::: tip
 目前建议复制源代码到自己的项目中使用，因为组件库还在开发中，不稳定，不建议直接使用。

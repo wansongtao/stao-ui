@@ -2,7 +2,7 @@
 import SimpleExample from './SimpleExample.vue'
 import AdvancedExample from './advanced.vue'
 </script>
-# 饼图
+# PieChart 饼图
 
 封装echarts pieChart组件，设置了一些默认配置仅需传入数据即可使用，元素大小改变自动重新生成图表，也支持自定义配置。具体配置参考[echarts官方文档](https://echarts.apache.org/zh/option.html#title)。
 ::: tip

@@ -65,13 +65,13 @@ const config = {
             },
             { text: 'Tabs 标签页', link: '/components/tabs/' },
             { text: 'DatePanel 日期面板', link: '/components/datepanel/' },
-            { text: 'carousel 轮播图', link: '/components/carousel/' }
+            { text: 'Carousel 轮播图', link: '/components/carousel/' }
           ]
         },
         {
           text: '其他组件',
           items: [
-            { text: 'vueamap 地图组件', link: '/components/other/vuemap/' },
+            { text: 'VueAMap 地图', link: '/components/other/vuemap/' },
           ]
         },
         {

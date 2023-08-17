@@ -3,7 +3,7 @@ import SimpleExample from './SimpleExample.vue'
 import AdvancedExample from './AdvancedExample.vue'
 </script>
 
-# 标签页组件
+# Tabs 标签页
 
 选项卡切换组件，支持切换样式、隐藏销毁DOM结构、自定义选项卡图标/文字等。  
 ***使用场景：需要高度自定义的tabs组件时，可以使用该组件。***
