@@ -19,7 +19,7 @@ import AdvancedExample from './advanced.vue'
 <SimpleExample />
 
 ::: details 查看示例代码
-<<< ./SimpleExample.vue
+<<< ./simpleExample.vue
 :::
 
 ## 进阶用法
