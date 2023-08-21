@@ -66,11 +66,24 @@ getList();
 
 :deep(.el-pager li) {
   margin-top: 0;
+  background: transparent !important;
 }
 :deep(.el-table__header-wrapper table) {
   margin: 0;
 }
 :deep(.el-table__body-wrapper table) {
   margin: 0;
+}
+:deep(.el-table) {
+  background-color: transparent;
+}
+:deep(.el-table tr) {
+  background-color: transparent;
+}
+:deep(.el-table th.el-table__cell) {
+  background-color: transparent;
+}
+:deep(.el-pagination button) {
+  background: transparent !important;
 }
 </style>
