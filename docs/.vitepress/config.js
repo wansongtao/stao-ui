@@ -108,7 +108,8 @@ const config = {
           text: 'hooks',
           items: [
             { text: 'useTextEllipsis', link: '/utils/hooks/useTextEllipsis/' },
-            { text: 'useTabsHistory', link: '/utils/hooks/useTabsHistory/' }
+            { text: 'useTabsHistory', link: '/utils/hooks/useTabsHistory/' },
+            { text: 'useElTableSelection', link: '/utils/hooks/useElTableSelection/' },
           ]
         },
         {
