@@ -100,6 +100,7 @@ const config = {
             { text: '特殊方法', link: '/utils/feature/' },
             { text: 'websocket', link: '/utils/websocket/' },
             { text: 'exceljs', link: '/utils/exceljs/' },
+            { text: 'vosk 语音识别', link: '/utils/vosk/' },
             { text: 'CSS', link: '/utils/css/' }
           ]
         },
