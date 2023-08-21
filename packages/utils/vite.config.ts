@@ -17,7 +17,7 @@ export default defineConfig({
       fileName: 'stao-ui-utils'
     },
     rollupOptions: {
-      external: ['vue', 'ant-design-vue', 'exceljs', 'file-saver']
+      external: ['vue', 'ant-design-vue', 'exceljs', 'file-saver', 'element-plus']
     }
   }
 });

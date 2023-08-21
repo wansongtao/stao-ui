@@ -7,3 +7,6 @@ export * from './src/downloadFile';
 
 import useTextEllipsis from './src/hooks/useTextEllipsis';
 export { useTextEllipsis };
+
+import useElTableSelection from './src/hooks/useElTableSelection';
+export { useElTableSelection };
