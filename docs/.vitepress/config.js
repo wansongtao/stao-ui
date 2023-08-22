@@ -102,6 +102,7 @@ const config = {
             { text: 'websocket', link: '/utils/websocket/' },
             { text: 'exceljs', link: '/utils/exceljs/' },
             { text: 'vosk 语音识别', link: '/utils/vosk/' },
+            { text: 'axios', link: '/utils/axios/' },
             { text: 'CSS', link: '/utils/css/' }
           ]
         },
