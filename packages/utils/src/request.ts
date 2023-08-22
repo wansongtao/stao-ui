@@ -5,8 +5,7 @@ import useUserStore from './store/user';
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8';
 const instance = axios.create({
   baseURL: import.meta.env.VITE_BASE_API,
-  timeout: 10000,
-  withCredentials: true
+  timeout: 10000
 });
 
 instance.interceptors.request.use(
