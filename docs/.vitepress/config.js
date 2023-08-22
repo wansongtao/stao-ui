@@ -65,7 +65,8 @@ const config = {
             },
             { text: 'Tabs 标签页', link: '/components/tabs/' },
             { text: 'DatePanel 日期面板', link: '/components/datepanel/' },
-            { text: 'Carousel 轮播图', link: '/components/carousel/' }
+            { text: 'Carousel 轮播图', link: '/components/carousel/' },
+            { text: 'CodeForm 二维码表单', link: '/components/code-form/' },
           ]
         },
         {
