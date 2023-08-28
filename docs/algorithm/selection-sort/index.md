@@ -16,13 +16,13 @@ head:
 
 ## 3. 代码实现
 
-### 3.1 TypeScript 实现
-
-<<< ./selectionSort.ts
-
-### 3.2 JavaScript 实现
+### 3.1 JavaScript 实现
 
 <<< ./selection-sort.js
+
+### 3.2 TypeScript 实现
+
+<<< ./selectionSort.ts
 
 ## 4. 使用示例
 
