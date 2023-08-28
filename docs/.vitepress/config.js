@@ -66,20 +66,18 @@ const config = {
             { text: 'Tabs 标签页', link: '/components/tabs/' },
             { text: 'DatePanel 日期面板', link: '/components/datepanel/' },
             { text: 'Carousel 轮播图', link: '/components/carousel/' },
-            { text: 'CodeForm 二维码表单', link: '/components/code-form/' },
+            { text: 'CodeForm 二维码表单', link: '/components/code-form/' }
           ]
         },
         {
           text: '其他组件',
-          items: [
-            { text: 'VueAMap 地图', link: '/components/other/vuemap/' },
-          ]
+          items: [{ text: 'VueAMap 地图', link: '/components/other/vuemap/' }]
         },
         {
           text: 'echarts组件',
           items: [
             { text: 'PieChart 饼图', link: '/components/echarts/pie/' },
-            { text: 'LineChart 折线图', link: '/components/echarts/line/' },
+            { text: 'LineChart 折线图', link: '/components/echarts/line/' }
           ]
         },
         {
@@ -89,7 +87,10 @@ const config = {
         {
           text: 'elementPlus组件',
           items: [
-            { text: 'ButtonConfirm 确认按钮', link: '/components/element-plus/confirm-btn/' }
+            {
+              text: 'ButtonConfirm 确认按钮',
+              link: '/components/element-plus/confirm-btn/'
+            }
           ]
         }
       ],
@@ -109,9 +110,15 @@ const config = {
         {
           text: 'hooks',
           items: [
-            { text: 'useTextEllipsis', link: '/utils/hooks/useTextEllipsis/' },
-            { text: 'useTabsHistory', link: '/utils/hooks/useTabsHistory/' },
-            { text: 'useElTableSelection', link: '/utils/hooks/useElTableSelection/' },
+            {
+              text: 'useTextEllipsis',
+              link: '/utils/hooks/use-text-ellipsis/'
+            },
+            { text: 'useTabsHistory', link: '/utils/hooks/use-tabs-history/' },
+            {
+              text: 'useElTableSelection',
+              link: '/utils/hooks/use-eltable-selection/'
+            }
           ]
         },
         {
