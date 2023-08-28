@@ -9,7 +9,6 @@ function insertionSort(
   compare = (a, b) => a > b
 ) {
   const len = arr.length;
-  if (len <= 1) return arr;
 
   // 从第二个元素开始，依次插入到前面已排序的数组中
   // 像打扑克牌一样，抽出一张牌插入到已经排好序的牌中

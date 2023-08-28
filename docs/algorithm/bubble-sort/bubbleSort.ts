@@ -9,7 +9,6 @@ function bubbleSort<T = unknown>(
   compare: (a: T, b: T) => boolean = (a, b) => a > b
 ) {
   const len = arr.length;
-  if (len <= 1) return arr;
 
   for (let i = 0; i < len - 1; i++) {
     for (let j = 0; j < len - 1 - i; j++) {

@@ -9,7 +9,6 @@ function insertionSort<T = unknown>(
   compare: (a: T, b: T) => boolean = (a, b) => a > b
 ) {
   const len = arr.length;
-  if (len <= 1) return arr;
 
   for (let i = 1; i < len; i++) {
     const temp = arr[i];
