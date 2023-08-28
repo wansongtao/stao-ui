@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@stao-ui/components": "workspace:^1.0.13",
-    "@stao-ui/utils": "workspace:^1.0.7"
+    "@stao-ui/utils": "workspace:^1.0.7",
+    "markdown-it-katex": "^2.0.3"
   }
 }
