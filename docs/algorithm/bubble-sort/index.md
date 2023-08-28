@@ -16,13 +16,13 @@ head:
 
 ## 3. 算法实现
 
-### 3.1 TypeScript 实现
-
-<<< ./bubbleSort.ts
-
-### 3.2 JavaScript 实现
+### 3.1 JavaScript 实现
 
 <<< ./bubble-sort.js
+
+### 3.2 TypeScript 实现
+
+<<< ./bubbleSort.ts
 
 ## 4. 使用示例
 
