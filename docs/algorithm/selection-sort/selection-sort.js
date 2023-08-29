@@ -6,7 +6,6 @@
  */
 function selectionSort(arr, compare = (a, b) => a > b) {
   const len = arr.length;
-  if (len <= 1) return arr;
 
   // 从第一个元素开始，找出最小(大)的元素，只需要比较len - 1次
   for (let i = 0; i < len - 1; i++) {
