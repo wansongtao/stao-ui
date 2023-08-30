@@ -213,6 +213,10 @@ const config = {
             {
               text: 'useElTableSelection',
               link: '/utils/hooks/use-eltable-selection/'
+            },
+            {
+              text: 'useResizeObserver',
+              link: '/utils/hooks/use-resizeobserver/'
             }
           ]
         },
@@ -234,7 +238,7 @@ const config = {
             { text: '冒泡排序', link: '/algorithm/bubble-sort/' },
             { text: '选择排序', link: '/algorithm/selection-sort/' },
             { text: '插入排序', link: '/algorithm/insertion-sort/' },
-            { text: '希尔排序', link: '/algorithm/shell-sort/' },
+            { text: '希尔排序', link: '/algorithm/shell-sort/' }
           ]
         }
       ]
