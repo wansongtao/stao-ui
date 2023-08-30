@@ -10,3 +10,6 @@ export { useTextEllipsis };
 
 import useElTableSelection from './src/hooks/useElTableSelection';
 export { useElTableSelection };
+
+import useResizeObserver from './src/hooks/useResizeObserver';
+export { useResizeObserver };

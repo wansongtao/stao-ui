@@ -1,16 +1,15 @@
 import { ref, onMounted, onScopeDispose } from 'vue';
 
 const useResizeObserver = <T extends Element | SVGElement>(
-  callback: (entries: ResizeObserverEntry[], observer: ResizeObserver) => void
+  callback: (entries: ResizeObserverEntry[], observer: ResizeObserver) => void,
+  options?: ResizeObserverOptions
 ) => {
   const element = ref<T | null>(null);
-  const resizeObserver = new ResizeObserver((entries, observer) => {
-    callback(entries, observer);
-  });
+  const resizeObserver = new ResizeObserver(callback);
 
   onMounted(() => {
     if (element.value) {
-      resizeObserver.observe(element.value);
+      resizeObserver.observe(element.value, options);
     }
   });
 
