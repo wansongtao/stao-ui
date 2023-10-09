@@ -238,7 +238,8 @@ const config = {
             { text: '冒泡排序', link: '/algorithm/bubble-sort/' },
             { text: '选择排序', link: '/algorithm/selection-sort/' },
             { text: '插入排序', link: '/algorithm/insertion-sort/' },
-            { text: '希尔排序', link: '/algorithm/shell-sort/' }
+            { text: '希尔排序', link: '/algorithm/shell-sort/' },
+            { text: '归并排序', link: '/algorithm/merge-sort/' },
           ]
         }
       ]
