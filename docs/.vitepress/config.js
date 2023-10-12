@@ -177,7 +177,10 @@ const config = {
         },
         {
           text: 'antd组件',
-          items: [{ text: '确认对话框', link: '/components/antd/modal/' }]
+          items: [
+            { text: '确认对话框', link: '/components/antd/modal/' },
+            { text: 'Switch 开关', link: '/components/antd/base-switch/' },
+          ]
         },
         {
           text: 'elementPlus组件',
