@@ -244,6 +244,7 @@ const config = {
             { text: '希尔排序', link: '/algorithm/shell-sort/' },
             { text: '归并排序', link: '/algorithm/merge-sort/' },
             { text: '快速排序', link: '/algorithm/quick-sort/' },
+            { text: '计数排序', link: '/algorithm/counting-sort/' },
           ]
         }
       ]
