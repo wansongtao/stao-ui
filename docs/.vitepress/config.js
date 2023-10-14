@@ -243,6 +243,7 @@ const config = {
             { text: '插入排序', link: '/algorithm/insertion-sort/' },
             { text: '希尔排序', link: '/algorithm/shell-sort/' },
             { text: '归并排序', link: '/algorithm/merge-sort/' },
+            { text: '快速排序', link: '/algorithm/quick-sort/' },
           ]
         }
       ]
