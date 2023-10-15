@@ -1,3 +1,9 @@
+/**
+ * 基数排序，改变原数组
+ * @param {number[]} arr 
+ * @param {boolean} isAsc 默认升序
+ * @returns 
+ */
 function radixSort(arr, isAsc = true) {
   if (arr.length < 2) return arr;
 

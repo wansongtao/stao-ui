@@ -1,5 +1,5 @@
 /**
- * 堆排序，不改变原数组
+ * 堆排序，改变原数组
  * @param arr 
  * @param compare 默认升序
  * @returns 
