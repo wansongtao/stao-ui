@@ -246,7 +246,8 @@ const config = {
             { text: '快速排序', link: '/algorithm/quick-sort/' },
             { text: '计数排序', link: '/algorithm/counting-sort/' },
             { text: '桶排序', link: '/algorithm/bucket-sort/' },
-            { text: '基数排序', link: '/algorithm/radix-sort/' }
+            { text: '基数排序', link: '/algorithm/radix-sort/' },
+            { text: '堆排序', link: '/algorithm/heap-sort/' }
           ]
         }
       ]
