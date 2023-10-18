@@ -8,13 +8,14 @@ function radixSort(arr, isAsc = true) {
   if (arr.length < 2) return arr;
 
   let max = Math.max(...arr);
-  if (max < 0) {
-    max = Math.abs(Math.min(...arr));
+  const min = Math.abs(Math.min(...arr));
+  if (max < 0 || min > max) {
+    max = min;
   }
   const radix = 10;
   let exp = 1;
 
-  while (max / exp > 0) {
+  while (Math.floor(max / exp) > 0) {
     const buckets = [];
     arr.forEach((item) => {
       let index = Math.floor(Math.abs(item) / exp) % radix;
