@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<!-- <script lang="ts" setup>
 import { SAntBaseSwitch } from '@stao-ui/components';
 import { ref } from 'vue';
 
@@ -25,4 +25,4 @@ const checked2 = ref(false);
     margin-right: 20px;
   }
 }
-</style>
+</style> -->

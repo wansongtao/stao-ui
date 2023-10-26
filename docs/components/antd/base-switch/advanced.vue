@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<!-- <script lang="ts" setup>
 import { SAntBaseSwitch } from '@stao-ui/components';
 import { ref } from 'vue';
 
@@ -60,4 +60,4 @@ const onRequest = (value: { checked: boolean; }) => {
     margin-right: 20px;
   }
 }
-</style>
+</style> -->

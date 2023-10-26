@@ -1,4 +1,4 @@
-<script setup>
+<!-- <script setup>
 import SimpleExample from './simple.vue'
 import AdvancedExample from './advanced.vue'
 </script>
@@ -56,4 +56,4 @@ import AdvancedExample from './advanced.vue'
 | 事件名 | 说明 | 回调参数 |
 | --- | --- | --- |
 | change | 开关变化时触发 | _(data: { checked: boolean \| string \| number; data?: T; e: Event }) => void_ |
-| click | 点击时触发 | _(data: { checked: boolean \| string \| number; data?: T; e: Event }) => void_ |
+| click | 点击时触发 | _(data: { checked: boolean \| string \| number; data?: T; e: Event }) => void_ | -->
