@@ -175,13 +175,13 @@ const config = {
             { text: 'LineChart 折线图', link: '/components/echarts/line/' }
           ]
         },
-        {
-          text: 'antd组件',
-          items: [
-            { text: '确认对话框', link: '/components/antd/modal/' },
-            { text: 'Switch 开关', link: '/components/antd/base-switch/' },
-          ]
-        },
+        // {
+        //   text: 'antd组件',
+        //   items: [
+        //     { text: '确认对话框', link: '/components/antd/modal/' },
+        //     { text: 'Switch 开关', link: '/components/antd/base-switch/' },
+        //   ]
+        // },
         {
           text: 'elementPlus组件',
           items: [
