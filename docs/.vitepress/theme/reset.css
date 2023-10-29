@@ -1,0 +1,8 @@
+body {
+  color: var(--vp-c-text-1) !important;
+  background-color: var(--vp-c-bg) !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--vp-c-text-1) !important;
+}
