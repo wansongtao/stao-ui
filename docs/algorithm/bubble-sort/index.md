@@ -37,3 +37,14 @@ const arr2 = [{a: 1}, {a: 10}, {a: 10}, {a: 4}, {a: 0}];
 bubbleSort(arr2, (a, b) => a.a > b.a);
 console.log(arr2); // [{a: 0}, {a: 1}, {a: 4}, {a: 10}, {a: 10}]
 ```
+
+## 5. 速度测试
+
+::: tip
+数组长度过大，网页可能会崩溃哦，请量力而行！
+:::
+<script setup>
+import SortExample from './sort.vue'
+</script>
+
+<SortExample />

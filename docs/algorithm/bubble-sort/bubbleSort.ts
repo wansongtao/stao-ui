@@ -4,7 +4,7 @@
  * @param compare 比较函数，默认升序
  * @returns
  */
-function bubbleSort<T = unknown>(
+export default function bubbleSort<T = unknown>(
   arr: T[],
   compare: (a: T, b: T) => boolean = (a, b) => a > b
 ) {
