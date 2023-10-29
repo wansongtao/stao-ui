@@ -408,3 +408,58 @@ export const changeCarousel = ({
   emitAfterChange(index, duration);
 };
 // #endregion changeCarousel
+
+// #region getPseudoRandomNumber
+/**
+ * 获取伪随机数
+ * @param {number} [min=0] 最小值，默认0
+ * @param {number} [max=65532] 最大值，默认65532
+ * @returns {number}
+ */
+export const getPseudoRandomNumber = (
+  min: number = 0,
+  max: number = 65535
+): number => {
+  if (min > max) {
+    const temp = min;
+    min = max;
+    max = temp;
+  }
+
+  const arr = new Uint16Array(1);
+  const maxNum = 65535;
+  let randomNum = 0;
+  if (
+    typeof window !== 'undefined' &&
+    window.crypto &&
+    window.crypto.getRandomValues
+  ) {
+    randomNum = window.crypto.getRandomValues(arr)[0] / maxNum;
+  } else {
+    randomNum = Math.random();
+  }
+
+  return Math.ceil(randomNum * (max - min) + min);
+};
+// #endregion getPseudoRandomNumber
+
+// #region getArray
+/**
+ * 获取指定长度的数组
+ * @param len 
+ * @param fillFn
+ * @returns 
+ */
+export const getArray = <T = number>(len: number, fillFn: () => T) => {
+  if (typeof Array.from !== 'function') {
+    const arr = [];
+    for (let i = 0; i < len; i++) {
+      arr.push(fillFn());
+    }
+    return arr;
+  }
+
+  const arr = Array.from({ length: len }, () => fillFn());
+  return arr;
+};
+// #endregion getArray
