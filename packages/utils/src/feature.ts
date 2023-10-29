@@ -450,7 +450,7 @@ export const getPseudoRandomNumber = (
  * @param fillFn
  * @returns 
  */
-export const getArray = <T = number>(len: number, fillFn: () => T) => {
+export const getArray = <T = number>(len: number, fillFn: () => T): T[] => {
   if (typeof Array.from !== 'function') {
     const arr = [];
     for (let i = 0; i < len; i++) {
