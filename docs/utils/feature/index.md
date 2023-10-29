@@ -118,3 +118,36 @@ ajax({
 ::: details 点击查看代码
 <<< ../../../packages/utils/src/feature.ts#changeCarousel
 :::
+
+## 生成伪随机数
+
+该方法接受两个参数，第一个参数为生成随机数的最小值，第二个参数为生成随机数的最大值。
+
+::: details 点击查看代码
+<<< ../../../packages/utils/src/feature.ts#getPseudoRandomNumber
+:::
+
+### 使用示例
+
+```ts
+import { getPseudoRandomNumber } from '@stao-ui/utils';
+
+getPseudoRandomNumber(1, 10); // 生成1-10之间的随机数
+```
+
+## 生成指定长度的数组
+
+该方法接受两个参数，第一个参数为数组长度，第二个参数为一个返回填充值的函数。
+
+::: details 点击查看代码
+<<< ../../../packages/utils/src/feature.ts#getArray
+:::
+
+### 使用示例
+
+```ts
+import { getArray } from '@stao-ui/utils';
+
+getArray(10, () => 1); // [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+```
+
