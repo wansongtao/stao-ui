@@ -4,7 +4,7 @@
  * @param isAsc 默认升序
  * @returns 
  */
-function radixSort(arr: number[], isAsc = true) {
+export default function radixSort(arr: number[], isAsc = true) {
   if (arr.length < 2) return arr;
 
   let max = Math.max(...arr);

@@ -32,3 +32,18 @@ import radixSort from './radixSort';
 const arr = [1, 3, 2, 5, 4];
 console.log(radixSort(arr)); // [1, 2, 3, 4, 5]
 ```
+
+## 5. 速度测试
+
+::: tip
+数组长度过大，网页可能会崩溃哦，请量力而行！
+:::
+<script setup>
+import SortExample from './sort.vue'
+</script>
+
+<SortExample />
+
+::: details 测试代码
+<<< ../component/baseSort.vue
+:::
