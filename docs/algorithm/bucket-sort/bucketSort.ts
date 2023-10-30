@@ -4,7 +4,7 @@
  * @param isAsc 默认升序
  * @returns 
  */
-function bucketSort(arr: number[], isAsc = true) {
+export default function bucketSort(arr: number[], isAsc = true) {
   const len = arr.length;
   if (len < 2) return arr;
 
