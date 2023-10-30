@@ -4,9 +4,9 @@
  * @param compare 比较函数，默认升序
  * @returns
  */
-function mergeSort<T = unknown>(
+export default function mergeSort<T = unknown>(
   arr: T[],
-  compare: (a: T, b: T) => boolean
+  compare: (a: T, b: T) => boolean = (a, b) => a > b
 ): T[] {
   const len = arr.length;
   if (len < 2) return arr;
@@ -20,7 +20,7 @@ function mergeSort<T = unknown>(
   let i = 0,
     j = 0;
   do {
-    if (compare(left[i], right[j])) {
+    if (compare(right[j], left[i])) {
       result.push(left[i]);
       i++;
     } else {
