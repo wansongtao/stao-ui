@@ -48,3 +48,7 @@ import SortExample from './sort.vue'
 </script>
 
 <SortExample />
+
+::: details 测试代码
+<<< ../component/baseSort.vue
+:::

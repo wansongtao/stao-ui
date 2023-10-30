@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ElInputNumber, ElButton } from 'element-plus';
-import 'element-plus/dist/index.css'
+import 'element-plus/dist/index.css';
 import { ref } from 'vue';
 import { getPseudoRandomNumber, getArray } from '@stao-ui/utils';
 
@@ -11,8 +11,8 @@ const $props = defineProps<{
 const min = ref(0);
 const max = ref(100);
 const len = ref(20);
-const loading = ref(false);
 
+const loading = ref(false);
 const arr = ref<number[]>([]);
 const times = ref(0);
 
@@ -24,11 +24,11 @@ const onSort = () => {
     arr.value = getArray(len.value, () =>
       getPseudoRandomNumber(min.value, max.value)
     );
+
     const start = performance.now();
-
     arr.value = $props.sort(arr.value);
-
     times.value = performance.now() - start;
+
     loading.value = false;
   }, 100);
 };
@@ -48,9 +48,7 @@ const onSort = () => {
       <span class="flex-shrink">数组长度：</span>
       <el-input-number v-model="len" :min="1" :controls="false" />
     </div>
-    <el-button type="primary" :loading="loading" @click="onSort"
-      >开始排序</el-button
-    >
+    <el-button type="primary" :loading="loading" @click="onSort">开始排序</el-button>
   </div>
   <div class="mt-20" v-show="times && arr.length">
     <div class="flexbox">
