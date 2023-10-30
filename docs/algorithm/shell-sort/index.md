@@ -36,3 +36,18 @@ const arr1 = [{ a: 1 }, { a: 3 }, { a: 2 }, { a: 4 }];
 shellSort(arr1, (a, b) => a.a > b.a);
 console.log(arr1); // [{ a: 1 }, { a: 2 }, { a: 3 }, { a: 4 }]
 ```
+
+## 5. 速度测试
+
+::: tip
+数组长度过大，网页可能会崩溃哦，请量力而行！
+:::
+<script setup>
+import SortExample from './sort.vue'
+</script>
+
+<SortExample />
+
+::: details 测试代码
+<<< ../component/baseSort.vue
+:::

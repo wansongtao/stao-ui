@@ -4,7 +4,7 @@
  * @param compare 比较函数，默认升序
  * @returns 
  */
-function shellSort<T = unknown>(
+export default function shellSort<T = unknown>(
   arr: T[],
   compare: (a: T, b: T) => boolean = (a, b) => a > b
 ) {
