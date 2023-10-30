@@ -4,7 +4,7 @@
  * @param compare 
  * @returns 
  */
-function quickSort<T = number>(arr: T[], compare = (a: T, b: T) => a > b): T[] {
+export default function quickSort<T = number>(arr: T[], compare = (a: T, b: T) => a > b): T[] {
   if (arr.length < 2) return arr;
 
   const pivot = arr[0];
@@ -27,7 +27,7 @@ function quickSort<T = number>(arr: T[], compare = (a: T, b: T) => a > b): T[] {
  * @param compare 
  * @returns 
  */
-function quickSortPlus<T = number>(arr: T[], compare = (a: T, b: T) => a > b): T[] {
+export function quickSortPlus<T = number>(arr: T[], compare = (a: T, b: T) => a > b): T[] {
   const quick = (arr: T[], left: number, right: number) => {
     if (left >= right) {
       return;
