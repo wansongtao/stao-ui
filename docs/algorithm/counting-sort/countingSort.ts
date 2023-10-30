@@ -4,7 +4,7 @@
  * @param isAsc 默认升序，false为降序
  * @returns 
  */
-function countingSort(arr: number[], isAsc = true) {
+export default function countingSort(arr: number[], isAsc = true) {
   const min = Math.min(...arr);
   const countArr: number[] = [];
 
