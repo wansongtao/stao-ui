@@ -4,7 +4,7 @@
  * @param compare 默认升序
  * @returns 
  */
-function heapSort<T = number>(arr: T[], compare = (a: T, b: T) => a > b) {
+export default function heapSort<T = number>(arr: T[], compare = (a: T, b: T) => a > b) {
   const heapify = (arr: T[], len: number) => {
     const count = Math.floor((len - 1) / 2);
 
