@@ -4,6 +4,7 @@ export * from './src/webSocket';
 export * from './src/feature';
 export * from './src/excel';
 export * from './src/downloadFile';
+export * from './src/event/eventBus';
 
 import useTextEllipsis from './src/hooks/useTextEllipsis';
 export { useTextEllipsis };
