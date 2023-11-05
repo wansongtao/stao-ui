@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import SimpleExample from './SimpleExample.vue'
+import SimpleExample from './simpleExample.vue'
 </script>
 
 # Switch 开关
