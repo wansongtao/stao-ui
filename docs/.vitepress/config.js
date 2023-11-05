@@ -154,6 +154,7 @@ const config = {
           items: [
             { text: 'Button 按钮', link: '/components/button/' },
             { text: 'FileSelector 文件选择', link: '/components/upload/' },
+            { text: 'Switch 开关', link: '/components/switch/' },
             {
               text: 'TextEllipsis 文本省略',
               link: '/components/textellipsis/'
