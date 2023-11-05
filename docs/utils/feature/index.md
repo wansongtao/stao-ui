@@ -151,3 +151,23 @@ import { getArray } from '@stao-ui/utils';
 getArray(10, () => 1); // [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 ```
 
+## 获取系统明暗模式
+
+方法返回当前系统模式。接收一个可选函数参数，传入该参数则自动跟随系统模式，函数参数接收一个字符串值，为`dark`时为暗模式，为`light`时为明模式。
+
+::: details 点击查看代码
+<<< ../../../packages/utils/src/feature.ts#getSystemTheme
+:::
+
+### 使用示例
+
+```ts
+import { getSystemTheme } from '@stao-ui/utils';
+
+const currentMode = getSystemTheme((theme) => {
+  // 系统模式变化时触发
+  console.log(theme); // dark | light
+});
+
+console.log(currentMode); // dark | light
+```
