@@ -181,6 +181,7 @@ const config = {
           items: [
             { text: '确认对话框', link: '/components/antd/modal/' },
             { text: 'Switch 开关', link: '/components/antd/base-switch/' },
+            { text: 'CheckTransfer 多选穿梭框', link: '/components/antd/check-transfer/' },
           ]
         },
         {
