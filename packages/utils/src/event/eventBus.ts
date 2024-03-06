@@ -1,16 +1,16 @@
-export class EventBus {
-  private listeners: Record<string, Function[]> = {};
+export class EventBus<T extends Record<string | symbol, any>> {
+  private listeners: Record<keyof T, ((...args: any[]) => void)[]> = {} as any;
 
-  $on(event: string, callback: Function) {
+  $on<K extends keyof T>(event: K, callback: T[K]) {
     if (!this.listeners[event]) {
       this.listeners[event] = [];
     }
     this.listeners[event].push(callback);
   }
 
-  $emit<T = unknown>(event: string, ...args: T[]) {
+  $emit<K extends keyof T>(event: K, ...args: Parameters<T[K]>) {
     const callbacks = this.listeners[event];
-    if (!callbacks) {
+    if (!callbacks || callbacks?.length === 0) {
       return;
     }
 
@@ -19,7 +19,20 @@ export class EventBus {
     });
   }
 
-  $off(event: string) {
-    delete this.listeners[event];
+  $off<K extends keyof T>(event: K, listener?: T[K]) {
+    if (!listener) {
+      delete this.listeners[event];
+      return;
+    }
+
+    const fns = this.listeners[event];
+    if (!fns || !fns.length) {
+      return;
+    }
+
+    const idx = fns.indexOf(listener);
+    if (idx !== -1) {
+      fns.splice(idx, 1);
+    }
   }
 }
