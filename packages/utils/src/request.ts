@@ -143,6 +143,13 @@ instance.interceptors.response.use(
       });
     }
 
+    // 如果存在重复请求，则触发事件，将错误结果返回给请求
+    const key = error?.config?.headers.key as string;
+    if (historyRequests.has(key)) {
+      historyRequests.delete(key);
+      eventBus.$emit(key, undefined, error);
+    }
+
     // 处理取消请求错误
     if (error.code === 'ERR_CANCELED') {
       return Promise.reject(error);
