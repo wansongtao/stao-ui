@@ -1,5 +1,45 @@
 # 特殊方法
 
+## 函数式编程实现
+
+传入一系列函数，返回一个函数，依次执行传入的函数。
+
+```ts
+import { compose } from '@stao-ui/utils';
+
+const fn = compose(
+  (a: number) => a + 1,
+  (a: number) => a + 2,
+  (a: number) => a + 3
+);
+
+fn(1); // 7
+```
+
+::: details 查看源码
+<<< ../../../packages/utils/src/feature.ts#compose
+:::
+
+## 柯里化函数
+
+传入一个函数，返回一个柯里化函数。可以传入多个参数，当参数数量满足函数参数数量时，执行函数。
+
+```ts
+import { curry } from '@stao-ui/utils';
+
+const fn = curry((a: number, b: number, c: number) => {
+  return a + b + c;
+});
+
+fn(1, 2, 3); // 6
+fn(1)(2)(3); // 6
+fn(1, 2)(3); // 6
+```
+
+::: details 查看源码
+<<< ../../../packages/utils/src/utils.ts#curry
+:::
+
 ## 希尔排序
 
 传入一个数组，返回一个排序后的数组，改变原数组。支持设置排序规则。
@@ -11,7 +51,7 @@ const arr = [{ a: 100 }, { a: 10 }, { a: 20 }];
 shellSort(arr, (a, b) => a.a - b.a > 0); // [{ a: 100 }, { a: 20 }, { a: 10 }]
 ```
 
-::: details 点击查看代码
+::: details 查看源码
 <<< ../../../packages/utils/src/feature.ts#shellSort
 :::
 
@@ -30,7 +70,7 @@ aliOssImageResize('oss url', {
 });
 ```
 
-::: details 点击查看代码
+::: details 查看源码
 <<< ../../../packages/utils/src/feature.ts#aliOssImageResize
 :::
 
@@ -38,7 +78,7 @@ aliOssImageResize('oss url', {
 
 使用 Promise 封装 html2canvas，返回图片 url。
 
-::: details 点击查看代码
+::: details 查看源码
 <<< ../../../packages/utils/src/html2canvas.js
 :::
 
@@ -53,7 +93,7 @@ isPrime(2); // true
 isPrime(4); // false
 ```
 
-::: details 点击查看代码
+::: details 查看源码
 <<< ../../../packages/utils/src/feature.ts#isPrime
 :::
 
@@ -61,7 +101,7 @@ isPrime(4); // false
 
 使用 axios 封装，支持进度回调。具体参数请查看以下代码。
 
-::: details 点击查看代码
+::: details 查看源码
 <<< ../../../packages/utils/src/api/upload.ts
 :::
 
@@ -70,7 +110,7 @@ isPrime(4); // false
 通过 shelljs 获取项目的 git 信息，进而获取 tag 版本信息。  
 **_使用场景：配合 vite 的环境变量设置网站版本号。_**
 
-::: details 点击查看代码
+::: details 查看源码
 <<< ../../../packages/utils/src/version.ts
 :::
 
@@ -93,7 +133,7 @@ export default defineConfig({
 
 封装 XMLHttpRequest，支持进度回调等。具体参数请查看以下代码。
 
-::: details 点击查看代码
+::: details 查看源码
 <<< ../../../packages/utils/src/feature.ts#ajax
 :::
 
@@ -211,7 +251,7 @@ export default ajax;
 
 [使用参考](../../components/carousel/index#原生js实现轮播图效果)
 
-::: details 点击查看代码
+::: details 查看源码
 <<< ../../../packages/utils/src/feature.ts#changeCarousel
 :::
 
@@ -219,7 +259,7 @@ export default ajax;
 
 该方法接受两个参数，第一个参数为生成随机数的最小值，第二个参数为生成随机数的最大值。
 
-::: details 点击查看代码
+::: details 查看源码
 <<< ../../../packages/utils/src/feature.ts#getPseudoRandomNumber
 :::
 
@@ -235,7 +275,7 @@ getPseudoRandomNumber(1, 10); // 生成1-10之间的随机数
 
 该方法接受两个参数，第一个参数为数组长度，第二个参数为一个返回填充值的函数。
 
-::: details 点击查看代码
+::: details 查看源码
 <<< ../../../packages/utils/src/feature.ts#getArray
 :::
 
@@ -251,7 +291,7 @@ getArray(10, () => 1); // [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 
 方法返回当前系统模式。接收一个可选函数参数，传入该参数则自动跟随系统模式，函数参数接收一个字符串值，为`dark`时为暗模式，为`light`时为明模式。
 
-::: details 点击查看代码
+::: details 查看源码
 <<< ../../../packages/utils/src/feature.ts#getSystemTheme
 :::
 

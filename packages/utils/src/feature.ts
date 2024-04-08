@@ -1,3 +1,52 @@
+// #region compose
+/**
+ * @description 函数式编程实现，从左往右执行，函数返回值会传给下一个执行的函数
+ * @param funcs
+ * @returns
+ */
+export const compose = <T = unknown>(...funcs: Function[]) => {
+  if (funcs.length === 0) {
+    return (arg: T) => arg;
+  }
+
+  if (funcs.length === 1) {
+    return funcs[0];
+  }
+
+  return funcs.reduce((a, b) => {
+    return (...args: T[]) => {
+      return b(a(...args));
+    };
+  });
+};
+// #endregion compose
+
+// #region curry
+export interface ICurryBack<T = unknown, B = unknown> {
+  (...params: T[]): B | ICurryBack<T, B>;
+}
+/**
+ * @description 柯里化：将多变量函数拆解为单变量（或部分变量）的多个函数并依次调用
+ * @param fn
+ * @param args
+ * @returns
+ */
+export const curry = <T = unknown, B = unknown>(
+  fn: Function,
+  ...args: T[]
+): B | ICurryBack<T, B> => {
+  const length = fn.length;
+
+  if (args.length < length) {
+    return function (...params: T[]) {
+      return curry(fn, ...args, ...params);
+    };
+  }
+
+  return fn(...args);
+};
+// #endregion curry
+
 // #region isPrime
 /**
  * @description 是否为素数
@@ -446,9 +495,9 @@ export const getPseudoRandomNumber = (
 // #region getArray
 /**
  * 获取指定长度的数组
- * @param len 
+ * @param len
  * @param fillFn
- * @returns 
+ * @returns
  */
 export const getArray = <T = number>(len: number, fillFn: () => T): T[] => {
   if (typeof Array.from !== 'function') {
@@ -470,50 +519,52 @@ export const getArray = <T = number>(len: number, fillFn: () => T): T[] => {
  * @param autoFollow 自动跟随系统明暗模式回调
  * @returns
  */
-export const getSystemTheme = (autoFollow?: (mode: 'dark' | 'light') => void) => {
+export const getSystemTheme = (
+  autoFollow?: (mode: 'dark' | 'light') => void
+) => {
   if (!window.matchMedia) {
-    const date = new Date()
-    const hours = date.getHours()
+    const date = new Date();
+    const hours = date.getHours();
 
     if (autoFollow) {
-      const time = date.getTime()
-      let delay = 0
-      let mode: 'light' | 'dark' = 'light'
+      const time = date.getTime();
+      let delay = 0;
+      let mode: 'light' | 'dark' = 'light';
 
       if (hours >= 0 && hours < 7) {
-        const lastTime = date.setHours(7)
-        delay = lastTime - time
+        const lastTime = date.setHours(7);
+        delay = lastTime - time;
       } else if (hours >= 7 && hours < 19) {
-        const lastTime = date.setHours(19)
-        delay = lastTime - time
-        mode = 'dark'
+        const lastTime = date.setHours(19);
+        delay = lastTime - time;
+        mode = 'dark';
       } else {
-        const lastTime = date.setHours(23, 59, 59, 999) + 7 * 60 * 60 * 1000
-        delay = lastTime - time
+        const lastTime = date.setHours(23, 59, 59, 999) + 7 * 60 * 60 * 1000;
+        delay = lastTime - time;
       }
 
       setTimeout(() => {
-        autoFollow(mode)
-        getSystemTheme(autoFollow)
-      }, delay)
+        autoFollow(mode);
+        getSystemTheme(autoFollow);
+      }, delay);
     }
 
     if (hours >= 7 && hours < 19) {
-      return 'light'
+      return 'light';
     }
 
-    return 'dark'
+    return 'dark';
   }
 
-  const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
-  const theme = systemTheme.matches ? 'dark' : 'light'
+  const systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
+  const theme = systemTheme.matches ? 'dark' : 'light';
 
   if (autoFollow) {
     systemTheme.addEventListener('change', (e) => {
-      const theme = e.matches ? 'dark' : 'light'
-      autoFollow(theme)
-    })
+      const theme = e.matches ? 'dark' : 'light';
+      autoFollow(theme);
+    });
   }
-  return theme
-}
+  return theme;
+};
 // #endregion getSystemTheme

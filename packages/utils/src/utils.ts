@@ -11,51 +11,6 @@ export const getDataType = (obj: unknown): string => {
 };
 // #endregion getDataType
 
-// #region compose
-/**
- * @description 函数式编程实现，从左往右执行，函数返回值会传给下一个执行的函数
- * @param funcs
- * @returns
- */
-export const compose = <T = unknown>(...funcs: Function[]) => {
-  if (funcs.length === 0) {
-    return (arg: T) => arg;
-  }
-
-  if (funcs.length === 1) {
-    return funcs[0];
-  }
-
-  return funcs.reduce((a, b) => {
-    return (...args: T[]) => {
-      return b(a(...args));
-    };
-  });
-};
-// #endregion compose
-
-// #region throttle
-/**
- * @description 节流函数，触发一次后，下次触发需要间隔一定的时间
- * @param fn 需要执行的函数
- * @param delay 间隔时间，默认1s，单位ms
- * @returns
- */
-export const throttle = <T = unknown>(fn: Function, delay: number = 1000) => {
-  let lastTime = 0;
-  return function (this: any, ...args: T[]) {
-    const nowTime = Date.now();
-
-    if (nowTime - lastTime < delay) {
-      return;
-    }
-
-    lastTime = nowTime;
-    fn.apply(this, args);
-  };
-};
-// #endregion throttle
-
 // #region debounce
 /**
  * @description 防抖函数，一定时间内多次触发，只执行最后触发的一次，可能永远不会执行
@@ -87,74 +42,137 @@ export const debounce = <T = unknown>(
 };
 // #endregion debounce
 
-// #region curry
-export interface ICurryBack<T = unknown, B = unknown> {
-  (...params: T[]): B | ICurryBack<T, B>;
-}
+// #region throttle
 /**
- * @description 柯里化：将多变量函数拆解为单变量（或部分变量）的多个函数并依次调用
- * @param fn
- * @param args
+ * @description 节流函数，触发一次后，下次触发需要间隔一定的时间
+ * @param fn 需要执行的函数
+ * @param delay 间隔时间，默认1s，单位ms
  * @returns
  */
-export const curry = <T = unknown, B = unknown>(
-  fn: Function,
-  ...args: T[]
-): B | ICurryBack<T, B> => {
-  const length = fn.length;
+export const throttle = <T = unknown>(fn: Function, delay: number = 1000) => {
+  let lastTime = 0;
+  return function (this: any, ...args: T[]) {
+    const nowTime = Date.now();
 
-  if (args.length < length) {
-    return function (...params: T[]) {
-      return curry(fn, ...args, ...params);
-    };
-  }
+    if (nowTime - lastTime < delay) {
+      return;
+    }
 
-  return fn(...args);
+    lastTime = nowTime;
+    fn.apply(this, args);
+  };
 };
-// #endregion curry
+// #endregion throttle
 
-// #region fileSlice
+// #region formatTime
 /**
- * @description 将文件切片
- * @param {File} file 文件对象
- * @param {number} [start = 0] 从文件的哪里开始，默认0
- * @param {number} [piece = 1024 * 512] 每一块大小，默认512k
- * @returns {Blob[]} 返回一个文件切片数组
+ * @description 格式化时间
+ * @param {Date} [date] Date对象，默认当前时间
+ * @param {String} [format] 输出格式字符串，默认：yyyy/MM/dd HH:mm:ss。yy: 输出两位数的年份，
+ * h：输出12小时制，H：输出24小时制，M：月份，m：分钟，一位字母则不补零
+ * @returns {String}
  */
-export const fileSlice = (
-  file: File,
-  start: number = 0,
-  piece: number = 1024 * 512
-): Blob[] => {
-  const total = file.size;
-  let end = start + piece;
-
-  // 结束位置不能超出文件大小
-  if (end > total) {
-    end = total;
+export const formatTime = (
+  date: Date = new Date(),
+  format: string = 'yyyy/MM/dd HH:mm:ss'
+): string => {
+  if (!format) {
+    return format;
   }
 
-  const chunks: Blob[] = [];
-  while (end <= total) {
-    const blob = file.slice(start, end);
-    chunks.push(blob);
+  const formatObj = {
+    yy: () => {
+      return date.getFullYear().toString().substring(2, 4);
+    },
+    yyyy: () => {
+      return date.getFullYear().toString();
+    },
+    M: () => {
+      const month = date.getMonth() + 1;
+      return month.toString();
+    },
+    MM: () => {
+      const month = date.getMonth() + 1;
+      return month.toString().padStart(2, '0');
+    },
+    d: () => {
+      return date.getDate().toString();
+    },
+    dd: () => {
+      return date.getDate().toString().padStart(2, '0');
+    },
+    h: () => {
+      let hours = date.getHours();
+      if (hours > 12) {
+        hours -= 12;
+      }
 
-    if (end === total) {
-      break;
+      return hours.toString();
+    },
+    hh: () => {
+      let hours = date.getHours();
+      if (hours > 12) {
+        hours -= 12;
+      }
+
+      return hours.toString().padStart(2, '0');
+    },
+    H: () => {
+      return date.getHours().toString();
+    },
+    HH: () => {
+      return date.getHours().toString().padStart(2, '0');
+    },
+    m: () => {
+      return date.getMinutes().toString();
+    },
+    mm: () => {
+      return date.getMinutes().toString().padStart(2, '0');
+    },
+    s: () => {
+      return date.getSeconds().toString();
+    },
+    ss: () => {
+      return date.getSeconds().toString().padStart(2, '0');
+    }
+  };
+
+  type key =
+    | 'yy'
+    | 'yyyy'
+    | 'MM'
+    | 'M'
+    | 'd'
+    | 'dd'
+    | 'h'
+    | 'hh'
+    | 'H'
+    | 'HH'
+    | 'm'
+    | 'mm'
+    | 's'
+    | 'ss';
+  const replaceFunc = (val: string): string => {
+    let func = formatObj[val as key];
+    if (func instanceof Function) {
+      return func();
     }
 
-    start = end;
-    end = start + piece;
-
-    // 结束位置不能超出文件大小
-    if (end > total) {
-      end = total;
+    func = formatObj[val.toLowerCase() as key];
+    if (func instanceof Function) {
+      return func();
     }
-  }
 
-  return chunks;
+    // 没有匹配的方法，返回原字符串
+    return val;
+  };
+
+  return format.replace(
+    /([Yy]{2,4}|[M]+|[Dd]+|[Hh]+|[m]+|[Ss]+)/g,
+    replaceFunc
+  );
 };
-// #endregion fileSlice
+// #endregion formatTime
 
 // #region deepClone
 /**
@@ -178,9 +196,9 @@ export const deepClone = <T = unknown>(obj: T) => {
 
     for (const key in data) {
       // 跳过原型上的属性
-      // if (!data.hasOwnProperty(key)) {
-      //   continue;
-      // }
+      if (!data.hasOwnProperty(key)) {
+        continue;
+      }
 
       // 简单数据类型直接返回值
       if (!(data[key] instanceof Object)) {
@@ -248,6 +266,49 @@ export const deepClone = <T = unknown>(obj: T) => {
   return clone(obj);
 };
 // #endregion deepClone
+
+// #region fileSlice
+/**
+ * @description 将文件切片
+ * @param {File} file 文件对象
+ * @param {number} [start = 0] 从文件的哪里开始，默认0
+ * @param {number} [piece = 1024 * 512] 每一块大小，默认512k
+ * @returns {Blob[]} 返回一个文件切片数组
+ */
+export const fileSlice = (
+  file: File,
+  start: number = 0,
+  piece: number = 1024 * 512
+): Blob[] => {
+  const total = file.size;
+  let end = start + piece;
+
+  // 结束位置不能超出文件大小
+  if (end > total) {
+    end = total;
+  }
+
+  const chunks: Blob[] = [];
+  while (end <= total) {
+    const blob = file.slice(start, end);
+    chunks.push(blob);
+
+    if (end === total) {
+      break;
+    }
+
+    start = end;
+    end = start + piece;
+
+    // 结束位置不能超出文件大小
+    if (end > total) {
+      end = total;
+    }
+  }
+
+  return chunks;
+};
+// #endregion fileSlice
 
 // #region preloadImages
 /**
@@ -412,116 +473,6 @@ export const filterEmoji = (value: string) => {
   return value.replace(regexp, '');
 };
 // #endregion filterEmoji
-
-// #region formatTime
-/**
- * @description 格式化时间
- * @param {Date} [date] Date对象，默认当前时间
- * @param {String} [format] 输出格式字符串，默认：yyyy/MM/dd HH:mm:ss。yy: 输出两位数的年份，
- * h：输出12小时制，H：输出24小时制，M：月份，m：分钟，一位字母则不补零
- * @returns {String}
- */
-export const formatTime = (
-  date: Date = new Date(),
-  format: string = 'yyyy/MM/dd HH:mm:ss'
-): string => {
-  if (!format) {
-    return format;
-  }
-
-  const formatObj = {
-    yy: () => {
-      return date.getFullYear().toString().substring(2, 4);
-    },
-    yyyy: () => {
-      return date.getFullYear().toString();
-    },
-    M: () => {
-      const month = date.getMonth() + 1;
-      return month.toString();
-    },
-    MM: () => {
-      const month = date.getMonth() + 1;
-      return month.toString().padStart(2, '0');
-    },
-    d: () => {
-      return date.getDate().toString();
-    },
-    dd: () => {
-      return date.getDate().toString().padStart(2, '0');
-    },
-    h: () => {
-      let hours = date.getHours();
-      if (hours > 12) {
-        hours -= 12;
-      }
-
-      return hours.toString();
-    },
-    hh: () => {
-      let hours = date.getHours();
-      if (hours > 12) {
-        hours -= 12;
-      }
-
-      return hours.toString().padStart(2, '0');
-    },
-    H: () => {
-      return date.getHours().toString();
-    },
-    HH: () => {
-      return date.getHours().toString().padStart(2, '0');
-    },
-    m: () => {
-      return date.getMinutes().toString();
-    },
-    mm: () => {
-      return date.getMinutes().toString().padStart(2, '0');
-    },
-    s: () => {
-      return date.getSeconds().toString();
-    },
-    ss: () => {
-      return date.getSeconds().toString().padStart(2, '0');
-    }
-  };
-
-  type key =
-    | 'yy'
-    | 'yyyy'
-    | 'MM'
-    | 'M'
-    | 'd'
-    | 'dd'
-    | 'h'
-    | 'hh'
-    | 'H'
-    | 'HH'
-    | 'm'
-    | 'mm'
-    | 's'
-    | 'ss';
-  const replaceFunc = (val: string): string => {
-    let func = formatObj[val as key];
-    if (func instanceof Function) {
-      return func();
-    }
-
-    func = formatObj[val.toLowerCase() as key];
-    if (func instanceof Function) {
-      return func();
-    }
-
-    // 没有匹配的方法，返回原字符串
-    return val;
-  };
-
-  return format.replace(
-    /([Yy]{2,4}|[M]+|[Dd]+|[Hh]+|[m]+|[Ss]+)/g,
-    replaceFunc
-  );
-};
-// #endregion formatTime
 
 // #region getMimeTypeByFileName
 /**

@@ -12,45 +12,8 @@ getDataType('1'); // string
 getDataType(true); // boolean
 ```
 
-::: details 点击查看代码
+::: details 查看源码
 <<< ../../../packages/utils/src/utils.ts#getDataType
-:::
-
-## 格式化时间
-
-传入一个 Date，返回一个格式化后的时间字符串。支持设置格式化模板。
-
-```ts
-import { formatTime } from '@stao-ui/utils';
-
-const date = new Date('2023/08/04 13:52:31');
-
-formatTime(date, 'yyyy-MM-dd hh:mm:ss'); // 2023-08-04 01:52:31
-formatTime(date, 'yy-M-d h:mm:ss'); // 23-8-4 1:52:31
-formatTime(date, 'HH:mm:ss'); // 13:52:31
-formatTime(date, 'h:mm:ss'); // 1:52:31
-```
-
-::: details 点击查看代码
-<<< ../../../packages/utils/src/utils.ts#formatTime
-:::
-
-## 节流函数
-
-传入一个函数，返回一个节流函数。触发一次后，一定时间内不会再次触发。
-
-```ts
-import { throttle } from '@stao-ui/utils';
-
-const fn = throttle(() => {
-  console.log('节流函数');
-}, 1000);
-
-fn();
-```
-
-::: details 点击查看代码
-<<< ../../../packages/utils/src/utils.ts#throttle
 :::
 
 ## 防抖函数
@@ -67,48 +30,45 @@ const fn = debounce(() => {
 fn();
 ```
 
-::: details 点击查看代码
+::: details 查看源码
 <<< ../../../packages/utils/src/utils.ts#debounce
 :::
 
-## 函数式编程实现
+## 节流函数
 
-传入一系列函数，返回一个函数，依次执行传入的函数。
+传入一个函数，返回一个节流函数。触发一次后，一定时间内不会再次触发。
 
 ```ts
-import { compose } from '@stao-ui/utils';
+import { throttle } from '@stao-ui/utils';
 
-const fn = compose(
-  (a: number) => a + 1,
-  (a: number) => a + 2,
-  (a: number) => a + 3
-);
+const fn = throttle(() => {
+  console.log('节流函数');
+}, 1000);
 
-fn(1); // 7
+fn();
 ```
 
-::: details 点击查看代码
-<<< ../../../packages/utils/src/utils.ts#compose
+::: details 查看源码
+<<< ../../../packages/utils/src/utils.ts#throttle
 :::
 
-## 柯里化函数
+## 时间格式化
 
-传入一个函数，返回一个柯里化函数。可以传入多个参数，当参数数量满足函数参数数量时，执行函数。
+传入一个 Date，返回一个格式化后的时间字符串。支持设置格式化模板。
 
 ```ts
-import { curry } from '@stao-ui/utils';
+import { formatTime } from '@stao-ui/utils';
 
-const fn = curry((a: number, b: number, c: number) => {
-  return a + b + c;
-});
+const date = new Date('2023/08/04 13:52:31');
 
-fn(1, 2, 3); // 6
-fn(1)(2)(3); // 6
-fn(1, 2)(3); // 6
+formatTime(date, 'yyyy-MM-dd hh:mm:ss'); // 2023-08-04 01:52:31
+formatTime(date, 'yy-M-d h:mm:ss'); // 23-8-4 1:52:31
+formatTime(date, 'HH:mm:ss'); // 13:52:31
+formatTime(date, 'h:mm:ss'); // 1:52:31
 ```
 
-::: details 点击查看代码
-<<< ../../../packages/utils/src/utils.ts#curry
+::: details 查看源码
+<<< ../../../packages/utils/src/utils.ts#formatTime
 :::
 
 ## 深拷贝
@@ -128,7 +88,7 @@ const obj = {
 const cloneObj = deepClone(obj); // { a: 1, b: { c: 2 } }
 ```
 
-::: details 点击查看代码
+::: details 查看源码
 <<< ../../../packages/utils/src/utils.ts#deepClone
 :::
 
@@ -142,7 +102,7 @@ import { fileSlice } from '@stao-ui/utils';
 const files = fileSlice(file, undefined, 1024 * 512);
 ```
 
-::: details 点击查看代码
+::: details 查看源码
 <<< ../../../packages/utils/src/utils.ts#fileSlice
 :::
 
@@ -166,7 +126,7 @@ preloadImages(imgs)
   });
 ```
 
-::: details 点击查看代码
+::: details 查看源码
 <<< ../../../packages/utils/src/utils.ts#preloadImages
 :::
 
@@ -181,7 +141,7 @@ const date = new Date();
 convertTimeZone(date, 9); // 东八区时间转换为东九区时间
 ```
 
-::: details 点击查看代码
+::: details 查看源码
 <<< ../../../packages/utils/src/utils.ts#convertTimeZone
 :::
 
@@ -195,7 +155,7 @@ import { isLeapYear } from '@stao-ui/utils';
 isLeapYear(2012); // true
 ```
 
-::: details 点击查看代码
+::: details 查看源码
 <<< ../../../packages/utils/src/utils.ts#isLeapYear
 :::
 
@@ -209,8 +169,22 @@ import { downloadFileToLocale } from '@stao-ui/utils';
 downloadFileToLocale('url', '图片.jpeg');
 ```
 
-::: details 点击查看代码
+::: details 查看源码
 <<< ../../../packages/utils/src/utils.ts#downloadFileToLocale
+:::
+
+## 对象转查询字符串
+
+该方法接收两个参数，一个必选的待转换对象，一个可选的布尔类型参数控制是否使用`encodeURIComponent`编码。
+
+```ts
+import { getQueryString } from '@stao-ui/utils';
+
+getQueryString({a: 'test', b: 'hello'}, false); // ?a=test&b=hello
+```
+
+::: details 查看源码
+<<< ../../../packages/utils/src/utils.ts#getQueryString
 :::
 
 ## 过滤 emoji 表情
@@ -223,7 +197,7 @@ import { filterEmoji } from '@stao-ui/utils';
 filterEmoji('😀😁😂🤣😃😄😅😆😉😊'); // ''
 ```
 
-::: details 点击查看代码
+::: details 查看源码
 <<< ../../../packages/utils/src/utils.ts#filterEmoji
 :::
 
@@ -237,7 +211,7 @@ import { getMimeTypeByFileName } from '@stao-ui/utils';
 getMimeTypeByFileName('fileName.jpeg'); // image/jpeg
 ```
 
-::: details 点击查看代码
+::: details 查看源码
 <<< ../../../packages/utils/src/utils.ts#getMimeTypeByFileName
 :::
 
@@ -251,7 +225,7 @@ import { canOpenInBrowser } from '@stao-ui/utils';
 canOpenInBrowser('fileName.jpeg'); // true
 ```
 
-::: details 点击查看代码
+::: details 查看源码
 <<< ../../../packages/utils/src/utils.ts#canOpenInBrowser
 :::
 
@@ -265,12 +239,14 @@ import { getMaxDayOfMonth } from '@stao-ui/utils';
 getMaxDayOfMonth(2023, 2); // 28
 ```
 
-::: details 点击查看代码
+::: details 查看源码
 <<< ../../../packages/utils/src/utils.ts#getMaxDayOfMonth
 :::
 
 ## 系统判断
+
 判断是否为iPhone/iPad。
+
 ```js
 /**
  * @description 判断是否为iPhone/iPad
@@ -282,7 +258,9 @@ const isIos = () => {
   return userAgent.indexOf('iPhone') > -1 || userAgent.indexOf('iPad') > -1;
 };
 ```
+
 判断是否为手机打开(含iPad)。
+
 ```js
 /**
  * @description 判断是否为手机打开(含iPad)
