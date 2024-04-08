@@ -42,15 +42,6 @@ export const compose = <T = unknown>(...funcs: Function[]) => {
  * @returns
  */
 export const throttle = <T = unknown>(fn: Function, delay: number = 1000) => {
-  if (delay < 0) {
-    delay = Math.abs(delay);
-  }
-
-  // 浮点数取整
-  if (~~delay !== delay) {
-    delay = delay | 0;
-  }
-
   let lastTime = 0;
   return function (this: any, ...args: T[]) {
     const nowTime = Date.now();
@@ -78,15 +69,6 @@ export const debounce = <T = unknown>(
   delay: number = 200,
   immediate: boolean = false
 ) => {
-  if (delay < 0) {
-    delay = Math.abs(delay);
-  }
-
-  // 浮点数取整
-  if (~~delay !== delay) {
-    delay = delay | 0;
-  }
-
   let timer: NodeJS.Timeout | null = null;
   let isFirst = true;
   return function (this: any, ...args: T[]) {
