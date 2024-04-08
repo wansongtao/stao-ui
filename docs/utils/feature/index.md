@@ -74,6 +74,21 @@ isPrime(4); // false
 <<< ../../../packages/utils/src/version.ts
 :::
 
+### 使用示例
+
+```ts
+import version from './version'
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  // ...
+  define: {
+    __APP_VERSION__: JSON.stringify(version)
+  }
+})
+
+```
+
 ## Ajax, 封装 XMLHttpRequest
 
 封装 XMLHttpRequest，支持进度回调等。具体参数请查看以下代码。
