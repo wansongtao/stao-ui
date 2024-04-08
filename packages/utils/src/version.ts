@@ -1,37 +1,6 @@
-import { exec, which, echo } from 'shelljs';
+import shelljs from 'shelljs';
 
-/**
- * whether it is the latest version
- * @param {string} v version
- * @returns
- */
-const isLatestVersion = (v: string) => {
-  if (typeof v !== 'string' || !v) {
-    console.warn('parameter error');
-    return false;
-  }
-
-  // gets a description message for the current version, containing a long hash name.
-  const tagMessage = exec(`git show ${v} --pretty=%H`, {
-    silent: true
-  }).stdout;
-  if (!tagMessage) {
-    console.warn('read git message error.');
-    return false;
-  }
-
-  // get the hash name for the latest version
-  const latest = exec('git rev-parse HEAD', {
-    silent: true
-  }).stdout;
-
-  const idx = tagMessage.indexOf(latest);
-  if (idx === -1) {
-    return false;
-  }
-
-  return true;
-};
+const { exec, which, echo } = shelljs;
 
 const getVersion = () => {
   if (!which('git')) {
@@ -39,8 +8,10 @@ const getVersion = () => {
     return '';
   }
 
-  let tempVersion = exec('git tag', { silent: true }).stdout;
-  if (!tempVersion) {
+  let currentTag = exec('git describe --abbrev=0 --tags', {
+    silent: true
+  }).stdout;
+  if (!currentTag) {
     const currentBranch = exec('git symbolic-ref --short -q HEAD', {
       silent: true
     }).stdout;
@@ -53,16 +24,9 @@ const getVersion = () => {
     return `${currentBranch}-${latest}`;
   }
 
-  const versions = tempVersion.split('\n');
-  tempVersion = versions[versions.length - 2];
-
-  if (!isLatestVersion(tempVersion)) {
-    echo('Please update git tag.');
-  }
-
-  return tempVersion;
+  const versions = currentTag.split('\n');
+  currentTag = versions[versions.length - 2];
+  return currentTag;
 };
 
-const version = getVersion();
-
-export default version;
+export default getVersion();
