@@ -201,7 +201,6 @@ const config = {
             { text: '常用方法', link: '/utils/common/' },
             { text: '特殊方法', link: '/utils/feature/' },
             { text: '事件总线', link: '/utils/event/' },
-            { text: 'websocket', link: '/utils/websocket/' },
             { text: 'exceljs', link: '/utils/exceljs/' },
             { text: 'vosk 语音识别', link: '/utils/vosk/' },
             { text: 'axios', link: '/utils/axios/' },
