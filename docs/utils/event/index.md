@@ -2,7 +2,13 @@
 
 ## 介绍
 
-Event Bus 是一个基于发布订阅者模式的事件总线，用于解决跨组件通信的问题。
+Event Bus 是一个基于发布订阅者模式实现的事件总线，TS 友好，提供了`$emit`、`$on`、`$off`、`clear`四个方法。
+
+**_使用场景：跨组件通信、解决 axios 重复请求问题等。_**
+
+::: tip
+目前建议复制源代码到自己的项目中使用，因为组件库还在开发中，不稳定，不建议直接使用。
+:::  
 
 ::: details 查看源码
 <<< ../../../packages/utils/src/event/eventBus.ts
@@ -18,10 +24,12 @@ pnpm i @stao-ui/utils
 
 ### 引入
 
-```js
+```ts
 import { EventBus } from '@stao-ui/utils';
 
-export default new EventBus();
+export default new EventBus<{
+  event(data: string): void;
+}>();
 ```
 
 ### vue3 中使用
