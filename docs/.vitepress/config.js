@@ -128,7 +128,7 @@ const config = {
         link: '/components/button/',
         activeMatch: '/components/'
       },
-      { text: '函数', link: '/utils/common/', activeMatch: '/utils/' },
+      { text: '工具', link: '/utils/common/', activeMatch: '/utils/' },
       {
         text: '算法',
         link: '/algorithm/bubble-sort/',
@@ -181,7 +181,10 @@ const config = {
           items: [
             { text: '确认对话框', link: '/components/antd/modal/' },
             { text: 'Switch 开关', link: '/components/antd/base-switch/' },
-            { text: 'CheckTransfer 多选穿梭框', link: '/components/antd/check-transfer/' },
+            {
+              text: 'CheckTransfer 多选穿梭框',
+              link: '/components/antd/check-transfer/'
+            }
           ]
         },
         {
@@ -196,15 +199,19 @@ const config = {
       ],
       '/utils/': [
         {
-          text: '函数',
+          text: '常用工具',
           items: [
-            { text: '常用方法', link: '/utils/common/' },
-            { text: '特殊方法', link: '/utils/feature/' },
-            { text: '事件总线', link: '/utils/event/' },
+            { text: '常用函数', link: '/utils/common/' },
+            { text: '冷门函数', link: '/utils/feature/' },
             { text: 'exceljs', link: '/utils/exceljs/' },
-            { text: 'vosk 语音识别', link: '/utils/vosk/' },
             { text: 'axios', link: '/utils/axios/' },
             { text: 'CSS', link: '/utils/css/' }
+          ]
+        },
+        {
+          text: '工具类',
+          items: [
+            { text: 'Event Bus', link: '/utils/plugins/event/' }
           ]
         },
         {

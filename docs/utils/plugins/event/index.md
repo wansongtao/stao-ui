@@ -11,7 +11,7 @@ Event Bus 是一个基于发布订阅者模式实现的事件总线，TS 友好�
 :::  
 
 ::: details 查看源码
-<<< ../../../packages/utils/src/event/eventBus.ts
+<<< ../../../../packages/utils/src/event/eventBus.ts
 :::
 
 ## 使用
