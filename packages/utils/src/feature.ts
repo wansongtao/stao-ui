@@ -1,52 +1,3 @@
-// #region compose
-/**
- * @description 函数式编程实现，从左往右执行，函数返回值会传给下一个执行的函数
- * @param funcs
- * @returns
- */
-export const compose = <T = unknown>(...funcs: Function[]) => {
-  if (funcs.length === 0) {
-    return (arg: T) => arg;
-  }
-
-  if (funcs.length === 1) {
-    return funcs[0];
-  }
-
-  return funcs.reduce((a, b) => {
-    return (...args: T[]) => {
-      return b(a(...args));
-    };
-  });
-};
-// #endregion compose
-
-// #region curry
-export interface ICurryBack<T = unknown, B = unknown> {
-  (...params: T[]): B | ICurryBack<T, B>;
-}
-/**
- * @description 柯里化：将多变量函数拆解为单变量（或部分变量）的多个函数并依次调用
- * @param fn
- * @param args
- * @returns
- */
-export const curry = <T = unknown, B = unknown>(
-  fn: Function,
-  ...args: T[]
-): B | ICurryBack<T, B> => {
-  const length = fn.length;
-
-  if (args.length < length) {
-    return function (...params: T[]) {
-      return curry(fn, ...args, ...params);
-    };
-  }
-
-  return fn(...args);
-};
-// #endregion curry
-
 // #region isPrime
 /**
  * @description 是否为素数
@@ -196,87 +147,6 @@ export const aliOssImageResize = (
   return url;
 };
 // #endregion aliOssImageResize
-
-// #region ajax
-/**
- * 使用XHR发送请求，获取数据
- * @param param
- * @param beforeRequest
- * @returns
- */
-export const ajax = <T = unknown>(
-  param: {
-    url: string;
-    timeout?: number;
-    method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'OPTIONS' | 'HEAD' | 'PATCH';
-    data?: any;
-    params?: { [key: string]: string };
-    headers?: { [key: string]: string };
-    responseType?: XMLHttpRequestResponseType;
-  },
-  beforeRequest?: (xhr: XMLHttpRequest) => void
-): Promise<{ data: T; xhr: XMLHttpRequest }> => {
-  return new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest();
-
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState === 4) {
-        if (xhr.status >= 200 && xhr.status < 300) {
-          resolve({ data: xhr.response, xhr });
-          return;
-        }
-
-        reject(new Error(`Request failed with status ${xhr.status}`));
-      }
-    };
-
-    if (beforeRequest) {
-      beforeRequest(xhr);
-    }
-
-    const {
-      url,
-      timeout = 5000,
-      method = 'GET',
-      headers = { 'Content-Type': 'application/json' },
-      data,
-      params,
-      responseType = 'json'
-    } = param;
-
-    if (params) {
-      const paramsStr = Object.keys(params)
-        .map((key) => `${key}=${params[key]}`)
-        .join('&');
-
-      xhr.open(method, `${url}?${paramsStr}`, true);
-    } else {
-      xhr.open(method, url, true);
-    }
-
-    xhr.responseType = responseType;
-    xhr.timeout = timeout;
-    Object.keys(headers).forEach((key) => {
-      xhr.setRequestHeader(key, headers[key]);
-    });
-
-    if (data && method !== 'GET') {
-      if (
-        headers['Content-Type'] === 'application/json' &&
-        typeof data === 'object'
-      ) {
-        xhr.send(JSON.stringify(data));
-        return;
-      }
-
-      xhr.send(data);
-      return;
-    }
-
-    xhr.send(null);
-  });
-};
-// #endregion ajax
 
 // #region changeCarousel
 /**
@@ -492,26 +362,26 @@ export const getPseudoRandomNumber = (
 };
 // #endregion getPseudoRandomNumber
 
-// #region getArray
+// #region createArray
 /**
- * 获取指定长度的数组
+ * 创建指定长度并填充预定值的数组
  * @param len
- * @param fillFn
+ * @param value
  * @returns
  */
-export const getArray = <T = number>(len: number, fillFn: () => T): T[] => {
+export const createArray = <T = number>(len: number, value: T): T[] => {
   if (typeof Array.from !== 'function') {
     const arr = [];
     for (let i = 0; i < len; i++) {
-      arr.push(fillFn());
+      arr.push(value);
     }
     return arr;
   }
 
-  const arr = Array.from({ length: len }, () => fillFn());
+  const arr = Array.from({ length: len }, () => value);
   return arr;
 };
-// #endregion getArray
+// #endregion createArray
 
 // #region getSystemTheme
 /**
@@ -568,3 +438,109 @@ export const getSystemTheme = (
   return theme;
 };
 // #endregion getSystemTheme
+
+// #region getMaxDayOfMonth
+/**
+ * 获取一个月的最大天数
+ * @param year
+ * @param month 月份（1-12）
+ * @returns
+ */
+export const getMaxDayOfMonth = (year: number, month: number) => {
+  /**
+   * Date对象的构造函数接收月份索引（0-11）。
+   * 将月份设置为下个月且天数设置为0，Date对象将自动设置为上个月最后一天。
+   */
+  const maxDay = new Date(year, month, 0).getDate();
+  return maxDay;
+};
+// #endregion getMaxDayOfMonth
+
+// #region canOpenInBrowser
+/**
+ * @description 判断文件是否可以用浏览器直接打开
+ * @param fileType
+ * @returns
+ */
+export const canOpenInBrowser = (fileType: string) => {
+  if (
+    fileType.startsWith('image/') ||
+    fileType.startsWith('video/') ||
+    fileType.startsWith('audio/') ||
+    fileType === 'text/plain' ||
+    fileType === 'text/html' ||
+    fileType === 'text/css' ||
+    fileType === 'application/javascript' ||
+    fileType === 'application/json' ||
+    fileType === 'application/pdf' ||
+    fileType === 'application/xml' ||
+    fileType === 'text/xml' ||
+    fileType === 'text/markdown'
+  ) {
+    return true;
+  }
+
+  return false;
+};
+// #endregion canOpenInBrowser
+
+// #region getMimeType
+/**
+ * @description 通过文件名获取mime类型
+ * @param fileName
+ * @returns
+ */
+export const getMimeType = (fileName: string) => {
+  const dotIndex = fileName.lastIndexOf('.');
+  if (dotIndex === -1) {
+    return '';
+  }
+  const fileExtension = fileName.substring(dotIndex + 1).toLocaleLowerCase();
+  const mimeTypes: Record<string, string> = {
+    txt: 'text/plain',
+    html: 'text/html',
+    htm: 'text/html',
+    css: 'text/css',
+    js: 'application/javascript',
+    json: 'application/json',
+    pdf: 'application/pdf',
+    xml: 'application/xml',
+    jpg: 'image/jpeg',
+    jpeg: 'image/jpeg',
+    png: 'image/png',
+    gif: 'image/gif',
+    bmp: 'image/bmp',
+    mp4: 'video/mp4',
+    webm: 'video/webm',
+    ogg: 'audio/ogg',
+    mp3: 'audio/mpeg',
+    wav: 'audio/wav',
+    md: 'text/markdown',
+    markdown: 'text/markdown'
+  };
+  return mimeTypes[fileExtension] || '';
+};
+// #endregion getMimeType
+
+
+// #region isLeapYear
+/**
+ * @description 是否为闰年
+ * @param {number} year 年份
+ * @returns {boolean} 是true，否false
+ */
+export const isLeapYear = (year: number) => {
+  // 能被400整除为闰年
+  if (year % 400 === 0) {
+    return true;
+  }
+
+  // 能被4整除但不能被100整除为闰年
+  if (year % 4 === 0 && year % 100 !== 0) {
+    return true;
+  }
+
+  return false;
+};
+// #endregion isLeapYear
+
