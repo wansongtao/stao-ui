@@ -7,7 +7,7 @@
 ## 希尔排序
 
 该函数接收两个参数，第一个参数为需要排序的数组，第二个参数为一个比较函数。返回一个排序后的数组，改变原数组。
-> 希尔排序是插入排序的一种更高效的改进版本，它的基本思想是：先将整个待排序的记录序列分割成为若干子序列分别进行直接插入排序，待整个序列中的记录“基本有序”时，再对全体记录进行依次直接插入排序。[查看更多](../../algorithm/shell-sort/index)。
+> 希尔排序是插入排序的一种更高效的改进版本，它的基本思想是：先将整个待排序的记录序列分割成为若干子序列分别进行直接插入排序，待整个序列中的记录“基本有序”时，再对全体记录进行依次直接插入排序。[查看更多](../../../algorithm/shell-sort/index)。
 
 ```ts
 import { shellSort } from '@stao-ui/utils';
@@ -17,7 +17,7 @@ shellSort(arr, (a, b) => a.a - b.a > 0); // [{ a: 100 }, { a: 20 }, { a: 10 }]
 ```
 
 ::: details 查看源码
-<<< ../../../packages/utils/src/feature.ts#shellSort
+<<< ../../../../packages/utils/src/feature.ts#shellSort
 :::
 
 ## 判断是否为素数（质数）
@@ -32,7 +32,7 @@ isPrime(4); // false
 ```
 
 ::: details 查看源码
-<<< ../../../packages/utils/src/feature.ts#isPrime
+<<< ../../../../packages/utils/src/feature.ts#isPrime
 :::
 
 ## 润平年判断
@@ -46,7 +46,7 @@ isLeapYear(2012); // true
 ```
 
 ::: details 查看源码
-<<< ../../../packages/utils/src/feature.ts#isLeapYear
+<<< ../../../../packages/utils/src/feature.ts#isLeapYear
 :::
 
 ## 获取项目 git tag 版本号
@@ -67,7 +67,7 @@ export default defineConfig({
 ```
 
 ::: details 查看源码
-<<< ../../../packages/utils/src/version.ts
+<<< ../../../../packages/utils/src/version.ts
 :::
 
 ## 轮播方法
@@ -81,10 +81,10 @@ export default defineConfig({
 6. `options.beforeChange`: 可选，切换前回调函数，参数当前索引；
 7. `options.afterChange`: 可选，切换后回调函数，参数当前索引。
 
-使用示例请[参考](../../components/carousel/index#原生js实现轮播图效果)组件里的轮播图组件实现。
+使用示例请[参考](../../../components/carousel/index#原生js实现轮播图效果)组件里的轮播图组件实现。
 
 ::: details 查看源码
-<<< ../../../packages/utils/src/feature.ts#changeCarousel
+<<< ../../../../packages/utils/src/feature.ts#changeCarousel
 :::
 
 ## 生成伪随机数
@@ -98,7 +98,7 @@ getPseudoRandomNumber(1, 10); // 生成1-10之间的随机数
 ```
 
 ::: details 查看源码
-<<< ../../../packages/utils/src/feature.ts#getPseudoRandomNumber
+<<< ../../../../packages/utils/src/feature.ts#getPseudoRandomNumber
 :::
 
 ## 生成指定长度的数组
@@ -112,7 +112,7 @@ createArray(6, 1); // [1, 1, 1, 1, 1, 1]
 ```
 
 ::: details 查看源码
-<<< ../../../packages/utils/src/feature.ts#createArray
+<<< ../../../../packages/utils/src/feature.ts#createArray
 :::
 
 ## 获取系统主题
@@ -131,7 +131,7 @@ console.log(currentMode); // dark | light
 ```
 
 ::: details 查看源码
-<<< ../../../packages/utils/src/feature.ts#getSystemTheme
+<<< ../../../../packages/utils/src/feature.ts#getSystemTheme
 :::
 
 ## 获取文件的 MIME 类型
@@ -145,7 +145,7 @@ getMimeType('fileName.jpeg'); // image/jpeg
 ```
 
 ::: details 查看源码
-<<< ../../../packages/utils/src/feature.ts#getMimeType
+<<< ../../../../packages/utils/src/feature.ts#getMimeType
 :::
 
 ## 文件是否可以在浏览器打开
@@ -159,7 +159,7 @@ canOpenInBrowser('image/jpeg'); // true
 ```
 
 ::: details 查看源码
-<<< ../../../packages/utils/src/feature.ts#canOpenInBrowser
+<<< ../../../../packages/utils/src/feature.ts#canOpenInBrowser
 :::
 
 ## 获取一个月的最大天数
@@ -173,7 +173,7 @@ getMaxDayOfMonth(2023, 2); // 28
 ```
 
 ::: details 查看源码
-<<< ../../../packages/utils/src/feature.ts#getMaxDayOfMonth
+<<< ../../../../packages/utils/src/feature.ts#getMaxDayOfMonth
 :::
 
 ## 前端直传文件到阿里云 OSS
@@ -181,7 +181,7 @@ getMaxDayOfMonth(2023, 2); // 28
 使用 axios 封装，支持进度回调。具体参数请查看以下代码。
 
 ::: details 查看源码
-<<< ../../../packages/utils/src/api/upload.ts
+<<< ../../../../packages/utils/src/api/upload.ts
 :::
 
 ## 阿里云图片缩放
@@ -200,7 +200,7 @@ aliOssImageResize('oss url', {
 ```
 
 ::: details 查看源码
-<<< ../../../packages/utils/src/feature.ts#aliOssImageResize
+<<< ../../../../packages/utils/src/feature.ts#aliOssImageResize
 :::
 
 ## html2canvas 封装
@@ -208,5 +208,5 @@ aliOssImageResize('oss url', {
 该函数接收两个参数，第一个参数为一个 DOM 元素，第二个参数为配置对象。返回一个 Promise 对象。
 
 ::: details 查看源码
-<<< ../../../packages/utils/src/html2canvas.js
+<<< ../../../../packages/utils/src/html2canvas.js
 :::

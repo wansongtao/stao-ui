@@ -6,11 +6,11 @@ import simpleExample from './simple.vue';
 针对生成与下载excel文件的封装，使用的是`exceljs`与`file-saver`库。[exceljs官方文档](https://github.com/exceljs/exceljs/blob/HEAD/README_zh.md)。
 
 ::: details 查看封装exceljs源码
-<<< ../../../packages/utils/src/excel.ts  
+<<< ../../../../packages/utils/src/excel.ts  
 :::
 
 ::: details 查看封装file-saver源码
-<<< ../../../packages/utils/src/downloadFile.ts
+<<< ../../../../packages/utils/src/downloadFile.ts
 :::
 
 ## 安装

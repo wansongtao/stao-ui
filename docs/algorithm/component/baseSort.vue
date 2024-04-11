@@ -2,7 +2,7 @@
 import { ElInputNumber, ElButton } from 'element-plus';
 import 'element-plus/dist/index.css';
 import { ref } from 'vue';
-import { getPseudoRandomNumber, getArray } from '@stao-ui/utils';
+import { getPseudoRandomNumber, createArray } from '@stao-ui/utils';
 
 const $props = defineProps<{
   sort: (arr: number[]) => number[];
@@ -21,9 +21,7 @@ const onSort = () => {
 
   // 按钮过渡动画时间100ms
   setTimeout(() => {
-    arr.value = getArray(len.value, () =>
-      getPseudoRandomNumber(min.value, max.value)
-    );
+    arr.value = createArray(len.value, getPseudoRandomNumber(min.value, max.value));
 
     const start = performance.now();
     arr.value = $props.sort(arr.value);

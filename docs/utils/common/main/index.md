@@ -17,7 +17,7 @@ getDataType(true); // boolean
 ```
 
 ::: details 查看源码
-<<< ../../../packages/utils/src/utils.ts#getDataType
+<<< ../../../../packages/utils/src/utils.ts#getDataType
 :::
 
 ## 防抖函数
@@ -36,7 +36,7 @@ fn();
 ```
 
 ::: details 查看源码
-<<< ../../../packages/utils/src/utils.ts#debounce
+<<< ../../../../packages/utils/src/utils.ts#debounce
 :::
 
 ## 节流函数
@@ -55,7 +55,7 @@ fn();
 ```
 
 ::: details 查看源码
-<<< ../../../packages/utils/src/utils.ts#throttle
+<<< ../../../../packages/utils/src/utils.ts#throttle
 :::
 
 ## 日期时间格式化
@@ -75,7 +75,7 @@ formatTime(date, 'yyyy年M月d日 H时m分'); // 2023年8月4日 13时52分
 ```
 
 ::: details 查看源码
-<<< ../../../packages/utils/src/utils.ts#formatTime
+<<< ../../../../packages/utils/src/utils.ts#formatTime
 :::
 
 ## 深拷贝
@@ -96,7 +96,7 @@ const cloneObj = deepClone(obj); // { a: 1, b: { c: 2 } }
 ```
 
 ::: details 查看源码
-<<< ../../../packages/utils/src/utils.ts#deepClone
+<<< ../../../../packages/utils/src/utils.ts#deepClone
 :::
 
 ## 文件切片函数
@@ -110,7 +110,7 @@ const files = fileSlice(file, 0, 1024 * 512);
 ```
 
 ::: details 查看源码
-<<< ../../../packages/utils/src/utils.ts#fileSlice
+<<< ../../../../packages/utils/src/utils.ts#fileSlice
 :::
 
 ## 预加载图片
@@ -134,7 +134,7 @@ preloadImages(imgs)
 ```
 
 ::: details 查看源码
-<<< ../../../packages/utils/src/utils.ts#preloadImages
+<<< ../../../../packages/utils/src/utils.ts#preloadImages
 :::
 
 ## 时区转换
@@ -149,7 +149,7 @@ convertTimeZone(date, 9); // 东八区时间转换为东九区时间
 ```
 
 ::: details 查看源码
-<<< ../../../packages/utils/src/utils.ts#convertTimeZone
+<<< ../../../../packages/utils/src/utils.ts#convertTimeZone
 :::
 
 ## Ajax
@@ -175,7 +175,7 @@ ajax({
 ```
 
 ::: details 查看源码(TS版)
-<<< ../../../packages/utils/src/utils.ts#ajax
+<<< ../../../../packages/utils/src/utils.ts#ajax
 :::
 
 ::: details 查看源码(JS版)
@@ -199,7 +199,7 @@ fn(1); // 7
 ```
 
 ::: details 查看源码
-<<< ../../../packages/utils/src/utils.ts#compose
+<<< ../../../../packages/utils/src/utils.ts#compose
 :::
 
 ## 柯里化函数
@@ -219,7 +219,7 @@ fn(1, 2)(3); // 6
 ```
 
 ::: details 查看源码
-<<< ../../../packages/utils/src/utils.ts#curry
+<<< ../../../../packages/utils/src/utils.ts#curry
 :::
 
 ## a 标签下载文件
@@ -233,7 +233,7 @@ downloadFileToLocale('url', '图片.jpeg');
 ```
 
 ::: details 查看源码
-<<< ../../../packages/utils/src/utils.ts#downloadFileToLocale
+<<< ../../../../packages/utils/src/utils.ts#downloadFileToLocale
 :::
 
 ## 对象转查询字符串
@@ -247,7 +247,7 @@ getQueryString({a: 'test', b: 'hello'}, false); // ?a=test&b=hello
 ```
 
 ::: details 查看源码
-<<< ../../../packages/utils/src/utils.ts#getQueryString
+<<< ../../../../packages/utils/src/utils.ts#getQueryString
 :::
 
 ## 过滤 emoji 表情
@@ -261,7 +261,7 @@ filterEmoji('😀😁😂🤣😃😄😅😆😉😊'); // ''
 ```
 
 ::: details 查看源码
-<<< ../../../packages/utils/src/utils.ts#filterEmoji
+<<< ../../../../packages/utils/src/utils.ts#filterEmoji
 :::
 
 ## 系统判断

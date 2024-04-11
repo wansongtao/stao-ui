@@ -9,11 +9,11 @@
 提供`request`方法，泛型友好、错误处理友好，该函数返回格式`Promise<[data?: IResponse<T>, error?: AxiosError]>`。
 
 ::: details axios 封装实现
-<<< ../../../packages/utils/src/request.ts
+<<< ../../../../packages/utils/src/request.ts
 :::
 
 ::: details EventBus 实现
-<<< ../../../packages/utils/src/event/eventBus.ts
+<<< ../../../../packages/utils/src/event/eventBus.ts
 :::
 
 ## 使用

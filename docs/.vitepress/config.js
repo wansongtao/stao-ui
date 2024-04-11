@@ -128,7 +128,7 @@ const config = {
         link: '/components/button/',
         activeMatch: '/components/'
       },
-      { text: '工具', link: '/utils/common/', activeMatch: '/utils/' },
+      { text: '工具', link: '/utils/common/main/', activeMatch: '/utils/' },
       {
         text: '算法',
         link: '/algorithm/bubble-sort/',
@@ -201,11 +201,11 @@ const config = {
         {
           text: '常用工具',
           items: [
-            { text: '常用函数', link: '/utils/common/' },
-            { text: '冷门函数', link: '/utils/feature/' },
-            { text: 'exceljs', link: '/utils/exceljs/' },
-            { text: 'axios', link: '/utils/axios/' },
-            { text: 'CSS', link: '/utils/css/' }
+            { text: '常用函数', link: '/utils/common/main/' },
+            { text: '冷门函数', link: '/utils/common/feature/' },
+            { text: 'exceljs', link: '/utils/common/exceljs/' },
+            { text: 'axios', link: '/utils/common/axios/' },
+            { text: 'CSS', link: '/utils/common/css/' }
           ]
         },
         {
