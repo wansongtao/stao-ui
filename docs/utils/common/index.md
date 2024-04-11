@@ -175,7 +175,7 @@ ajax({
 ```
 
 ::: details 查看源码(TS版)
-<<< ../../../packages/utils/src/feature.ts#ajax
+<<< ../../../packages/utils/src/utils.ts#ajax
 :::
 
 ::: details 查看源码(JS版)
@@ -199,7 +199,7 @@ fn(1); // 7
 ```
 
 ::: details 查看源码
-<<< ../../../packages/utils/src/feature.ts#compose
+<<< ../../../packages/utils/src/utils.ts#compose
 :::
 
 ## 柯里化函数
@@ -219,7 +219,7 @@ fn(1, 2)(3); // 6
 ```
 
 ::: details 查看源码
-<<< ../../../packages/utils/src/feature.ts#curry
+<<< ../../../packages/utils/src/utils.ts#curry
 :::
 
 ## a 标签下载文件

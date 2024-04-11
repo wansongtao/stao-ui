@@ -1,48 +1,13 @@
-# 特殊方法
+# 冷门函数
 
-## 函数式编程实现
-
-传入一系列函数，返回一个函数，依次执行传入的函数。
-
-```ts
-import { compose } from '@stao-ui/utils';
-
-const fn = compose(
-  (a: number) => a + 1,
-  (a: number) => a + 2,
-  (a: number) => a + 3
-);
-
-fn(1); // 7
-```
-
-::: details 查看源码
-<<< ../../../packages/utils/src/feature.ts#compose
-:::
-
-## 柯里化函数
-
-传入一个函数，返回一个柯里化函数。可以传入多个参数，当参数数量满足函数参数数量时，执行函数。
-
-```ts
-import { curry } from '@stao-ui/utils';
-
-const fn = curry((a: number, b: number, c: number) => {
-  return a + b + c;
-});
-
-fn(1, 2, 3); // 6
-fn(1)(2)(3); // 6
-fn(1, 2)(3); // 6
-```
-
-::: details 查看源码
-<<< ../../../packages/utils/src/utils.ts#curry
-:::
+::: tip
+建议复制源码到自己的项目中使用。
+:::  
 
 ## 希尔排序
 
-传入一个数组，返回一个排序后的数组，改变原数组。支持设置排序规则。
+该函数接收两个参数，第一个参数为需要排序的数组，第二个参数为一个比较函数。返回一个排序后的数组，改变原数组。
+> 希尔排序是插入排序的一种更高效的改进版本，它的基本思想是：先将整个待排序的记录序列分割成为若干子序列分别进行直接插入排序，待整个序列中的记录“基本有序”时，再对全体记录进行依次直接插入排序。[查看更多](../../algorithm/shell-sort/index)。
 
 ```ts
 import { shellSort } from '@stao-ui/utils';
@@ -55,9 +20,173 @@ shellSort(arr, (a, b) => a.a - b.a > 0); // [{ a: 100 }, { a: 20 }, { a: 10 }]
 <<< ../../../packages/utils/src/feature.ts#shellSort
 :::
 
+## 判断是否为素数（质数）
+
+该函数接收一个数字参数，返回一个布尔值。
+
+```ts
+import { isPrime } from '@stao-ui/utils';
+
+isPrime(2); // true
+isPrime(4); // false
+```
+
+::: details 查看源码
+<<< ../../../packages/utils/src/feature.ts#isPrime
+:::
+
+## 润平年判断
+
+该函数接收一个年份参数，返回一个布尔值。
+
+```ts
+import { isLeapYear } from '@stao-ui/utils';
+
+isLeapYear(2012); // true
+```
+
+::: details 查看源码
+<<< ../../../packages/utils/src/feature.ts#isLeapYear
+:::
+
+## 获取项目 git tag 版本号
+
+通过 shelljs 获取项目的 git 信息，进而获取 tag 版本信息。  
+**使用场景：配合 vite 的环境变量设置网站版本号。**
+
+```ts
+import version from './version'
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  // ...
+  define: {
+    __APP_VERSION__: JSON.stringify(version)
+  }
+})
+```
+
+::: details 查看源码
+<<< ../../../packages/utils/src/version.ts
+:::
+
+## 轮播方法
+
+该函数接受一个配置对象，该对象包含以下属性：
+1. `options.index`: 需要切换的轮播项索引；
+2. `options.ele`: 轮播图容器元素，直接子元素为轮播项；
+3. `options.duration`: 可选，切换动画时间，单位ms，默认`500ms`；
+4. `options.timingFunc`: 可选，切换动画缓动函数，默认`ease`；
+5. `options.direction`: 可选，切换方向，默认`horizontal`，可选`vertical`。
+6. `options.beforeChange`: 可选，切换前回调函数，参数当前索引；
+7. `options.afterChange`: 可选，切换后回调函数，参数当前索引。
+
+使用示例请[参考](../../components/carousel/index#原生js实现轮播图效果)组件里的轮播图组件实现。
+
+::: details 查看源码
+<<< ../../../packages/utils/src/feature.ts#changeCarousel
+:::
+
+## 生成伪随机数
+
+该函数接受两个参数，第一个参数为生成随机数的最小值，第二个参数为生成随机数的最大值。返回一个随机数字。
+
+```ts
+import { getPseudoRandomNumber } from '@stao-ui/utils';
+
+getPseudoRandomNumber(1, 10); // 生成1-10之间的随机数
+```
+
+::: details 查看源码
+<<< ../../../packages/utils/src/feature.ts#getPseudoRandomNumber
+:::
+
+## 生成指定长度的数组
+
+该函数接受两个参数，第一个参数为数组长度，第二个参数为数组填充值。返回一个填充后的数组。
+
+```ts
+import { createArray } from '@stao-ui/utils';
+
+createArray(6, 1); // [1, 1, 1, 1, 1, 1]
+```
+
+::: details 查看源码
+<<< ../../../packages/utils/src/feature.ts#createArray
+:::
+
+## 获取系统主题
+
+该函数接受一个可选的回调函数，当系统模式变化时触发回调函数，返回当前系统模式。
+
+```ts
+import { getSystemTheme } from '@stao-ui/utils';
+
+const currentMode = getSystemTheme((theme) => {
+  // 系统模式变化时触发
+  console.log(theme); // dark | light
+});
+
+console.log(currentMode); // dark | light
+```
+
+::: details 查看源码
+<<< ../../../packages/utils/src/feature.ts#getSystemTheme
+:::
+
+## 获取文件的 MIME 类型
+
+该函数接受一个文件名参数，返回一个 MIME 类型。
+
+```ts
+import { getMimeType } from '@stao-ui/utils';
+
+getMimeType('fileName.jpeg'); // image/jpeg
+```
+
+::: details 查看源码
+<<< ../../../packages/utils/src/feature.ts#getMimeType
+:::
+
+## 文件是否可以在浏览器打开
+
+该函数接受一个文件类型参数，返回一个布尔值。
+
+```ts
+import { canOpenInBrowser } from '@stao-ui/utils';
+
+canOpenInBrowser('image/jpeg'); // true
+```
+
+::: details 查看源码
+<<< ../../../packages/utils/src/feature.ts#canOpenInBrowser
+:::
+
+## 获取一个月的最大天数
+
+该函数接受两个参数，第一个参数为年份，第二个参数为月份。返回这个月的最大天数。
+
+```ts
+import { getMaxDayOfMonth } from '@stao-ui/utils';
+
+getMaxDayOfMonth(2023, 2); // 28
+```
+
+::: details 查看源码
+<<< ../../../packages/utils/src/feature.ts#getMaxDayOfMonth
+:::
+
+## 前端直传文件到阿里云 OSS
+
+使用 axios 封装，支持进度回调。具体参数请查看以下代码。
+
+::: details 查看源码
+<<< ../../../packages/utils/src/api/upload.ts
+:::
+
 ## 阿里云图片缩放
 
-传入图片地址与缩放参数，返回一个缩放后的图片地址。
+该函数接收两个参数，第一个参数为图片地址，第二个参数为一个配置对象，具体配置请查看源码。
 
 ```ts
 import { aliOssImageResize } from '@stao-ui/utils';
@@ -76,234 +205,8 @@ aliOssImageResize('oss url', {
 
 ## html2canvas 封装
 
-使用 Promise 封装 html2canvas，返回图片 url。
+该函数接收两个参数，第一个参数为一个 DOM 元素，第二个参数为配置对象。返回一个 Promise 对象。
 
 ::: details 查看源码
 <<< ../../../packages/utils/src/html2canvas.js
 :::
-
-## 判断是否为素数（质数）
-
-传入一个数字，返回一个布尔值。
-
-```ts
-import { isPrime } from '@stao-ui/utils';
-
-isPrime(2); // true
-isPrime(4); // false
-```
-
-::: details 查看源码
-<<< ../../../packages/utils/src/feature.ts#isPrime
-:::
-
-## 前端直传文件到阿里云 OSS
-
-使用 axios 封装，支持进度回调。具体参数请查看以下代码。
-
-::: details 查看源码
-<<< ../../../packages/utils/src/api/upload.ts
-:::
-
-## 获取项目 tag 版本号
-
-通过 shelljs 获取项目的 git 信息，进而获取 tag 版本信息。  
-**_使用场景：配合 vite 的环境变量设置网站版本号。_**
-
-::: details 查看源码
-<<< ../../../packages/utils/src/version.ts
-:::
-
-### 使用示例
-
-```ts
-import version from './version'
-import { defineConfig } from 'vite'
-
-export default defineConfig({
-  // ...
-  define: {
-    __APP_VERSION__: JSON.stringify(version)
-  }
-})
-
-```
-
-## Ajax, 封装 XMLHttpRequest
-
-封装 XMLHttpRequest，支持进度回调等。具体参数请查看以下代码。
-
-::: details 查看源码
-<<< ../../../packages/utils/src/feature.ts#ajax
-:::
-
-### 使用示例
-
-```ts
-import { ajax } from '@stao-ui/utils';
-
-ajax({
-  url: 'url',
-  method: 'GET',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  params: {
-    a: 1
-  }
-}).then((res) => {
-  const { data, xhr } = res;
-  console.log(data, xhr);
-});
-```
-js 版本
-```js
-/**
- * 使用XHR发送请求，获取数据
- * @template T
- * @param {{
- *    url: string;
- *    timeout?: number;
- *    method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'OPTIONS' | 'HEAD' | 'PATCH',
- *    data?: any,
- *    params?: { [key: string]: string },
- *    headers?: { [key: string]: string },
- *    responseType?: XMLHttpRequestResponseType
- *  }} param
- * @param {(xhr: XMLHttpRequest) => void} [beforeRequest]
- * @returns {Promise<{ data: T, xhr: XMLHttpRequest }>}
- */
-const ajax = (param, beforeRequest) => {
-  return new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest();
-
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState === 4) {
-        if (xhr.status >= 200 && xhr.status < 300) {
-          resolve({ data: xhr.response, xhr });
-          return;
-        }
-
-        reject(new Error(`Request failed with status ${xhr.status}`));
-      }
-    };
-
-    if (beforeRequest) {
-      beforeRequest(xhr);
-    }
-
-    const {
-      url,
-      timeout = 5000,
-      method = 'GET',
-      headers = { 'Content-Type': 'application/json' },
-      data,
-      params,
-      responseType = 'json'
-    } = param;
-
-    if (params) {
-      const paramsStr = Object.keys(params)
-        .map((key) => `${key}=${params[key]}`)
-        .join('&');
-
-      xhr.open(method, `${url}?${paramsStr}`, true);
-    } else {
-      xhr.open(method, url, true);
-    }
-
-    xhr.responseType = responseType;
-    xhr.timeout = timeout;
-    Object.keys(headers).forEach((key) => {
-      xhr.setRequestHeader(key, headers[key]);
-    });
-
-    if (data && method !== 'GET') {
-      if (
-        headers['Content-Type'] === 'application/json' &&
-        typeof data === 'object'
-      ) {
-        xhr.send(JSON.stringify(data));
-        return;
-      }
-
-      xhr.send(data);
-      return;
-    }
-
-    xhr.send(null);
-  });
-};
-
-export default ajax;
-```
-
-## 轮播方法
-
-该方法接受一个对象参数，对象包含以下属性：
-1. `options.index`: 需要切换的轮播项索引；
-2. `options.ele`: 轮播图容器元素，直接子元素为轮播项；
-3. `options.duration`: 可选，切换动画时间，单位ms，默认`500ms`；
-4. `options.timingFunc`: 可选，切换动画缓动函数，默认`ease`；
-5. `options.direction`: 可选，切换方向，默认`horizontal`，可选`vertical`。
-6. `options.beforeChange`: 可选，切换前回调函数，参数当前索引；
-7. `options.afterChange`: 可选，切换后回调函数，参数当前索引。
-
-[使用参考](../../components/carousel/index#原生js实现轮播图效果)
-
-::: details 查看源码
-<<< ../../../packages/utils/src/feature.ts#changeCarousel
-:::
-
-## 生成伪随机数
-
-该方法接受两个参数，第一个参数为生成随机数的最小值，第二个参数为生成随机数的最大值。
-
-::: details 查看源码
-<<< ../../../packages/utils/src/feature.ts#getPseudoRandomNumber
-:::
-
-### 使用示例
-
-```ts
-import { getPseudoRandomNumber } from '@stao-ui/utils';
-
-getPseudoRandomNumber(1, 10); // 生成1-10之间的随机数
-```
-
-## 生成指定长度的数组
-
-该方法接受两个参数，第一个参数为数组长度，第二个参数为一个返回填充值的函数。
-
-::: details 查看源码
-<<< ../../../packages/utils/src/feature.ts#getArray
-:::
-
-### 使用示例
-
-```ts
-import { getArray } from '@stao-ui/utils';
-
-getArray(10, () => 1); // [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-```
-
-## 获取系统明暗模式
-
-方法返回当前系统模式。接收一个可选函数参数，传入该参数则自动跟随系统模式，函数参数接收一个字符串值，为`dark`时为暗模式，为`light`时为明模式。
-
-::: details 查看源码
-<<< ../../../packages/utils/src/feature.ts#getSystemTheme
-:::
-
-### 使用示例
-
-```ts
-import { getSystemTheme } from '@stao-ui/utils';
-
-const currentMode = getSystemTheme((theme) => {
-  // 系统模式变化时触发
-  console.log(theme); // dark | light
-});
-
-console.log(currentMode); // dark | light
-```
