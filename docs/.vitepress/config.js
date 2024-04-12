@@ -221,10 +221,9 @@ const config = {
               text: 'useTextEllipsis',
               link: '/utils/hooks/use-text-ellipsis/'
             },
-            { text: 'useTabsHistory', link: '/utils/hooks/use-tabs-history/' },
             {
               text: 'useResizeObserver',
-              link: '/utils/hooks/use-resizeobserver/'
+              link: '/utils/hooks/use-resize-observer/'
             }
           ]
         },
