@@ -223,10 +223,6 @@ const config = {
             },
             { text: 'useTabsHistory', link: '/utils/hooks/use-tabs-history/' },
             {
-              text: 'useElTableSelection',
-              link: '/utils/hooks/use-eltable-selection/'
-            },
-            {
               text: 'useResizeObserver',
               link: '/utils/hooks/use-resizeobserver/'
             }
