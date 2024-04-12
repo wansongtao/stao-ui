@@ -233,7 +233,7 @@ const config = {
           ]
         },
         {
-          text: '工具库',
+          text: '库',
           items: [
             {
               text: 'number2chinesenumber',
