@@ -20,19 +20,16 @@ const onChangeText = (value: boolean) => {
 </script>
 
 <template>
-  <div class="flex">
+  <div class="flex" @click="onChangeText(isOverflow)">
     <!-- 这个block元素只能包含一个子inline元素，不然无法获取溢出状态 -->
-    <div
-      ref="textEllipsisRef"
-      class="container ellipsis"
-      @click="onChangeText(isOverflow)">
+    <div ref="textEllipsisRef" class="container ellipsis">
       <!-- 这个span可包含任意inline元素 -->
       <span>
         {{ text }}
       </span>
     </div>
 
-    <div class="result">{{ isOverflow ? '显示了省略号' : '未显示省略号' }}</div>
+    <div class="result">{{ isOverflow ? '溢出' : '未溢出' }}</div>
   </div>
 </template>
 
@@ -43,13 +40,12 @@ const onChangeText = (value: boolean) => {
   justify-content: space-between;
   padding: 0 10px;
   border: 1px dotted #ccc;
+  cursor: pointer;
 }
 .container {
   width: 200px;
   height: 32px;
   line-height: 32px;
-  cursor: pointer;
-  user-select: none;
 }
 
 .ellipsis {
