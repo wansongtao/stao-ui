@@ -99,6 +99,24 @@ const cloneObj = deepClone(obj); // { a: 1, b: { c: 2 } }
 <<< ../../../../packages/utils/src/utils.ts#deepClone
 :::
 
+## 网页空闲检测
+
+该函数接收三个参数：1. 第一个必选参数为需要执行的函数； 2. 第二个可选参数为延迟时间； 3. 第三个可选参数为是否立即开始。返回三个函数，分别是开始检测函数、停止检测函数、重新开始检测函数。
+
+```ts
+import { idleDetection } from '@stao-ui/utils';
+
+const fn = idleDetection(() => {
+  // 网页5s无操作后执行
+}, 5000);
+
+fn();
+```
+
+::: details 查看源码
+<<< ../../../../packages/utils/src/utils.ts#idleDetection
+:::
+
 ## 文件切片函数
 
 该函数接收三个参数：1. 第一个必选参数为文件对象； 2. 第二个可选参数为开始切片位置，默认0； 3. 第三个可选参数为切片大小，默认1024 * 512。返回一个切片后的文件对象数组。

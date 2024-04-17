@@ -582,3 +582,84 @@ export const curry = <T = unknown, B = unknown>(
   return fn(...args);
 };
 // #endregion curry
+
+// #region idleDetection
+/**
+ * 页面空闲检测
+ * @param callback
+ * @param timeout 时长，默认15s，单位：秒
+ * @param immediate 是否立即开始，默认 false
+ * @returns
+ */
+export const idleDetection = (
+  callback: () => void,
+  timeout = 15,
+  immediate = false
+) => {
+  let pageTimer: NodeJS.Timeout | undefined;
+  let beginTime = 0;
+
+  const onClearTimer = () => {
+    pageTimer && clearTimeout(pageTimer);
+    pageTimer = undefined;
+  };
+  const onStartTimer = () => {
+    const currentTime = Date.now();
+    // 避免频繁触发
+    if (pageTimer && currentTime - beginTime < 100) {
+      return;
+    }
+
+    onClearTimer();
+    beginTime = currentTime;
+    pageTimer = setTimeout(() => {
+      callback();
+    }, timeout * 1000);
+  };
+  // 处理标签页隐藏后再显示引起的精度问题
+  const onPageVisibility = () => {
+    onClearTimer();
+
+    if (document.visibilityState === 'visible') {
+      const currentTime = Date.now();
+      if (currentTime - beginTime >= timeout * 1000) {
+        callback();
+        return;
+      }
+
+      pageTimer = setTimeout(() => {
+        callback();
+      }, timeout * 1000 - (currentTime - beginTime));
+    }
+  };
+
+  const startDetection = () => {
+    onStartTimer();
+    document.addEventListener('keydown', onStartTimer);
+    document.addEventListener('mousemove', onStartTimer);
+    document.addEventListener('visibilitychange', onPageVisibility);
+  };
+
+  const stopDetection = () => {
+    onClearTimer();
+    document.removeEventListener('keydown', onStartTimer);
+    document.removeEventListener('mousemove', onStartTimer);
+    document.removeEventListener('visibilitychange', onPageVisibility);
+  };
+
+  const restartDetection = () => {
+    onClearTimer();
+    onStartTimer();
+  };
+
+  if (immediate) {
+    startDetection();
+  }
+
+  return {
+    startDetection,
+    stopDetection,
+    restartDetection
+  };
+};
+// #endregion idleDetection
