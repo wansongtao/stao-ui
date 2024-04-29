@@ -10,3 +10,6 @@ export { useTextEllipsis };
 
 import useResizeObserver from './src/hooks/useResizeObserver';
 export { useResizeObserver };
+
+import useIdleDetection from './src/hooks/useIdleDetection';
+export { useIdleDetection };
