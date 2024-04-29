@@ -224,6 +224,10 @@ const config = {
             {
               text: 'useResizeObserver',
               link: '/utils/hooks/use-resize-observer/'
+            },
+            {
+              text: 'useIdleDetection',
+              link: '/utils/hooks/use-idle-detection/'
             }
           ]
         },
