@@ -4,7 +4,6 @@ import axios, {
   type AxiosResponse
 } from 'axios';
 import { message } from 'ant-design-vue';
-
 import { getDataType } from './utils';
 import { EventBus } from './event/eventBus';
 
@@ -12,6 +11,13 @@ interface IBaseResponse {
   code: number;
   msg: string;
   data?: unknown;
+}
+
+interface IConfigHeader {
+  headers?: {
+    isToken?: boolean;
+    isAllowRepetition?: boolean;
+  };
 }
 
 const getKey = (config: AxiosRequestConfig) => {
@@ -52,18 +58,20 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   (config) => {
-    const key = getKey(config);
-    config.headers.key = key;
-    if (historyRequests.has(key)) {
-      config.headers.requestTime = Date.now();
-      return Promise.reject(
-        new AxiosError('Redundant request', 'ERR_REPEATED', config)
-      );
+    if (config.headers?.isAllowRepetition !== true) {
+      const key = getKey(config);
+      config.headers.key = key;
+      if (historyRequests.has(key)) {
+        config.headers.requestTime = Date.now();
+        return Promise.reject(
+          new AxiosError('Redundant request', 'ERR_REPEATED', config)
+        );
+      }
+      historyRequests.set(key, 1);
     }
-    historyRequests.set(key, 1);
 
     if (config.headers.isToken !== false) {
-      const token = 'token'
+      const token = 'token';
       config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
@@ -76,16 +84,16 @@ instance.interceptors.request.use(
 const responseInterceptor = (res: AxiosResponse<IBaseResponse | Blob>) => {
   const data = res.data;
   const result: [
-    AxiosResponse<IBaseResponse | Blob> | undefined,
-    AxiosError | undefined
-  ] = [undefined, undefined];
+    err?: AxiosError,
+    success?: AxiosResponse<IBaseResponse | Blob>
+  ] = [];
 
   if (data instanceof Blob || data.code === 200) {
-    result[0] = res;
+    result[1] = res;
   } else {
     // 业务错误
     message.error(data.msg);
-    result[1] = new AxiosError(data.msg);
+    result[0] = new AxiosError(data.msg);
   }
 
   return result;
@@ -100,16 +108,16 @@ const eventBus = new EventBus<{
 
 instance.interceptors.response.use(
   (res) => {
-    const [data, error] = responseInterceptor(res);
+    const [err, data] = responseInterceptor(res);
 
     // 如果存在重复请求，则触发事件，将结果返回给请求
     const key = res.config.headers.key as string;
     if (historyRequests.has(key)) {
       historyRequests.delete(key);
-      eventBus.$emit(key, data, error);
+      eventBus.$emit(key, data, err);
     }
 
-    return data !== undefined ? data : Promise.reject(error);
+    return data !== undefined ? data : Promise.reject(err);
   },
   (error: AxiosError) => {
     // 处理重复请求
@@ -125,21 +133,6 @@ instance.interceptors.response.use(
           eventBus.$off(key, callback);
         };
         eventBus.$on(key, callback);
-
-        // 处理超时
-        const timeout = config.timeout || 5000;
-        const requestTime = config.headers.requestTime as number;
-        const now = Date.now();
-        if (now - requestTime > timeout) {
-          historyRequests.delete(key);
-          const error = new AxiosError(
-            `timeout of ${timeout}ms exceeded`,
-            'ECONNABORTED',
-            config
-          );
-          error.name = 'AxiosError';
-          eventBus.$emit(key, undefined, error);
-        }
       });
     }
 
@@ -162,20 +155,18 @@ instance.interceptors.response.use(
 );
 
 export const request = <T extends IBaseResponse | Blob, C = any>(
-  config: AxiosRequestConfig<C>
+  config: AxiosRequestConfig<C> & IConfigHeader
 ) => {
-  return new Promise<[result?: T, error?: AxiosError]>(
-    (resolve) => {
-      instance
-        .request<IBaseResponse | Blob>(config)
-        .then((res) => {
-          resolve([res.data as T]);
-        })
-        .catch((error: AxiosError) => {
-          resolve([undefined, error]);
-        });
-    }
-  );
+  return new Promise<[error?: AxiosError, result?: T]>((resolve) => {
+    instance
+      .request<IBaseResponse | Blob>(config)
+      .then((res) => {
+        resolve([undefined, res.data as T]);
+      })
+      .catch((error: AxiosError) => {
+        resolve([error]);
+      });
+  });
 };
 
 export default instance;
