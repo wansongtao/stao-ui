@@ -522,7 +522,6 @@ export const getMimeType = (fileName: string) => {
 };
 // #endregion getMimeType
 
-
 // #region isLeapYear
 /**
  * @description 是否为闰年
@@ -544,3 +543,38 @@ export const isLeapYear = (year: number) => {
 };
 // #endregion isLeapYear
 
+// #region deepFind
+/**
+ * 深度查找
+ * @param data
+ * @param compare
+ * @param childrenKey
+ * @returns
+ */
+export const deepFind = <T extends Record<string, any>>(
+  data: T[],
+  compare: (value: T) => boolean,
+  childrenKey = 'children'
+): T | undefined => {
+  let item: T | undefined = undefined
+
+  for (let i = 0; i < data.length; i++) {
+    const value = data[i]
+    if (compare(value)) {
+      item = value
+      break
+    }
+
+    if (!value[childrenKey]) {
+      continue
+    }
+
+    item = deepFind(value[childrenKey], compare, childrenKey)
+    if (item !== undefined) {
+      break
+    }
+  }
+
+  return item
+}
+// #endregion deepFind
