@@ -16,3 +16,6 @@ export { useIdleDetection };
 
 import { useURLQuery, useURLQueryObject } from './src/hooks/useURLQuery';
 export { useURLQuery, useURLQueryObject };
+
+import { usePagingRequest } from './src/hooks/usePagingRequest';
+export { usePagingRequest };
