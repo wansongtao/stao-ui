@@ -232,6 +232,10 @@ const config = {
             {
               text: 'useURLQuery',
               link: '/utils/hooks/use-url-query/'
+            },
+            {
+              text: 'usePagingRequest',
+              link: '/utils/hooks/use-paging-request/'
             }
           ]
         },
