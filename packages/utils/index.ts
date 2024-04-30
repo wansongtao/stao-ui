@@ -13,3 +13,6 @@ export { useResizeObserver };
 
 import useIdleDetection from './src/hooks/useIdleDetection';
 export { useIdleDetection };
+
+import { useURLQuery, useURLQueryObject } from './src/hooks/useURLQuery';
+export { useURLQuery, useURLQueryObject };
