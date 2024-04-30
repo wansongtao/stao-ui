@@ -31,29 +31,29 @@ const checkEllipsis = (el: HTMLElement) => {
  * @returns
  */
 export default function useTextEllipsis(isAutoUpdate = true) {
-  const textEllipsisRef = ref<HTMLElement | null>(null);
+  const blockRef = ref<HTMLElement | null>(null);
   const isOverflow = ref(false);
-  const updateTextEllipsisStatus = () => {
-    if (!textEllipsisRef.value) {
+  const updateStatus = () => {
+    if (!blockRef.value) {
       return;
     }
 
-    const element = textEllipsisRef.value;
+    const element = blockRef.value;
     isOverflow.value = checkEllipsis(element);
   };
 
   let observer: MutationObserver | null = null;
   onMounted(() => {
     if (isAutoUpdate) {
-      observer = new MutationObserver(updateTextEllipsisStatus);
-      observer.observe(textEllipsisRef.value!, {
+      observer = new MutationObserver(updateStatus);
+      observer.observe(blockRef.value!, {
         childList: true,
         subtree: true,
         characterData: true
       });
     }
 
-    updateTextEllipsisStatus();
+    updateStatus();
   });
 
   if (isAutoUpdate) {
@@ -66,8 +66,8 @@ export default function useTextEllipsis(isAutoUpdate = true) {
   }
 
   return {
-    textEllipsisRef,
+    blockRef,
     isOverflow,
-    updateTextEllipsisStatus
+    updateStatus
   };
 }

@@ -9,7 +9,7 @@ const $emits = defineEmits<{
   changeStatus: [value: boolean];
 }>();
 
-const { isOverflow, textEllipsisRef } = useTextEllipsis();
+const { isOverflow, blockRef } = useTextEllipsis();
 watch(
   isOverflow,
   (value) => {
@@ -20,7 +20,7 @@ watch(
 </script>
 
 <template>
-  <div ref="textEllipsisRef" class="ellipsis">
+  <div ref="blockRef" class="ellipsis">
     <span><slot :isOverflow="isOverflow" /></span>
   </div>
 </template>

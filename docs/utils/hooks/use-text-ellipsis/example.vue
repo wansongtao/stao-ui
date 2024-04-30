@@ -2,7 +2,7 @@
 import { useTextEllipsis } from '@stao-ui/utils';
 import { ref, nextTick } from 'vue';
 
-const { textEllipsisRef, isOverflow, updateTextEllipsisStatus } =
+const { blockRef, isOverflow, updateStatus } =
   useTextEllipsis(false);
 
 const text = ref('人生匆匆如流水，想来浮生似一梦。');
@@ -14,7 +14,7 @@ const onChangeText = (value: boolean) => {
   }
 
   nextTick(() => {
-    updateTextEllipsisStatus();
+    updateStatus();
   });
 };
 </script>
@@ -22,7 +22,7 @@ const onChangeText = (value: boolean) => {
 <template>
   <div class="flex" @click="onChangeText(isOverflow)">
     <!-- 这个block元素只能包含一个子inline元素，不然无法获取溢出状态 -->
-    <div ref="textEllipsisRef" class="container ellipsis">
+    <div ref="blockRef" class="container ellipsis">
       <!-- 这个span可包含任意inline元素 -->
       <span>
         {{ text }}
