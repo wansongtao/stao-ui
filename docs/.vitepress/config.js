@@ -228,6 +228,10 @@ const config = {
             {
               text: 'useIdleDetection',
               link: '/utils/hooks/use-idle-detection/'
+            },
+            {
+              text: 'useURLQuery',
+              link: '/utils/hooks/use-url-query/'
             }
           ]
         },
