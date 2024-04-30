@@ -210,3 +210,24 @@ aliOssImageResize('oss url', {
 ::: details 查看源码
 <<< ../../../../packages/utils/src/html2canvas.js
 :::
+
+## 深度查找
+
+该函数接收三个参数，第一个参数为一个数组对象，第二个参数为一个比较函数，第三个参数为一个设置子元素key的字符串。返回查找到的项。
+
+```ts
+import { deepFind } from '@stao-ui/utils';
+
+const obj = [
+  { a: 1, b: 10, children: [{ a: 20, b: 11 }]},
+  { a: 2, b: 11 },
+  { a: 3, b: 12 },
+  { a: 4, b: 13 },
+];
+
+deepFind(obj, (v) => v === 20, 'children'); // {a: 20, b: 11}
+```
+
+::: details 查看源码
+<<< ../../../../packages/utils/src/feature.ts#deepFind
+:::
