@@ -7,7 +7,7 @@
 ## 介绍
   
 对请求拦截器与响应拦截器进行了通用封装，通过`Event Bus`解决了重复请求问题。 Event Bus实现请[参考](../../plugins/event/index)。  
-提供一个对类型/错误处理更友好的`request`方法，返回值`Promise<[data?: T, error?: AxiosError]>`。
+提供一个对类型/错误处理更友好的`request`方法，返回值`Promise<[err?: AxiosError, data?: T]>`。
 
 ::: details axios 封装源码
 <<< ../../../../packages/utils/src/request.ts
@@ -23,7 +23,7 @@ import instance, { request } from '@/utils/request';
 
 type IResponse<T = unknown> = { code: number; data: T; msg: string };
 
-// 返回值： Promise<[result?: IResponse<{name: string; age: number;}>, error?: AxiosError]>
+// 返回值： Promise<[err?: AxiosError, data?: IResponse<{name: string; age: number;}>]>
 export const getUserData = () => {
   return request<IResponse<{name: string; age: number;}>>({
     url: '/user',
