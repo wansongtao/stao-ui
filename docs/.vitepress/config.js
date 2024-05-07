@@ -155,14 +155,15 @@ const config = {
             { text: 'Button 按钮', link: '/components/button/' },
             { text: 'FileSelector 文件选择', link: '/components/upload/' },
             { text: 'Switch 开关', link: '/components/switch/' },
+            { text: 'TextScroll 文字滚动', link: '/components/text-scroll/' },
+            { text: 'Carousel 轮播图', link: '/components/carousel/' },
+            { text: 'CodeForm 二维码表单', link: '/components/code-form/' },
             {
               text: 'TextEllipsis 文本省略',
               link: '/components/textellipsis/'
             },
             { text: 'Tabs 标签页', link: '/components/tabs/' },
-            { text: 'DatePanel 日期面板', link: '/components/datepanel/' },
-            { text: 'Carousel 轮播图', link: '/components/carousel/' },
-            { text: 'CodeForm 二维码表单', link: '/components/code-form/' }
+            { text: 'DatePanel 日期面板', link: '/components/datepanel/' }
           ]
         },
         {
@@ -210,9 +211,7 @@ const config = {
         },
         {
           text: '工具类',
-          items: [
-            { text: 'Event Bus', link: '/utils/plugins/event/' }
-          ]
+          items: [{ text: 'Event Bus', link: '/utils/plugins/event/' }]
         },
         {
           text: 'hooks',
