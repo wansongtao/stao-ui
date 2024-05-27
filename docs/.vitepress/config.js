@@ -167,10 +167,6 @@ const config = {
           ]
         },
         {
-          text: '其他组件',
-          items: [{ text: 'VueAMap 地图', link: '/components/other/vuemap/' }]
-        },
-        {
           text: 'echarts组件',
           items: [
             { text: 'PieChart 饼图', link: '/components/echarts/pie/' },
@@ -189,13 +185,8 @@ const config = {
           ]
         },
         {
-          text: 'elementPlus组件',
-          items: [
-            {
-              text: 'ButtonConfirm 确认按钮',
-              link: '/components/element-plus/confirm-btn/'
-            }
-          ]
+          text: '特殊组件',
+          items: [{ text: 'VueAMap 地图', link: '/components/other/vuemap/' }]
         }
       ],
       '/utils/': [
