@@ -271,7 +271,12 @@ const config = {
       }
     }
   },
-  base: '/stao-ui/'
+  base: '/stao-ui/',
+  vite: {
+    server: {
+      open: true
+    }
+  }
 };
 
 export default config;
