@@ -16,7 +16,7 @@ const onClick = () => {
 <template>
   <div class="container">
     <STaoButton type="line" :disabled="disabled" @click="onClick">
-      <span style="margin-right: 6px; display: flex; align-item: center">
+      <span style="margin-right: 6px; display: flex; align-items: center">
         <IconDocumentation />
       </span>
       按钮

@@ -8,8 +8,8 @@
   "scripts": {
     "docs:dev": "pnpm -C docs dev",
     "app:dev": "pnpm -C apps dev",
-    "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs",
+    "docs:build": "pnpm -C docs build",
+    "docs:preview": "pnpm -C docs preview",
     "components:build": "node packages/components/scripts/build.js",
     "utils:build": "node packages/utils/scripts/build.js"
   },
@@ -54,7 +54,6 @@
     "shelljs": "^0.8.5",
     "typescript": "^4.9.5",
     "vite": "^4.1.3",
-    "vite-plugin-dts": "^2.0.2",
-    "vitepress": "1.0.0-beta.7"
+    "vite-plugin-dts": "^2.0.2"
   }
 }

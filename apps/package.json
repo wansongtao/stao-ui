@@ -13,10 +13,7 @@
   },
   "dependencies": {
     "@stao-ui/components": "workspace:*",
-    "@stao-ui/utils": "workspace:*",
-    "pinia": "^2.0.32",
-    "vue": "^3.2.47",
-    "vue-router": "^4.1.6"
+    "@stao-ui/utils": "workspace:*"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.2.0",
