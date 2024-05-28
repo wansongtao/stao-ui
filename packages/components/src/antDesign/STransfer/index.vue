@@ -8,11 +8,6 @@ import {
   Empty as AEmpty
 } from 'ant-design-vue'
 import type { CheckboxChangeEvent } from 'ant-design-vue/es/checkbox/interface'
-import 'ant-design-vue/es/checkbox/style/css'
-import 'ant-design-vue/es/row/style/css'
-import 'ant-design-vue/es/col/style/css'
-import 'ant-design-vue/es/spin/style/css'
-import 'ant-design-vue/es/empty/style/css'
 import { ref, watch } from 'vue'
 
 export interface ItemType {

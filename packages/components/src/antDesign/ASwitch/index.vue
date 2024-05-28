@@ -1,6 +1,5 @@
 <script lang="ts" generic="T = unknown" setup>
-import ASwitch from 'ant-design-vue/es/switch';
-import 'ant-design-vue/es/switch/style/css';
+import { Switch as ASwitch } from 'ant-design-vue';
 import { type Slot } from 'vue';
 
 type checkType = boolean | string | number;
