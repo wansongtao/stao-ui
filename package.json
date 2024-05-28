@@ -17,6 +17,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@ant-design/icons-vue": "^7.0.1",
     "@stao-ui/components": "workspace:^1.0.0",
     "@stao-ui/utils": "workspace:^1.0.0",
     "@vuemap/vue-amap": "^2.0.18",
