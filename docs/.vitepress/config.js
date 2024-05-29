@@ -31,6 +31,9 @@ const config = {
       prev: '上一页',
       next: '下一页'
     },
+    socialLinks: [
+      { icon: 'github', link: 'https://github.com/wansongtao/stao-ui' }
+    ],
     nav: [
       { text: '指南', link: '/guide/quickStart', activeMatch: '/guide/' },
       {
@@ -38,10 +41,8 @@ const config = {
         link: '/components/button/',
         activeMatch: '/components/'
       },
-      { text: '工具', link: '/utils/common/main/', activeMatch: '/utils/' }
-    ],
-    socialLinks: [
-      { icon: 'github', link: 'https://github.com/wansongtao/stao-ui' }
+      { text: '工具', link: '/utils/common/main/', activeMatch: '/utils/' },
+      { text: '库', link: '/library/chinesenumber/', activeMatch: '/library/' }
     ],
     sidebar: {
       '/guide/': [
@@ -130,15 +131,17 @@ const config = {
               link: '/utils/hooks/use-paging-request/'
             }
           ]
-        },
+        }
+      ],
+      '/library/': [
         {
-          text: '库',
+          text: 'npm 库',
           items: [
             {
               text: 'number2chinesenumber',
-              link: '/utils/library/chinesenumber/'
+              link: '/library/chinesenumber/'
             },
-            { text: 'web-storage-plus', link: '/utils/library/storage/' }
+            { text: 'web-storage-plus', link: '/library/storage/' }
           ]
         }
       ]
