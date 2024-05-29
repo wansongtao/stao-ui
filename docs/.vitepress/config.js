@@ -1,93 +1,3 @@
-import markdownItKatex from 'markdown-it-katex';
-
-const customElements = [
-  'math',
-  'maction',
-  'maligngroup',
-  'malignmark',
-  'menclose',
-  'merror',
-  'mfenced',
-  'mfrac',
-  'mi',
-  'mlongdiv',
-  'mmultiscripts',
-  'mn',
-  'mo',
-  'mover',
-  'mpadded',
-  'mphantom',
-  'mroot',
-  'mrow',
-  'ms',
-  'mscarries',
-  'mscarry',
-  'mscarries',
-  'msgroup',
-  'mstack',
-  'mlongdiv',
-  'msline',
-  'mstack',
-  'mspace',
-  'msqrt',
-  'msrow',
-  'mstack',
-  'mstack',
-  'mstyle',
-  'msub',
-  'msup',
-  'msubsup',
-  'mtable',
-  'mtd',
-  'mtext',
-  'mtr',
-  'munder',
-  'munderover',
-  'semantics',
-  'math',
-  'mi',
-  'mn',
-  'mo',
-  'ms',
-  'mspace',
-  'mtext',
-  'menclose',
-  'merror',
-  'mfenced',
-  'mfrac',
-  'mpadded',
-  'mphantom',
-  'mroot',
-  'mrow',
-  'msqrt',
-  'mstyle',
-  'mmultiscripts',
-  'mover',
-  'mprescripts',
-  'msub',
-  'msubsup',
-  'msup',
-  'munder',
-  'munderover',
-  'none',
-  'maligngroup',
-  'malignmark',
-  'mtable',
-  'mtd',
-  'mtr',
-  'mlongdiv',
-  'mscarries',
-  'mscarry',
-  'msgroup',
-  'msline',
-  'msrow',
-  'mstack',
-  'maction',
-  'semantics',
-  'annotation',
-  'annotation-xml'
-];
-
 /**
  * @type {import('vitepress').UserConfig}
  */
@@ -128,12 +38,7 @@ const config = {
         link: '/components/button/',
         activeMatch: '/components/'
       },
-      { text: '工具', link: '/utils/common/main/', activeMatch: '/utils/' },
-      {
-        text: '算法',
-        link: '/algorithm/bubble-sort/',
-        activeMatch: '/algorithm/'
-      }
+      { text: '工具', link: '/utils/common/main/', activeMatch: '/utils/' }
     ],
     socialLinks: [
       { icon: 'github', link: 'https://github.com/wansongtao/stao-ui' }
@@ -236,36 +141,7 @@ const config = {
             { text: 'web-storage-plus', link: '/utils/library/storage/' }
           ]
         }
-      ],
-      '/algorithm/': [
-        {
-          text: '算法',
-          items: [
-            { text: '冒泡排序', link: '/algorithm/bubble-sort/' },
-            { text: '选择排序', link: '/algorithm/selection-sort/' },
-            { text: '插入排序', link: '/algorithm/insertion-sort/' },
-            { text: '希尔排序', link: '/algorithm/shell-sort/' },
-            { text: '归并排序', link: '/algorithm/merge-sort/' },
-            { text: '快速排序', link: '/algorithm/quick-sort/' },
-            { text: '计数排序', link: '/algorithm/counting-sort/' },
-            { text: '桶排序', link: '/algorithm/bucket-sort/' },
-            { text: '基数排序', link: '/algorithm/radix-sort/' },
-            { text: '堆排序', link: '/algorithm/heap-sort/' }
-          ]
-        }
       ]
-    }
-  },
-  markdown: {
-    config: (md) => {
-      md.use(markdownItKatex);
-    }
-  },
-  vue: {
-    template: {
-      compilerOptions: {
-        isCustomElement: (tag) => customElements.includes(tag)
-      }
     }
   },
   base: '/stao-ui/',
