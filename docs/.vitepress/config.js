@@ -122,7 +122,7 @@ const config = {
       next: '下一页'
     },
     nav: [
-      { text: '指南', link: '/guide/installation', activeMatch: '/guide/' },
+      { text: '指南', link: '/guide/quickStart', activeMatch: '/guide/' },
       {
         text: '组件',
         link: '/components/button/',
@@ -142,10 +142,7 @@ const config = {
       '/guide/': [
         {
           text: '指南',
-          items: [
-            { text: '快速开始', link: '/guide/quickStart' },
-            { text: '安装', link: '/guide/installation' }
-          ]
+          items: [{ text: '快速开始', link: '/guide/quickStart' }]
         }
       ],
       '/components/': [
