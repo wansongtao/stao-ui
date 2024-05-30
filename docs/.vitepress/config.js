@@ -1,3 +1,5 @@
+import { resolve } from 'path';
+
 /**
  * @type {import('vitepress').UserConfig}
  */
@@ -151,6 +153,12 @@ const config = {
   vite: {
     server: {
       open: true
+    },
+    resolve: {
+      alias: {
+        // 设置别名
+        '@': resolve(__dirname, '../src')
+      }
     }
   }
 };
