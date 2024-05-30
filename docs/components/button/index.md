@@ -1,26 +1,21 @@
-<script lang="ts" setup>
-import SimpleExample from './SimpleExample.vue'
-</script>
-
 # Button 按钮
 
-简单按钮组件，支持自定义样式，支持自定义内容。  
-***使用场景：高度自定义按钮(一些大型组件库的按钮改起来麻烦)。***
+按钮组件，默认跟随父组件宽度，支持同时设置`type`、`status`、`disabled`。
 
-::: tip
-目前建议复制源代码到自己的项目中使用，因为组件库还在开发中，不稳定，不建议直接使用。
-:::  
-
-::: details 源代码
-<<< ../../../packages/components/src/SButton/SButton.vue
+::: details 组件源码
+<<< ../../src/components/button/BaseButton.vue
 :::
 
-## 基础用法
+## 用法
 
-<SimpleExample />
+<script lang="ts" setup>
+import ExampleView from './ExampleView.vue'
+</script>
 
-::: details 查看示例代码
-<<< ./SimpleExample.vue
+<ExampleView />
+
+::: details 示例代码
+<<< ./ExampleView.vue
 :::
 
 ## API
@@ -29,7 +24,8 @@ import SimpleExample from './SimpleExample.vue'
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| type | 按钮样式类型 | _'default' \| 'line'_ | `default` |
+| type | 类型 | _'primary' \| 'outline'_ | `primary` |
+| status | 状态 | _'default' \| 'danger'_ | `default` |
 | disabled | 是否禁用 | _boolean_ | `false` |
 
 ### Slots
@@ -37,3 +33,9 @@ import SimpleExample from './SimpleExample.vue'
 | 名称 | 说明 | 参数 |
 | --- | --- | --- | 
 | default | 需要显示的内容 | - | 
+
+### Events
+
+| 事件名 | 说明 | 回调参数 |
+| --- | --- | --- |
+| click | 点击按钮时触发(禁用时也会触发) | _event: MouseEvent_ |
