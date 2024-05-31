@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { STaoButton } from '@stao-ui/components'
+import { BaseButton } from '@stao-ui/components'
 import IconDocumentation from '@/components/icons/IconDocumentation.vue'
 
 defineOptions({
@@ -15,12 +15,12 @@ const onClick = () => {
 
 <template>
   <div class="container">
-    <STaoButton type="line" :disabled="disabled" @click="onClick">
-      <span style="margin-right: 6px; display: flex; align-item: center">
+    <BaseButton type="outline" :disabled="disabled" @click="onClick">
+      <span style="margin-right: 6px; display: flex; align-items: center">
         <IconDocumentation />
       </span>
       按钮
-    </STaoButton>
+    </BaseButton>
   </div>
 </template>
 
