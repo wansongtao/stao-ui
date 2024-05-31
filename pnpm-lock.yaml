@@ -150,13 +150,6 @@ importers:
         version: 1.8.8(typescript@4.9.5)
 
   docs:
-    dependencies:
-      '@stao-ui/components':
-        specifier: workspace:^
-        version: link:../packages/components
-      '@stao-ui/utils':
-        specifier: workspace:^1.0.7
-        version: link:../packages/utils
     devDependencies:
       vitepress:
         specifier: 1.2.2
