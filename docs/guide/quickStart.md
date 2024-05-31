@@ -28,11 +28,11 @@ $ pnpm install @stao-ui/components @stao-ui/utils
 ```ts
 import { createApp } from 'vue'
 import App from './App.vue'
-import { STaoButton } from '@stao-ui/components'
+import { BaseButton } from '@stao-ui/components'
 
 const app = createApp(App)
-app.use(STaoButton)
-// app.component('STaoButton', STaoButton) // 或者这样注册
+app.use(BaseButton)
+// app.component('BaseButton', BaseButton) // 或者这样注册
 app.mount('#app')
 ```
 
@@ -40,11 +40,11 @@ app.mount('#app')
 
 ```vue
 <template>
-  <STaoButton>按钮</STaoButton>
+  <BaseButton>按钮</BaseButton>
 </template>
 
 <script setup>
-import { STaoButton } from '@stao-ui/components'
+import { BaseButton } from '@stao-ui/components'
 </script>
 ```
 
