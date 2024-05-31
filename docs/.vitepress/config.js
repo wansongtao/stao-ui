@@ -43,7 +43,7 @@ const config = {
         link: '/components/button/',
         activeMatch: '/components/'
       },
-      { text: '工具', link: '/utils/common/main/', activeMatch: '/utils/' },
+      // { text: '工具', link: '/utils/common/main/', activeMatch: '/utils/' },
       { text: '库', link: '/library/chinesenumber/', activeMatch: '/library/' }
     ],
     sidebar: {
@@ -57,36 +57,7 @@ const config = {
         {
           text: '基础组件',
           items: [
-            { text: 'Button 按钮', link: '/components/button/' },
-            { text: 'FileSelector 文件选择', link: '/components/upload/' },
-            { text: 'Switch 开关', link: '/components/switch/' },
-            { text: 'TextScroll 文字滚动', link: '/components/text-scroll/' },
-            { text: 'Carousel 轮播图', link: '/components/carousel/' },
-            { text: 'CodeForm 二维码表单', link: '/components/code-form/' },
-            {
-              text: 'TextEllipsis 文本省略',
-              link: '/components/textellipsis/'
-            },
-            { text: 'Tabs 标签页', link: '/components/tabs/' },
-            { text: 'DatePanel 日期面板', link: '/components/datepanel/' }
-          ]
-        },
-        {
-          text: 'echarts组件',
-          items: [
-            { text: 'PieChart 饼图', link: '/components/echarts/pie/' },
-            { text: 'LineChart 折线图', link: '/components/echarts/line/' }
-          ]
-        },
-        {
-          text: 'antd组件',
-          items: [
-            { text: '确认对话框', link: '/components/antd/modal/' },
-            { text: 'Switch 开关', link: '/components/antd/base-switch/' },
-            {
-              text: 'CheckTransfer 多选穿梭框',
-              link: '/components/antd/check-transfer/'
-            }
+            { text: 'Button 按钮', link: '/components/button/' }
           ]
         },
         {
@@ -94,47 +65,7 @@ const config = {
           items: [{ text: 'VueAMap 地图', link: '/components/other/vuemap/' }]
         }
       ],
-      '/utils/': [
-        {
-          text: '常用工具',
-          items: [
-            { text: '常用函数', link: '/utils/common/main/' },
-            { text: '冷门函数', link: '/utils/common/feature/' },
-            { text: 'exceljs', link: '/utils/common/exceljs/' },
-            { text: 'axios', link: '/utils/common/axios/' },
-            { text: 'CSS', link: '/utils/common/css/' }
-          ]
-        },
-        {
-          text: '工具类',
-          items: [{ text: 'Event Bus', link: '/utils/plugins/event/' }]
-        },
-        {
-          text: 'hooks',
-          items: [
-            {
-              text: 'useTextEllipsis',
-              link: '/utils/hooks/use-text-ellipsis/'
-            },
-            {
-              text: 'useResizeObserver',
-              link: '/utils/hooks/use-resize-observer/'
-            },
-            {
-              text: 'useIdleDetection',
-              link: '/utils/hooks/use-idle-detection/'
-            },
-            {
-              text: 'useURLQuery',
-              link: '/utils/hooks/use-url-query/'
-            },
-            {
-              text: 'usePagingRequest',
-              link: '/utils/hooks/use-paging-request/'
-            }
-          ]
-        }
-      ],
+      '/utils/': [],
       '/library/': [
         {
           text: 'npm 库',
