@@ -88,7 +88,8 @@ const config = {
     resolve: {
       alias: {
         // 设置别名
-        '@': resolve(__dirname, '../src')
+        '@': resolve(__dirname, '../../packages/components/src'),
+        '@utils': resolve(__dirname, '../../packages/utils/src')
       }
     }
   }

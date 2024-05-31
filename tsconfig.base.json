@@ -13,12 +13,21 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "removeComments": false,
-    "rootDirs": ["./", "./packages/components"],
+    "rootDirs": [
+      "./",
+      "./packages/components"
+    ],
     "types": [],
     "paths": {
       "@stao-ui/*": [
         "packages/*"
-      ]
+      ],
+      "@/*": [
+        "packages/components/src/*"
+      ],
+      "@utils/*": [
+        "packages/utils/src/*"
+      ],
     }
   }
 }
