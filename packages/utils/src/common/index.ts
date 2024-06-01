@@ -67,7 +67,7 @@ export interface ICurryBack<T = unknown, B = unknown> {
   (...params: T[]): B | ICurryBack<T, B>;
 }
 /**
- * 柯里化：将多变量函数拆解为单变量（或部分变量）的多个函数并依次调用
+ * 柯里化：接收一个函数，返回一个新函数，新函数接收的参数数量不足时，会返回一个新函数，直到参数数量足够执行原函数
  */
 export const curry = <T = unknown, B = unknown>(
   fn: Function,
@@ -460,6 +460,7 @@ export const followSystemTheme = (
     setTimeout(() => {
       callback(mode);
     }, delay);
+    return;
   }
 
   const systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
