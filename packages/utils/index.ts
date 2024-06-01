@@ -1,5 +1,5 @@
 export * from './src/install';
-export * from './src/utils';
+export * from './src/common';
 export * from './src/feature';
 export * from './src/excel';
 export * from './src/downloadFile';
