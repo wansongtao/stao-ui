@@ -57,7 +57,8 @@ const config = {
         {
           text: '基础组件',
           items: [
-            { text: 'Button 按钮', link: '/components/button/' }
+            { text: 'Button 按钮', link: '/components/button/' },
+            { text: 'FileSelector 文件选择', link: '/components/file/' },
           ]
         },
         {
