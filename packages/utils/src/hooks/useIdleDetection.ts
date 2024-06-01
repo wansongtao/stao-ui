@@ -1,5 +1,5 @@
 import { onScopeDispose, onDeactivated } from 'vue';
-import { idleDetection } from '../utils';
+import { idleDetection } from '../common';
 
 /**
  * 页面空闲检测
@@ -17,9 +17,10 @@ export default function useIdleDetection(
 ) {
   const { startDetection, stopDetection, restartDetection } = idleDetection(
     callback,
-    timeout,
-    immediate
+    timeout
   );
+
+  if (immediate) startDetection();
 
   onScopeDispose(() => {
     if (isLeaveDestroy) stopDetection();
