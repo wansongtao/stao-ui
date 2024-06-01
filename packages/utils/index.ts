@@ -1,6 +1,6 @@
 export * from './src/install';
 export * from './src/common';
-export * from './src/feature';
+export * from './src/special';
 export * from './src/excel';
 export * from './src/downloadFile';
 export * from './src/event/eventBus';
