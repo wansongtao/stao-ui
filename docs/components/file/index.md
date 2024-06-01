@@ -6,7 +6,7 @@
 <<< ../../../packages/components/src/FileSelector/FileSelector.vue
 :::
 
-## 使用
+## 基本用法
 
 <script lang="ts" setup>
 import ExampleView from './ExampleView.vue'
