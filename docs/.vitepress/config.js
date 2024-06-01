@@ -43,7 +43,7 @@ const config = {
         link: '/components/button/',
         activeMatch: '/components/'
       },
-      // { text: '工具', link: '/utils/common/main/', activeMatch: '/utils/' },
+      { text: '工具', link: '/utils/common/main/', activeMatch: '/utils/' },
       { text: '库', link: '/library/chinesenumber/', activeMatch: '/library/' }
     ],
     sidebar: {
@@ -66,7 +66,15 @@ const config = {
           items: [{ text: 'VueAMap 地图', link: '/components/other/vuemap/' }]
         }
       ],
-      '/utils/': [],
+      '/utils/': [
+        {
+          text: '基础工具',
+          items: [
+            { text: '常用方法', link: '/utils/common/main/' },
+            { text: '特殊方法', link: '/utils/common/special/' },
+          ]
+        }
+      ],
       '/library/': [
         {
           text: 'npm 库',
