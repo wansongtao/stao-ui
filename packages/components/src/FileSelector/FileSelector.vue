@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue';
 
-export interface IFileSelectorProps {
+interface IFileSelectorProps {
   /**
    * 是否启用上传目录功能，优先级最高，默认false（设置为true后，accept、limit、drag将不生效）
    */
@@ -32,7 +32,7 @@ export interface IFileSelectorProps {
   disabled?: boolean;
 }
 
-const props = withDefaults(defineProps<IFileSelectorProps>(), {
+const $props = withDefaults(defineProps<IFileSelectorProps>(), {
   webkitdirectory: false,
   accept: '',
   limit: 1,
@@ -40,177 +40,147 @@ const props = withDefaults(defineProps<IFileSelectorProps>(), {
   excessReplace: false,
   disabled: false
 });
-const emits = defineEmits<{
-  (e: 'changeFile', files: File[]): void;
-  /**
-   * @description 抛出超出大小的文件列表
-   */
-  (e: 'overSize', overFiles: File[]): void;
+const $emits = defineEmits<{
+  'change': [files: File[]];
+  'exceed-size': [files: File[]];
 }>();
 
-const verifyFile = (file: File, size?: number, type?: string) => {
-  if (size) {
-    if (file.size > size) {
-      return false;
-    }
-  }
-
-  if (type) {
-    if (file.type !== type) {
-      return false;
-    }
-  }
-
-  return true;
-};
-
-const disabled = ref(false || props.disabled);
+const disabled = ref(false || $props.disabled);
 watch(
-  () => props.disabled,
+  () => $props.disabled,
   (value) => {
     disabled.value = value;
   }
 );
 
-const fileEle = ref<HTMLInputElement | null>(null);
-
-/**
- * @description 打开选择文件弹窗
- */
-const onSelectFile = () => {
-  if (!fileEle.value) {
-    return;
-  }
-
-  if (disabled.value) {
-    return;
-  }
-
-  fileEle.value.click();
-};
-
 const files = ref<File[]>([]);
-const saveFileInfo = (checkedFiles: File[]) => {
+const addFiles = (checkedFiles: File[]) => {
+  if ($props.size && $props.size > 0) {
+    const maxFiles = checkedFiles.filter((value) => {
+      return value.size > $props.size!;
+    });
+
+    if (maxFiles.length) {
+      $emits('exceed-size', maxFiles);
+
+      checkedFiles = checkedFiles.filter((value) => {
+        return value.size <= $props.size!;
+      });
+    }
+  }
+
   if (!checkedFiles.length) {
     return;
   }
 
-  if (props.size && props.size > 0) {
-    const overFiles = checkedFiles.filter((value) =>
-      !verifyFile(value, props.size)
-    );
-
-    if (overFiles.length) {
-      emits('overSize', overFiles);
-      return;
-    }
-  }
-
-  const plot = {
+  const strategies = {
     singleFile: () => {
-      if (!props.excessReplace) {
+      if (!$props.excessReplace) {
         disabled.value = true;
       }
 
       files.value = checkedFiles;
-      emits('changeFile', files.value);
+      $emits('change', files.value);
     },
     multipleFile: () => {
       // 多选未限制个数
-      if (props.limit === Infinity) {
+      if ($props.limit === Infinity) {
         files.value.push(...checkedFiles);
-        emits('changeFile', files.value);
+        $emits('change', files.value);
         return;
       }
 
       // 多选，限制了个数
       const total = files.value.length + checkedFiles.length;
-      if (total >= props.limit && !props.excessReplace) {
+      if (total >= $props.limit && !$props.excessReplace) {
         disabled.value = true;
       }
 
-      const newFiles = [...files.value, ...checkedFiles];
-      // 移除多余的文件
-      if (props.excessReplace) {
-        const len = newFiles.length;
-        newFiles.splice(0, len - props.limit);
+      const allFiles = [...files.value, ...checkedFiles];
+      if ($props.excessReplace) {
+        allFiles.splice(0, total - $props.limit);
       } else {
-        newFiles.splice(props.limit);
+        allFiles.splice($props.limit);
       }
 
-      files.value = newFiles;
-      emits('changeFile', files.value);
+      files.value = allFiles;
+      $emits('change', files.value);
     },
     folder: () => {
       disabled.value = true;
       files.value = checkedFiles;
-      emits('changeFile', files.value);
+      $emits('change', files.value);
     }
   };
 
-  // 读取文件夹下所有文件
-  if (props.webkitdirectory) {
-    plot.folder();
+  if ($props.webkitdirectory) {
+    strategies.folder();
     return;
   }
 
-  // 单选
-  if (!props.limit || props.limit === 1) {
-    plot.singleFile();
+  if (!$props.limit || $props.limit === 1) {
+    strategies.singleFile();
     return;
   }
 
-  plot.multipleFile();
+  strategies.multipleFile();
 };
 
-const deleteFile = (idx: number) => {
-  if (!Number.isInteger(idx) || idx >= files.value.length) {
+const inputElement = ref<HTMLInputElement | null>(null);
+const onOpenFolder = () => {
+  if (!inputElement.value || disabled.value) {
     return;
   }
 
-  files.value.splice(idx, 1);
-
-  if (disabled.value) {
-    disabled.value = false;
-  }
-  if (!files.value.length) {
-    // 解决删除文件后，再上传相同文件失败的错误
-    (fileEle.value as HTMLInputElement).value = '';
-  }
+  inputElement.value.click();
 };
-
 const clearFiles = () => {
   disabled.value = false;
   files.value = [];
 
   // 解决删除文件后，再上传相同文件失败的错误
-  (fileEle.value as HTMLInputElement).value = '';
+  (inputElement.value as HTMLInputElement).value = '';
 };
+const deleteFile = (index: number) => {
+  if (!Number.isInteger(index) || index >= files.value.length) {
+    return;
+  }
 
+  if (files.value.length === 1) {
+    clearFiles();
+    return;
+  }
+
+  if (disabled.value) {
+    disabled.value = false;
+  }
+  files.value.splice(index, 1);
+};
 const onChangeFile = (e: Event) => {
   const checkedFiles = (e.target as HTMLInputElement).files;
   if (!checkedFiles) {
     return;
   }
-
-  saveFileInfo(Array.from(checkedFiles));
+  addFiles(Array.from(checkedFiles));
 };
 const onDragFile = (e: DragEvent) => {
-  const checkedFiles = e.dataTransfer!.files;
-  saveFileInfo(Array.from(checkedFiles));
+  const checkedFiles = e.dataTransfer?.files;
+  if (!checkedFiles) {
+    return;
+  }
+  addFiles(Array.from(checkedFiles));
 };
 
 defineExpose({
-  onSelectFile,
+  onOpenFolder,
   deleteFile,
-  clearFiles,
-  verifyFile
+  clearFiles
 });
 </script>
 
 <template>
   <input
-    ref="fileEle"
+    ref="inputElement"
     type="file"
     name="files"
     title="upload"
@@ -222,7 +192,7 @@ defineExpose({
   <div
     class="file_btn"
     :class="disabled ? 'file_btn--stop' : ''"
-    @click="onSelectFile"
+    @click="onOpenFolder"
     v-if="!drag || webkitdirectory">
     <slot :disabled="disabled">
       <div class="default_btn">选择文件</div>
@@ -231,7 +201,7 @@ defineExpose({
   <div
     class="file_btn"
     :class="disabled ? 'file_btn--stop' : ''"
-    @click="onSelectFile"
+    @click="onOpenFolder"
     @dragenter.prevent
     @dragover.prevent
     @drop.prevent="onDragFile"
