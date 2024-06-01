@@ -197,7 +197,7 @@ export const deepClone = <T = unknown>(obj: T) => {
 // #region getQueryString
 /**
  * @description 拼接查询字符串
- * @param data 
+ * @param data
  * @param isEncode 是否使用encodeURIComponent()将值编码，默认true
  * @returns
  */
@@ -295,7 +295,7 @@ export const formatTime = (
       return date.getSeconds().toString().padStart(2, '0');
     }
   };
-  type IKey = keyof (typeof strategies)
+  type IKey = keyof typeof strategies;
 
   const replaceFn = (val: string): string => {
     let func = strategies[val as IKey];
@@ -312,10 +312,7 @@ export const formatTime = (
     return val;
   };
 
-  return format.replace(
-    /([Yy]{2,4}|[M]+|[Dd]+|[Hh]+|[m]+|[Ss]+)/g,
-    replaceFn
-  );
+  return format.replace(/([Yy]{2,4}|[M]+|[Dd]+|[Hh]+|[m]+|[Ss]+)/g, replaceFn);
 };
 // #endregion formatTime
 
@@ -326,10 +323,7 @@ export const formatTime = (
  * @param timeout 时长，默认60s，单位：秒
  * @returns
  */
-export const idleDetection = (
-  callback: () => void,
-  timeout = 60
-) => {
+export const idleDetection = (callback: () => void, timeout = 60) => {
   let pageTimer: NodeJS.Timeout | undefined;
   let beginTime = 0;
 
@@ -399,26 +393,79 @@ export const deepFind = <T extends Record<string, any>>(
   compare: (value: T) => boolean,
   childrenKey = 'children'
 ): T | undefined => {
-  let item: T | undefined = undefined
+  let item: T | undefined = undefined;
 
   for (let i = 0; i < data.length; i++) {
-    const value = data[i]
+    const value = data[i];
     if (compare(value)) {
-      item = value
-      break
+      item = value;
+      break;
     }
 
     if (!value[childrenKey]) {
-      continue
+      continue;
     }
 
-    item = deepFind(value[childrenKey], compare, childrenKey)
+    item = deepFind(value[childrenKey], compare, childrenKey);
     if (item !== undefined) {
-      break
+      break;
     }
   }
 
-  return item
-}
+  return item;
+};
 // #endregion deepFind
 
+// #region getSystemTheme
+export const getSystemTheme = () => {
+  if (!window.matchMedia) {
+    const date = new Date();
+    const hours = date.getHours();
+
+    if (hours >= 7 && hours < 19) {
+      return 'light';
+    }
+    return 'dark';
+  }
+
+  const systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
+  const theme = systemTheme.matches ? 'dark' : 'light';
+  return theme;
+};
+// #endregion getSystemTheme
+
+// #region followSystemTheme
+export const followSystemTheme = (
+  callback: (theme: 'dark' | 'light') => void
+) => {
+  if (!window.matchMedia) {
+    const date = new Date();
+    const hours = date.getHours();
+    const time = date.getTime();
+    let delay = 0;
+    let mode: 'light' | 'dark' = 'light';
+
+    if (hours >= 0 && hours < 7) {
+      const nextTime = date.setHours(7);
+      delay = nextTime - time;
+    } else if (hours >= 7 && hours < 19) {
+      const nextTime = date.setHours(19);
+      delay = nextTime - time;
+      mode = 'dark';
+    } else {
+      const nextTime = date.setHours(23, 59, 59, 999) + 7 * 60 * 60 * 1000;
+      delay = nextTime - time;
+    }
+
+    setTimeout(() => {
+      callback(mode);
+    }, delay);
+  }
+
+  const systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
+  systemTheme.addEventListener('change', (e) => {
+    const theme = e.matches ? 'dark' : 'light';
+    callback(theme);
+  });
+};
+// #endregion followSystemTheme
