@@ -1,10 +1,6 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue';
 
-defineOptions({
-  name: 'CodeForm'
-});
-
 const $props = defineProps<{
   formHtml?: string;
 }>();
