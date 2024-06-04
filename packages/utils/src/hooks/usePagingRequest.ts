@@ -1,5 +1,5 @@
 import { ref, shallowRef, computed, watch } from 'vue';
-import { debounce } from '../utils';
+import { debounce } from '../common';
 
 import type { Ref, ShallowRef } from 'vue';
 
