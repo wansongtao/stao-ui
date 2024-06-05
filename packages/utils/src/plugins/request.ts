@@ -1,16 +1,18 @@
 import axios, {
-  type AxiosRequestConfig,
   AxiosError,
+  type AxiosRequestConfig,
   type AxiosResponse
 } from 'axios';
-import { message } from 'ant-design-vue';
-import { getDataType } from './utils';
-import { EventBus } from './event/eventBus';
 
-interface IBaseResponse {
+import { getDataType } from '../common';
+import { EventBus } from '../event/eventBus';
+
+import { message } from 'ant-design-vue';
+
+export interface IBaseResponse<T = unknown> {
   code: number;
   msg: string;
-  data?: unknown;
+  data?: T;
 }
 
 interface IConfigHeader {
@@ -45,9 +47,7 @@ const getKey = (config: AxiosRequestConfig) => {
   return key;
 };
 
-const historyRequests = new Map<string, number>();
-
-const instance = axios.create({
+export const instance = axios.create({
   baseURL: import.meta.env.VITE_BASE_API,
   timeout: 5000,
   withCredentials: true,
@@ -56,13 +56,13 @@ const instance = axios.create({
   }
 });
 
+const historyRequests = new Map<string, number>();
 instance.interceptors.request.use(
   (config) => {
     if (config.headers?.isAllowRepetition !== true) {
       const key = getKey(config);
       config.headers.key = key;
       if (historyRequests.has(key)) {
-        config.headers.requestTime = Date.now();
         return Promise.reject(
           new AxiosError('Redundant request', 'ERR_REPEATED', config)
         );
@@ -83,10 +83,8 @@ instance.interceptors.request.use(
 
 const responseInterceptor = (res: AxiosResponse<IBaseResponse | Blob>) => {
   const data = res.data;
-  const result: [
-    err?: AxiosError,
-    success?: AxiosResponse<IBaseResponse | Blob>
-  ] = [];
+  const result: [err?: AxiosError, data?: AxiosResponse<IBaseResponse | Blob>] =
+    [];
 
   if (data instanceof Blob || data.code === 200) {
     result[1] = res;
@@ -136,7 +134,7 @@ instance.interceptors.response.use(
       });
     }
 
-    // 如果存在重复请求，则触发事件，将错误结果返回给请求
+    // 请求错误，如果存在重复请求，则触发事件，将错误结果返回给对应请求
     const key = error?.config?.headers.key as string;
     if (historyRequests.has(key)) {
       historyRequests.delete(key);
@@ -154,14 +152,15 @@ instance.interceptors.response.use(
   }
 );
 
-export const request = <T extends IBaseResponse | Blob, C = any>(
+// 错误优先且类型友好的请求方法
+const request = <T extends IBaseResponse | Blob, C = any>(
   config: AxiosRequestConfig<C> & IConfigHeader
 ) => {
   return new Promise<[error?: AxiosError, result?: T]>((resolve) => {
     instance
-      .request<IBaseResponse | Blob>(config)
+      .request<T>(config)
       .then((res) => {
-        resolve([undefined, res.data as T]);
+        resolve([undefined, res.data]);
       })
       .catch((error: AxiosError) => {
         resolve([error]);
@@ -169,4 +168,4 @@ export const request = <T extends IBaseResponse | Blob, C = any>(
   });
 };
 
-export default instance;
+export default request;
