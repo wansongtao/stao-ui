@@ -1,5 +1,4 @@
 import { ref, shallowRef, computed, watch } from 'vue';
-import { debounce } from '../common';
 
 import type { Ref, ShallowRef } from 'vue';
 
@@ -7,34 +6,28 @@ export interface IRequestOptions {
   defaultPage?: number;
   defaultPageSize?: number;
   /**
-   * 请求防抖时间，单位ms，设置为0则不防抖
+   * page或pageSize变化后，是否立即请求数据
    */
-  delay?: number;
-  /**
-   * 是否自动监听page与pageSize的变化
-   */
-  autoWatchPage?: boolean;
+  immediate?: boolean;
 }
-export type IRequestFn<T, Q> = (
-  query: Q
-) => Promise<{ data: T[]; total: number }>;
+export type IRequestFn<T, Q> = (query: Q) => Promise<{ data: T[]; total: number }>;
 interface IRequestReturn<Q> {
   total: Ref<number>;
   loading: Ref<boolean>;
   page: Ref<number>;
   pageSize: Ref<number>;
   lastPage: Ref<number>;
-  getList: (query?: Q) => void;
+  fetchData: (query?: Q) => void;
 }
 
-export function usePagingRequest<T, Q extends Record<string, any> = {}>(
+export function useRequest<T, Q extends Record<string, any> = {}>(
   request: IRequestFn<T, Q>,
   options?: IRequestOptions
 ): {
   list: Ref<T[]>;
 } & IRequestReturn<Q>;
 
-export function usePagingRequest<T, Q extends Record<string, any> = {}>(
+export function useRequest<T, Q extends Record<string, any> = {}>(
   request: IRequestFn<T, Q>,
   options: IRequestOptions,
   isShallow: true
@@ -42,13 +35,12 @@ export function usePagingRequest<T, Q extends Record<string, any> = {}>(
   list: ShallowRef<T[]>;
 } & IRequestReturn<Q>;
 
-export function usePagingRequest<T, Q extends Record<string, any> = {}>(
+export function useRequest<T, Q extends Record<string, any> = {}>(
   request: IRequestFn<T, Q>,
   {
     defaultPage = 1,
     defaultPageSize = 10,
-    delay = 0,
-    autoWatchPage = false
+    immediate = false
   }: IRequestOptions = {},
   isShallow = false
 ) {
@@ -85,18 +77,12 @@ export function usePagingRequest<T, Q extends Record<string, any> = {}>(
         loading.value = false;
       });
   };
-  /**
-   * 请求列表数据，自动带上page与pageSize，只传入其他query即可
-   */
-  const getList: (query?: Q) => void = delay
-    ? debounce(fetchData, delay)
-    : fetchData;
 
-  if (autoWatchPage) {
+  if (immediate) {
     watch(
       [page, pageSize],
       () => {
-        getList();
+        fetchData();
       },
       { immediate: true }
     );
@@ -109,6 +95,6 @@ export function usePagingRequest<T, Q extends Record<string, any> = {}>(
     page,
     pageSize,
     lastPage,
-    getList
+    fetchData
   };
 }
