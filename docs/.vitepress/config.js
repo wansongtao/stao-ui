@@ -75,6 +75,12 @@ const config = {
             { text: '特殊方法', link: '/utils/common/special/' },
             { text: '事件总线', link: '/utils/common/event-bus/' }
           ]
+        },
+        {
+          text: '常用插件',
+          items: [
+            { text: 'Axios', link: '/utils/plugins/axios/' },
+          ]
         }
       ],
       '/library/': [
