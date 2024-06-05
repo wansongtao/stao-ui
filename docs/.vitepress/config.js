@@ -88,6 +88,7 @@ const config = {
           text: 'hooks',
           items: [
             { text: 'useURLQuery', link: '/utils/hooks/use-query/' },
+            { text: 'useRequest', link: '/utils/hooks/use-request/' },
           ]
         }
       ],
