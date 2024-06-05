@@ -83,6 +83,12 @@ const config = {
             { text: 'Axios', link: '/utils/plugins/axios/' },
             { text: 'ExcelJS', link: '/utils/plugins/exceljs/' },
           ]
+        },
+        {
+          text: 'hooks',
+          items: [
+            { text: 'useURLQuery', link: '/utils/hooks/use-query/' },
+          ]
         }
       ],
       '/library/': [
