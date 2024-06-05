@@ -73,7 +73,8 @@ const config = {
           items: [
             { text: '常用方法', link: '/utils/common/main/' },
             { text: '特殊方法', link: '/utils/common/special/' },
-            { text: '事件总线', link: '/utils/common/event-bus/' }
+            { text: '事件总线', link: '/utils/common/event-bus/' },
+            { text: '获取项目版本', link: '/utils/common/version/' }
           ]
         },
         {
@@ -109,9 +110,6 @@ const config = {
         '@': resolve(__dirname, '../../packages/components/src'),
         '@utils': resolve(__dirname, '../../packages/utils/src')
       }
-    },
-    build: {
-      chunkSizeWarningLimit: 200
     }
   }
 };
