@@ -8,10 +8,10 @@ const getVersion = () => {
     return '';
   }
 
-  let currentTag = exec('git describe --abbrev=0 --tags', {
+  let tempVersion = exec('git describe --abbrev=0 --tags', {
     silent: true
   }).stdout;
-  if (!currentTag) {
+  if (!tempVersion) {
     const currentBranch = exec('git symbolic-ref --short -q HEAD', {
       silent: true
     }).stdout;
@@ -24,9 +24,12 @@ const getVersion = () => {
     return `${currentBranch}-${latest}`;
   }
 
-  const versions = currentTag.split('\n');
-  currentTag = versions[versions.length - 2];
-  return currentTag;
+  const versions = tempVersion.split('\n');
+  tempVersion = versions[versions.length - 2];
+
+  return tempVersion;
 };
 
-export default getVersion();
+const version = getVersion();
+
+export default version;
