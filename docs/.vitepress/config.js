@@ -73,6 +73,7 @@ const config = {
           items: [
             { text: '常用方法', link: '/utils/common/main/' },
             { text: '特殊方法', link: '/utils/common/special/' },
+            { text: '事件总线', link: '/utils/common/event-bus/' }
           ]
         }
       ],
