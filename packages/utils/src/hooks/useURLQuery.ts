@@ -1,7 +1,3 @@
-/**
- * @question 为什么不使用vueuse的useRouteQuery
- * @answer vueuse的useRouteQuery会在query变化时，会更新所有组件里使用useRouteQuery定义的变量(spa)
- */
 import { ref, watch, computed, nextTick, type Ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
@@ -9,13 +5,6 @@ type IQuery = string | number | string[] | null | undefined;
 
 const queriesQueue = new Map<string, Record<string, IQuery>>();
 
-/**
- *
- * @param name
- * @param defaultValue
- * @param options
- * @returns
- */
 export const useURLQuery = <T extends IQuery, K extends IQuery = T>(
   name: string,
   defaultValue?: T,
@@ -47,17 +36,13 @@ export const useURLQuery = <T extends IQuery, K extends IQuery = T>(
         query.value = defaultValue as T;
         return;
       }
-
       if (!isEncodeURIComponent) {
         query.value = transform(value);
         return;
       }
-
       query.value = transform(decodeURIComponent(value as string));
     },
-    {
-      immediate: true
-    }
+    { immediate: true }
   );
 
   const setQueryQueue = (value: IQuery) => {
