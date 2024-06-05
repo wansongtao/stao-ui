@@ -80,6 +80,7 @@ const config = {
           text: '常用插件',
           items: [
             { text: 'Axios', link: '/utils/plugins/axios/' },
+            { text: 'ExcelJS', link: '/utils/plugins/exceljs/' },
           ]
         }
       ],
@@ -108,6 +109,9 @@ const config = {
         '@': resolve(__dirname, '../../packages/components/src'),
         '@utils': resolve(__dirname, '../../packages/utils/src')
       }
+    },
+    build: {
+      chunkSizeWarningLimit: 200
     }
   }
 };
