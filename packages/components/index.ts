@@ -4,3 +4,4 @@ export * from './src/BaseSwitch';
 export * from './src/AliPayForm';
 export * from './src/BaseTabs';
 export * from './src/BaseLoader';
+export * from './src/BaseSlider';
