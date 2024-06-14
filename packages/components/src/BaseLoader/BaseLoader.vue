@@ -16,7 +16,6 @@ defineProps<{
 .loader--cube {
   width: 48px;
   height: 48px;
-  margin: auto;
   position: relative;
 
   &:before {
