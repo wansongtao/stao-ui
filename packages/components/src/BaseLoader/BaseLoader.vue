@@ -1,22 +1,53 @@
 <script lang="ts" setup>
-defineProps<{
-  type?: 'cube' | 'circle';
-}>();
+withDefaults(
+  defineProps<{
+    type?: 'cube' | 'circle';
+    loading?: boolean;
+    showMask?: boolean;
+    maskColor?: string;
+  }>(),
+  {
+    type: 'circle',
+    loading: false,
+    showMask: true,
+    maskColor: 'transparent'
+  }
+);
 </script>
 
 <template>
-  <div
-    :class="{
-      'loader--cube': type === 'cube',
-      'loader--circle': type === 'circle' || !type
-    }"></div>
+  <div v-show="loading">
+    <div v-if="showMask" class="mask"></div>
+    <div
+      class="loader"
+      :class="{
+        'loader--cube': type === 'cube',
+        'loader--circle': type === 'circle'
+      }"></div>
+  </div>
 </template>
 
 <style lang="scss" scoped>
+.mask {
+  position: absolute;
+  z-index: 998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: v-bind(maskColor);
+}
+
+.loader {
+  position: absolute;
+  z-index: 999;
+}
+
 .loader--cube {
+  top: calc(50% - 32px);
+  left: calc(50% - 24px);
   width: 48px;
   height: 48px;
-  position: relative;
 
   &:before {
     content: '';
@@ -78,10 +109,12 @@ defineProps<{
 }
 
 .loader--circle {
-  border: 4px solid rgba(0, 0, 0, 0.1);
-  border-left-color: transparent;
+  top: calc(50% - 18px);
+  left: calc(50% - 18px);
   width: 36px;
   height: 36px;
+  border: 4px solid rgba(0, 0, 0, 0.3);
+  border-left-color: transparent;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 
