@@ -64,7 +64,10 @@ const config = {
         },
         {
           text: '特殊组件',
-          items: [{ text: 'VueAMap 地图', link: '/components/other/vuemap/' }]
+          items: [
+            { text: 'VueAMap 地图', link: '/components/other/vuemap/' },
+            { text: 'AliPayForm', link: '/components/other/alipay-code/' },
+          ]
         }
       ],
       '/utils/': [
