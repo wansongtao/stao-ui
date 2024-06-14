@@ -65,7 +65,7 @@ const level = computed({
       appearance: none;
       width: 0;
       height: 0;
-      box-shadow: -200px 0 0 200px v-bind(color);
+      box-shadow: -100vw 0 0 100vw v-bind(color);
     }
   }
 
