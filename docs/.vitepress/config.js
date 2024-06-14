@@ -60,6 +60,7 @@ const config = {
             { text: 'Button 按钮', link: '/components/button/' },
             { text: 'FileSelector 文件选择', link: '/components/file/' },
             { text: 'Switch 开关', link: '/components/switch/' },
+            { text: 'Tabs 标签页', link: '/components/tabs/' },
           ]
         },
         {
