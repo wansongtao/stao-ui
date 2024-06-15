@@ -9,12 +9,13 @@ $ pnpm install @stao-ui/components
 ## 使用示例
 
 ```vue
-<script setup lang="ts">
-import { STaoButton } from '@stao-ui/components'
-</script>
 <template>
-  <STaoButton>按钮</STaoButton>
+  <BaseButton>按钮</BaseButton>
 </template>
+
+<script setup>
+import { BaseButton } from '@stao-ui/components'
+</script>
 ```
 
 ## Links
