@@ -63,6 +63,7 @@ const config = {
             { text: 'Tabs 标签页', link: '/components/tabs/' },
             { text: 'Loading 加载', link: '/components/loading/' },
             { text: 'Slider 滑块', link: '/components/slider/' },
+            { text: 'Radio 单选框', link: '/components/radio/' },
           ]
         },
         {
