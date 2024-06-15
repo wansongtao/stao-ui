@@ -13,6 +13,7 @@ const $props = withDefaults(
     min?: number;
     max?: number;
     step?: number;
+    disabled?: boolean;
   }>(),
   {
     color: '#525252',
@@ -23,7 +24,8 @@ const $props = withDefaults(
     textColor: '#525252',
     min: 0,
     max: 100,
-    step: 1
+    step: 1,
+    disabled: false
   }
 );
 
@@ -42,7 +44,7 @@ const level = computed({
 
 <template>
   <div class="slider">
-    <input type="range" class="level" v-model="level" :min :max :step />
+    <input type="range" class="level" v-model="level" :min :max :step :disabled />
     <div class="slider-text" v-if="showText">{{ level }}</div>
   </div>
 </template>
@@ -66,6 +68,11 @@ const level = computed({
       width: 0;
       height: 0;
       box-shadow: -100vw 0 0 100vw v-bind(color);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.3;
     }
   }
 
