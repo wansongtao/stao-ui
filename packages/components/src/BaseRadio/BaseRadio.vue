@@ -53,7 +53,6 @@ $disabled-color: #ccc;
 
 .radio-button-container {
   display: flex;
-  align-items: center;
   gap: 24px;
 }
 
