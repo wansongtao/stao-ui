@@ -51,7 +51,7 @@ const onChange = (e: Event) => {
         :checked="checkedValue.includes(item.value)" />
       <label :for="`${name}-checkbox${index}`" class="cbx">
         <span>
-          <svg viewBox="-0.5 0 12 10" height="12px" width="12px">
+          <svg viewBox="0 0 12 10" height="12px" width="12px">
             <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
           </svg>
         </span>
@@ -71,8 +71,6 @@ $border-color: #9098a9;
 }
 
 .checkbox-wrapper--horizontal {
-  align-items: center;
-
   .checkbox-item {
     margin-right: 15px;
 
