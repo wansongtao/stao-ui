@@ -64,7 +64,8 @@ const config = {
             { text: 'Loading 加载', link: '/components/loading/' },
             { text: 'Slider 滑块', link: '/components/slider/' },
             { text: 'Radio 单选框', link: '/components/radio/' },
-            { text: 'Checkbox 复选框', link: '/components/checkbox/' }
+            { text: 'Checkbox 复选框', link: '/components/checkbox/' },
+            { text: 'Carousel 走马灯', link: '/components/carousel/' },
           ]
         },
         {
