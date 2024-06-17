@@ -7,3 +7,5 @@ export * from './src/BaseLoader';
 export * from './src/BaseSlider';
 export * from './src/BaseCheckbox';
 export * from './src/BaseRadio';
+export * from './src/SCarouselItem';
+export * from './src/SCarousel';

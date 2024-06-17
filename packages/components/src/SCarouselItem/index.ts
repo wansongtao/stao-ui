@@ -1,6 +1,6 @@
-import carouselItem from './index.vue';
+import CarouselItem from './index.vue';
 import { withInstall } from '@stao-ui/utils';
 
-export type SCarouselItemInstance = InstanceType<typeof carouselItem>;
-export const SCarouselItem = withInstall(carouselItem);
-export default SCarouselItem;
+export type BaseCarouselItemInstance = InstanceType<typeof CarouselItem>;
+export const BaseCarouselItem = withInstall(CarouselItem);
+export default BaseCarouselItem;

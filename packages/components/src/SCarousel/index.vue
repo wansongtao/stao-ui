@@ -1,27 +1,27 @@
 <script lang="ts" setup>
-import { onMounted, ref, onScopeDispose, watch } from 'vue'
-import { changeCarousel } from '@stao-ui/utils'
-import IconArrowLeft from '../icons/IconArrowLeft.vue'
-import IconArrowRight from '../icons/IconArrowRight.vue'
+import { onMounted, ref, onScopeDispose, watch } from 'vue';
+import { changeCarousel, throttle } from '@stao-ui/utils';
+import IconArrowLeft from '../icons/IconArrowLeft.vue';
+import IconArrowRight from '../icons/IconArrowRight.vue';
 
 defineOptions({
-  name: 'SCarousel'
-})
+  name: 'BaseCarousel'
+});
 
 const $props = withDefaults(
   defineProps<{
-    direction?: 'horizontal' | 'vertical'
-    autoPlay?: boolean
-    interval?: number
-    loop?: boolean
-    dotPosition?: 'top' | 'bottom' | 'left' | 'right'
-    showDot?: boolean
-    duration?: number
-    easing?: string
-    defaultIndex?: number
-    arrow?: 'always' | 'hover' | 'never'
-    beforeChange?: (from: number, to: number) => void
-    afterChange?: (current: number) => void
+    direction?: 'horizontal' | 'vertical';
+    autoPlay?: boolean;
+    interval?: number;
+    duration?: number;
+    initialIndex?: number;
+    loop?: boolean;
+    dotPosition?: 'top' | 'bottom' | 'left' | 'right';
+    showDot?: boolean;
+    easing?: string;
+    arrow?: 'always' | 'hover' | 'never';
+    beforeChange?: (from: number, to: number) => void;
+    afterChange?: (current: number) => void;
   }>(),
   {
     direction: 'horizontal',
@@ -30,167 +30,158 @@ const $props = withDefaults(
     loop: true,
     dotPosition: 'bottom',
     showDot: true,
-    duration: 500,
+    duration: 300,
     easing: 'ease',
-    defaultIndex: 0,
+    initialIndex: 0,
     arrow: 'hover'
   }
-)
+);
 
 const changeIndex = (index: number, total: number, loop = true) => {
   if (index < 0) {
-    return loop ? total - 1 : 0
+    return loop ? total - 1 : 0;
   } else if (index > total - 1) {
-    return loop ? 0 : total - 1
+    return loop ? 0 : total - 1;
   } else {
-    return index
+    return index;
   }
-}
+};
 
-const activeIndex = ref<number>(0)
-const total = ref<number>(0)
-const carouselRef = ref<HTMLElement>()
-
-let timer: NodeJS.Timer | null = null
+let timer: NodeJS.Timer | null = null;
 onScopeDispose(() => {
-  if (timer) {
-    clearInterval(timer)
-  }
-})
+  timer && clearInterval(timer);
+});
 
+const activeIndex = ref<number>(0);
+const total = ref<number>(0);
+const carouselRef = ref<HTMLElement>();
 const autoplayCarousel = () => {
   if (!$props.autoPlay) {
-    return
+    return;
   }
-  if (timer) {
-    clearInterval(timer)
-  }
+  timer && clearInterval(timer);
 
   timer = setInterval(() => {
-    const idx = changeIndex(activeIndex.value + 1, total.value, $props.loop)
-    $props.beforeChange?.(activeIndex.value, idx)
+    const idx = changeIndex(activeIndex.value + 1, total.value, $props.loop);
+    $props.beforeChange?.(activeIndex.value, idx);
     // stop autoplay, when index is not changed
     if (idx === activeIndex.value) {
-      clearInterval(timer!)
-      return
+      clearInterval(timer!);
+      return;
     }
-    activeIndex.value = idx
+    activeIndex.value = idx;
 
     changeCarousel({
       index: activeIndex.value,
-      ele: carouselRef.value!,
+      el: carouselRef.value!,
       timingFunc: $props.easing,
       duration: $props.duration,
       direction: $props.direction,
       afterChange: $props.afterChange
-    })
-  }, $props.interval)
-}
+    });
+  }, $props.interval);
+};
 const init = () => {
-  const element = carouselRef.value
+  const element = carouselRef.value;
   if (!element) {
-    return
+    return;
   }
 
-  total.value = element.children.length
+  total.value = element.children.length;
   if (!total.value) {
-    return
+    return;
   }
 
-  activeIndex.value = $props.defaultIndex
+  activeIndex.value = $props.initialIndex;
   // set default index
   if (activeIndex.value) {
     changeCarousel({
       index: activeIndex.value,
-      ele: element,
+      el: element,
       duration: 0,
       direction: $props.direction
-    })
+    });
   }
 
-  autoplayCarousel()
-}
+  autoplayCarousel();
+};
 
 onMounted(() => {
-  init()
-})
+  init();
+});
 watch(
   () => $props,
   () => {
-    if (timer) {
-      clearInterval(timer)
-    }
-    init()
+    timer && clearInterval(timer);
+    init();
   },
   { deep: true }
-)
+);
 
-const onGoTo = (index: number) => {
-  if (timer) {
-    clearInterval(timer)
-  }
+const onGoTo = throttle<number>((index: number) => {
+  timer && clearInterval(timer);
 
-  const idx = changeIndex(index, total.value, $props.loop)
-  $props.beforeChange?.(activeIndex.value, idx)
-  activeIndex.value = idx
+  const idx = changeIndex(index, total.value, $props.loop);
+  $props.beforeChange?.(activeIndex.value, idx);
+  activeIndex.value = idx;
   changeCarousel({
     index: activeIndex.value,
-    ele: carouselRef.value!,
+    el: carouselRef.value!,
     timingFunc: $props.easing,
     duration: $props.duration,
     direction: $props.direction,
     afterChange: () => {
-      $props.afterChange?.(activeIndex.value)
-      autoplayCarousel()
+      $props.afterChange?.(activeIndex.value);
+      autoplayCarousel();
     }
-  })
-}
+  });
+}, $props.duration);
 
 const onPrev = () => {
-  onGoTo(activeIndex.value - 1)
-}
+  onGoTo(activeIndex.value - 1);
+};
 
 const onNext = () => {
-  onGoTo(activeIndex.value + 1)
-}
+  onGoTo(activeIndex.value + 1);
+};
 
 defineExpose({
   onGoTo,
   onPrev,
   onNext
-})
+});
 </script>
 
 <template>
-  <div class="s-carousel">
-    <div ref="carouselRef" class="s-carousel-wrapper" :class="{ flex: direction === 'horizontal' }">
+  <div class="base-carousel">
+    <div
+      ref="carouselRef"
+      class="base-carousel-wrapper"
+      :class="{ flex: direction === 'horizontal' }">
       <slot />
     </div>
     <ul
       v-if="showDot"
-      class="s-carousel-dot"
+      class="base-carousel-dot"
       :class="{
-        's-carousel-dot--bottom s-carousel-dot--h': dotPosition === 'bottom',
-        's-carousel-dot--top s-carousel-dot--h': dotPosition === 'top',
-        's-carousel-dot--left s-carousel-dot--v': dotPosition === 'left',
-        's-carousel-dot--right s-carousel-dot--v': dotPosition === 'right'
-      }"
-    >
+        'base-carousel-dot--bottom base-carousel-dot--h': dotPosition === 'bottom',
+        'base-carousel-dot--top base-carousel-dot--h': dotPosition === 'top',
+        'base-carousel-dot--left base-carousel-dot--v': dotPosition === 'left',
+        'base-carousel-dot--right base-carousel-dot--v': dotPosition === 'right'
+      }">
       <li v-for="(item, index) in total" :key="item">
         <slot name="dot" :active="activeIndex === index" :index="index">
           <button
-            class="s-carousel-dot-item"
+            class="base-carousel-dot-item"
             :class="{ 'dot-item--active': activeIndex === index }"
-            @click="onGoTo(index)"
-          ></button>
+            @click="onGoTo(index)"></button>
         </slot>
       </li>
     </ul>
     <div
-      class="s-arrow s-arrow--left"
-      :class="{ 's-arrow--always': arrow === 'always' }"
-      v-if="arrow !== 'never'"
-    >
+      class="base-arrow base-arrow--left"
+      :class="{ 'base-arrow--always': arrow === 'always' }"
+      v-if="arrow !== 'never'">
       <slot name="arrowLeft">
         <button class="arrow-button" @click="onPrev">
           <IconArrowLeft />
@@ -198,10 +189,9 @@ defineExpose({
       </slot>
     </div>
     <div
-      class="s-arrow s-arrow--right"
-      :class="{ 's-arrow--always': arrow === 'always' }"
-      v-if="arrow !== 'never'"
-    >
+      class="base-arrow base-arrow--right"
+      :class="{ 'base-arrow--always': arrow === 'always' }"
+      v-if="arrow !== 'never'">
       <slot name="arrowRight">
         <button class="arrow-button" @click="onNext">
           <IconArrowRight />
@@ -216,38 +206,38 @@ defineExpose({
   display: flex;
 }
 
-.s-carousel {
+.base-carousel {
   position: relative;
   overflow: hidden;
   width: 100%;
   height: 100%;
 
-  .s-carousel-wrapper {
+  .base-carousel-wrapper {
     height: 100%;
   }
 
-  .s-arrow {
+  .base-arrow {
     position: absolute;
     top: 50%;
     opacity: 0;
     transform: translateY(-50%);
     transition: all 0.3s ease;
 
-    &.s-arrow--always {
+    &.base-arrow--always {
       opacity: 1;
     }
   }
 
-  &:hover .s-arrow {
+  &:hover .base-arrow {
     opacity: 1;
   }
 }
 
-.s-arrow--left {
+.base-arrow--left {
   left: 15px;
 }
 
-.s-arrow--right {
+.base-arrow--right {
   right: 15px;
 }
 
@@ -275,7 +265,7 @@ defineExpose({
   }
 }
 
-.s-carousel-dot {
+.base-carousel-dot {
   position: absolute;
   display: flex;
   align-items: center;
@@ -291,34 +281,34 @@ defineExpose({
   }
 }
 
-.s-carousel-dot--h {
+.base-carousel-dot--h {
   left: 50%;
   transform: translateX(-50%);
 }
 
-.s-carousel-dot--v {
+.base-carousel-dot--v {
   flex-direction: column;
   top: 50%;
   transform: translateY(-50%);
 }
 
-.s-carousel-dot--top {
+.base-carousel-dot--top {
   top: 15px;
 }
 
-.s-carousel-dot--bottom {
+.base-carousel-dot--bottom {
   bottom: 15px;
 }
 
-.s-carousel-dot--left {
+.base-carousel-dot--left {
   left: 15px;
 }
 
-.s-carousel-dot--right {
+.base-carousel-dot--right {
   right: 15px;
 }
 
-.s-carousel-dot-item {
+.base-carousel-dot-item {
   all: unset;
   display: block;
   opacity: 0.3;
