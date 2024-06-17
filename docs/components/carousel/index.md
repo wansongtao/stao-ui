@@ -23,7 +23,7 @@ import ExampleView from './ExampleView.vue'
 
 ## API
 
-### Props
+### Carousel Props
 
 | 参数名 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
@@ -39,7 +39,7 @@ import ExampleView from './ExampleView.vue'
 | beforeChange | 索引改变前回调函数 | _(from: number, to: number) => void_ | - |
 | afterChange | 索引改变后回调函数 | _(index: number) => void_ | - |
 
-### Methods
+### Carousel Methods
 
 | 方法名 | 说明 | 参数 |
 | --- | --- | --- |
@@ -47,7 +47,7 @@ import ExampleView from './ExampleView.vue'
 | onPrev | 跳转到上一个索引 | - |
 | onNext | 跳转到下一个索引 | - |
 
-### Slots
+### Carousel Slots
 
 | 插槽名 | 说明 | 参数 |
 | --- | --- | --- | 
@@ -55,3 +55,9 @@ import ExampleView from './ExampleView.vue'
 | dot | 自定义指示点 | _{active: boolean; index: number}_ |
 | arrowLeft | 自定义左箭头 | - |
 | arrowRight | 自定义右箭头 | - |
+
+### CarouselItem Slots
+
+| 插槽名 | 说明 | 参数 |
+| --- | --- | --- |
+| default | 需要显示的内容 | - |
