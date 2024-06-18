@@ -1,6 +1,6 @@
 import { ref, onMounted, onScopeDispose } from 'vue';
 
-const useResizeObserver = <T extends Element | SVGElement>(
+export const useResizeObserver = <T extends Element | SVGElement>(
   callback: (entries: ResizeObserverEntry[], observer: ResizeObserver) => void,
   options?: ResizeObserverOptions
 ) => {
@@ -22,5 +22,3 @@ const useResizeObserver = <T extends Element | SVGElement>(
     resizeObserver
   };
 };
-
-export default useResizeObserver;
