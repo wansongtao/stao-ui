@@ -7,7 +7,7 @@
       <auto-scroll animate-direction="reverse">
         <div v-for="item in texts" class="card" :key="item">{{ item }}</div>
       </auto-scroll>
-      <auto-scroll :duration="20">
+      <auto-scroll :speed="20">
         <div v-for="item in texts" class="card" :key="item">{{ item }}</div>
       </auto-scroll>
     </div>
