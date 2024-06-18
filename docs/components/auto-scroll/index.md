@@ -6,6 +6,10 @@
 <<< ../../../packages/components/src/AutoScroll/AutoScroll.vue
 :::
 
+::: details vue2.x 版本
+<<< ./Vue2Demo.vue
+:::
+
 ## 基本用法
 
 <script lang="ts" setup>
