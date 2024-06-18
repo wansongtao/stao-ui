@@ -1,25 +1,24 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useResizeObserver } from '@stao-ui/utils';
 
 const $props = withDefaults(
   defineProps<{
     gap?: string;
-    duration?: number;
+    speed?: number; // px/s
     direction?: 'vertical' | 'horizontal';
     timingFunction?: string;
     animateDirection?: 'normal' | 'reverse' | 'alternate' | 'alternate-reverse';
   }>(),
   {
     gap: '20px',
-    duration: 6,
+    speed: 50,
     direction: 'horizontal',
     timingFunction: 'linear',
     animateDirection: 'normal'
   }
 );
 
-const animateDuration = computed(() => `${$props.duration}s`);
 const translate3d = computed(() => {
   if ($props.direction === 'vertical') {
     return `translate3d(0, calc(-100% - ${$props.gap}), 0)`;
@@ -28,14 +27,38 @@ const translate3d = computed(() => {
 });
 
 const isScroll = ref(false);
-const { element } = useResizeObserver(() => {
-  const parent = element.value.parentElement!;
-  if ($props.direction === 'vertical') {
-    isScroll.value = element.value.scrollHeight > parent.clientHeight;
+const { element } = useResizeObserver<HTMLDivElement>(() => {
+  isScroll.value = canScroll(element.value, $props.direction);
+  initDuration();
+});
+
+watch(
+  () => $props.speed,
+  () => {
+    initDuration();
+  }
+);
+
+const duration = ref('0s');
+function initDuration() {
+  if (!isScroll.value) {
     return;
   }
-  isScroll.value = element.value.scrollWidth > parent.clientWidth;
-});
+
+  const distance =
+    $props.direction === 'vertical'
+      ? element.value.scrollHeight
+      : element.value.scrollWidth;
+  duration.value = (distance / $props.speed).toFixed(1) + 's';
+}
+
+function canScroll(element: HTMLElement, direction: 'vertical' | 'horizontal') {
+  const parent = element.parentElement!;
+  if (direction === 'vertical') {
+    return element.scrollHeight > parent.clientHeight;
+  }
+  return element.scrollWidth > parent.clientWidth;
+}
 </script>
 
 <template>
@@ -80,7 +103,7 @@ const { element } = useResizeObserver(() => {
 }
 
 .animate {
-  animation: marquee v-bind(animateDuration) v-bind(timingFunction) infinite;
+  animation: marquee v-bind(duration) v-bind(timingFunction) infinite;
   animation-direction: v-bind(animateDirection);
 }
 
