@@ -9,4 +9,4 @@ export * from './src/BaseCheckbox';
 export * from './src/BaseRadio';
 export * from './src/SCarouselItem';
 export * from './src/SCarousel';
-export * from './src/ScrollList';
+export * from './src/AutoScroll';
