@@ -66,6 +66,7 @@ const config = {
             { text: 'Radio 单选框', link: '/components/radio/' },
             { text: 'Checkbox 复选框', link: '/components/checkbox/' },
             { text: 'Carousel 走马灯', link: '/components/carousel/' },
+            { text: 'AutoScroll 自动滚动', link: '/components/auto-scroll/' },
           ]
         },
         {
