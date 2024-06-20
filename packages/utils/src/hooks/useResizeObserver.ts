@@ -5,9 +5,11 @@ export const useResizeObserver = <T extends Element | SVGElement>(
   options?: ResizeObserverOptions
 ) => {
   const element = ref<T | null>(null);
-  const resizeObserver = new ResizeObserver(callback);
+  let resizeObserver: ResizeObserver;
 
   onMounted(() => {
+    resizeObserver = new ResizeObserver(callback);
+
     if (element.value) {
       resizeObserver.observe(element.value, options);
     }
@@ -18,7 +20,6 @@ export const useResizeObserver = <T extends Element | SVGElement>(
   });
 
   return {
-    element,
-    resizeObserver
+    element
   };
 };
