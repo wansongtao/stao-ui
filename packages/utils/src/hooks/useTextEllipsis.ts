@@ -1,4 +1,4 @@
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { ref, onMounted, onScopeDispose } from 'vue';
 
 const getPadding = (el: HTMLElement) => {
   const style = window.getComputedStyle(el, null);
@@ -30,7 +30,7 @@ const checkEllipsis = (el: HTMLElement) => {
  * @param isAutoUpdate dom变化后是否自动更新状态（MutationObserver），默认为true
  * @returns
  */
-export default function useTextEllipsis(isAutoUpdate = true) {
+export const useTextEllipsis = (isAutoUpdate = true) => {
   const blockRef = ref<HTMLElement | null>(null);
   const isOverflow = ref(false);
   const updateStatus = () => {
@@ -56,18 +56,16 @@ export default function useTextEllipsis(isAutoUpdate = true) {
     updateStatus();
   });
 
-  if (isAutoUpdate) {
-    onBeforeUnmount(() => {
-      if (observer) {
-        observer.disconnect();
-        observer = null;
-      }
-    });
-  }
+  onScopeDispose(() => {
+    if (observer) {
+      observer.disconnect();
+      observer = null;
+    }
+  });
 
   return {
     blockRef,
     isOverflow,
     updateStatus
   };
-}
+};
