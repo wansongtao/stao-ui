@@ -32,14 +32,14 @@ const checkEllipsis = (el: HTMLElement) => {
  */
 export const useTextEllipsis = (isAutoUpdate = true) => {
   const blockRef = ref<HTMLElement | null>(null);
-  const isOverflow = ref(false);
+  const isEllipsis = ref(false);
   const updateStatus = () => {
     if (!blockRef.value) {
       return;
     }
 
     const element = blockRef.value;
-    isOverflow.value = checkEllipsis(element);
+    isEllipsis.value = checkEllipsis(element);
   };
 
   let observer: MutationObserver | null = null;
@@ -65,7 +65,7 @@ export const useTextEllipsis = (isAutoUpdate = true) => {
 
   return {
     blockRef,
-    isOverflow,
+    isEllipsis,
     updateStatus
   };
 };
