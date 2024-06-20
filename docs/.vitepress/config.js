@@ -99,6 +99,7 @@ const config = {
           items: [
             { text: 'useURLQuery', link: '/utils/hooks/use-query/' },
             { text: 'useRequest', link: '/utils/hooks/use-request/' },
+            { text: 'useTextEllipsis', link: '/utils/hooks/use-text-ellipsis/' },
           ]
         }
       ],
