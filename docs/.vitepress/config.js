@@ -1,4 +1,5 @@
 import { resolve } from 'path';
+import { text } from 'stream/consumers';
 
 /**
  * @type {import('vitepress').UserConfig}
@@ -100,6 +101,12 @@ const config = {
             { text: 'useURLQuery', link: '/utils/hooks/use-query/' },
             { text: 'useRequest', link: '/utils/hooks/use-request/' },
             { text: 'useTextEllipsis', link: '/utils/hooks/use-text-ellipsis/' },
+          ]
+        },
+        {
+          text: '指令',
+          items: [
+            { text: 'v-click-outside', link: '/utils/directives/click-outside/' },
           ]
         }
       ],
