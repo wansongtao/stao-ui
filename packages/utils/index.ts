@@ -6,3 +6,4 @@ export * from './src/hooks/useResizeObserver';
 export * from './src/hooks/useRequest';
 export * from './src/hooks/useIdleDetection';
 export * from './src/hooks/useTextEllipsis';
+export * from './src/directives/vClickOutside';
