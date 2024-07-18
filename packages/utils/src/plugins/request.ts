@@ -40,6 +40,8 @@ const getKey = (config: AxiosRequestConfig) => {
     if (params && getDataType(params) === 'object') {
       key += `-${JSON.stringify(params)}`;
     }
+
+    key = encodeURIComponent(key);
   } catch (e) {
     console.error(e);
   }
@@ -52,7 +54,7 @@ export const instance = axios.create({
   timeout: 5000,
   withCredentials: true,
   headers: {
-    'Content-Type': 'application/json;'
+    'Content-Type': 'application/json'
   }
 });
 
