@@ -18,7 +18,7 @@ export const getDataType = (obj: unknown): string => {
  * @returns
  */
 export const debounce = <T = unknown>(
-  fn: Function,
+  fn: (...args: T[]) => void,
   delay: number = 200,
   immediate: boolean = false
 ) => {
@@ -47,7 +47,10 @@ export const debounce = <T = unknown>(
  * @param delay 间隔时间，默认1s，单位ms
  * @returns
  */
-export const throttle = <T = unknown>(fn: Function, delay: number = 1000) => {
+export const throttle = <T = unknown>(
+  fn: (...args: T[]) => void,
+  delay: number = 1000
+) => {
   let lastTime = 0;
   return function (this: any, ...args: T[]) {
     const nowTime = Date.now();
