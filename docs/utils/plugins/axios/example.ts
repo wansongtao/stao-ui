@@ -9,7 +9,9 @@ const getUserInfo = () => {
 };
 
 const test1 = async () => {
+  // 错误优先
   const [err, data] = await getUserInfo();
+
   if (err) {
     console.error(err); // AxiosError
     return;
@@ -18,9 +20,7 @@ const test1 = async () => {
   console.log(data);
 }
 
-// 只会向服务器发送一次请求
-test1(); // { code: 200, message: 'success', data: { name: 'test', age: 18 } }
-test1(); // { code: 200, message: 'success', data: { name: 'test', age: 18 } }
+test1();
 //#endregion example1
 
 //#region example2
@@ -36,7 +36,9 @@ const test2 = () => {
   login({ username: 'test', password: '123456' }).then((res) => {
     console.log(res.data); // { code: 200, message: 'success', data: 'token' }
   }).catch((err) => {
-    console.error(err);
+    console.error(err); // AxiosError
   });
 }
+
+test2();
 //#endregion example2

@@ -91,7 +91,7 @@ const config = {
         {
           text: '常用插件',
           items: [
-            { text: 'Axios', link: '/utils/plugins/axios/' },
+            { text: 'Axios 封装', link: '/utils/plugins/axios/' },
             { text: 'ExcelJS', link: '/utils/plugins/exceljs/' },
           ]
         },
