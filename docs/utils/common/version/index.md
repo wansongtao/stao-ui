@@ -1,6 +1,6 @@
 # 获取项目版本
 
-使用`shelljs`模块，读取git的tag信息，获取项目的版本号。
+使用`shelljs`模块，读取git的tag信息，获取项目的版本号，开发环境使用commit哈希值，生产环境使用tag。
 
 ::: details 实现源码
 <<< ../../../../packages/utils/src/common/version.ts
@@ -23,7 +23,7 @@ import { defineConfig } from 'vite'
 
 export default defineConfig({
   define: {
-    __APP_VERSION__: `'${version}'`
+    __APP_VERSION__: version
   }
 })
 ```
