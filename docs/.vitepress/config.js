@@ -93,6 +93,7 @@ const config = {
           items: [
             { text: 'Axios 封装', link: '/utils/plugins/axios/' },
             { text: 'Axios token 刷新插件', link: '/utils/plugins/axios-refresh-token/' },
+            { text: 'Axios deduplicator', link: '/utils/plugins/axios-deduplicator/' },
             { text: 'ExcelJS', link: '/utils/plugins/exceljs/' },
           ]
         },
