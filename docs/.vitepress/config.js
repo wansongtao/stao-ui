@@ -92,6 +92,7 @@ const config = {
           text: '常用插件',
           items: [
             { text: 'Axios 封装', link: '/utils/plugins/axios/' },
+            { text: 'Axios token 刷新插件', link: '/utils/plugins/axios-refresh-token/' },
             { text: 'ExcelJS', link: '/utils/plugins/exceljs/' },
           ]
         },
