@@ -1,6 +1,6 @@
-# Axios token 刷新插件
+# Axios refresh token
 
-Axios token 刷新插件，支持自动刷新 token，且刷新成功后自动重新发起请求并返回结果。可无缝集成到 Axios 中。
+`axios`刷新`token`插件，支持自动刷新`token`，且刷新成功后自动重新发起请求并返回结果。可无缝集成到`axios`中。
 
 ::: details 实现源码
 <<< ../../../../packages/utils/src/plugins/axios-refresh-token.ts
@@ -72,3 +72,26 @@ const twinTokenPlugin = createRefreshTokenPlugin(async () => {
 instance.interceptors.request.use(twinTokenPlugin.requestInterceptor)
 instance.interceptors.response.use(twinTokenPlugin.responseInterceptorFulfilled, twinTokenPlugin.responseInterceptorRejected)
 ```
+
+## 配置项
+
+### `refreshToken`
+
+- **类型**：`() => Promise<boolean>`
+- **默认值**：`undefined`
+- **说明**：刷新 token 的方法
+- **必填**：是
+
+### `request`
+
+- **类型**：`(config: AxiosRequestConfig) => Promise<AxiosResponse>`
+- **默认值**：`undefined`
+- **说明**：刷新token成功后，重新请求方法。建议传入`axios` 实例的 `request` 方法
+- **必填**：是
+
+### `isRefreshToken`
+
+- **类型**：`(error?: AxiosError, response?: AxiosResponse) => boolean`
+- **默认值**：`(error, res) => {if (error) {return error.response?.status === 401;}if (res) {return res.data?.code === 401;}return false;}`
+- **说明**：判断是否需要刷新 token 的方法
+- **必填**：否

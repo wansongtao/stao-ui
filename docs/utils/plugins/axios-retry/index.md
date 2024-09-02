@@ -1,6 +1,6 @@
 # Axios retry 请求重试插件
 
-`axios-retry` 是一个用于 axios 的请求重试插件，用于在请求失败时自动重试请求。支持自定义重试规则。
+`axios-retry` 是一个用于`axios`的请求重试插件，用于在请求失败时自动重试请求。支持自定义重试规则。
 
 ::: details 实现源码
 <<< ../../../../packages/utils/src/plugins/axios-retry.ts
@@ -53,9 +53,9 @@ instance.interceptors.response.use(
 
 ### `request`
 
-- **类型**：`AxiosRequestConfig`
+- **类型**：`(config: AxiosRequestConfig) => Promise<AxiosResponse>`
 - **默认值**：`undefined`
-- **说明**：`axios` 实例的 `request` 方法
+- **说明**：重试请求方法，建议传入`axios` 实例的 `request` 方法
 - **必填**：是
 
 ### `maxRetryCount`
