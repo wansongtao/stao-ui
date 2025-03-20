@@ -3,7 +3,7 @@
 滑块组件，用于在一个固定区间内进行数值选择。
 
 ::: details 组件源码
-<<< ../../../packages/components/src/BaseSlider/BaseSlider.vue
+<<< ../../../../packages/components/src/BaseSlider/BaseSlider.vue
 :::
 
 ## 基础用法

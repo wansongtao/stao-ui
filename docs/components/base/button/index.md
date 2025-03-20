@@ -3,7 +3,7 @@
 按钮组件，默认跟随父组件宽度，支持同时设置`type`、`status`、`disabled`。
 
 ::: details 组件源码
-<<< ../../../packages/components/src/BaseButton/BaseButton.vue
+<<< ../../../../packages/components/src/BaseButton/BaseButton.vue
 :::
 
 ## 基本用法

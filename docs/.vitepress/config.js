@@ -1,5 +1,4 @@
 import { resolve } from 'path';
-import { text } from 'stream/consumers';
 
 /**
  * @type {import('vitepress').UserConfig}
@@ -41,7 +40,7 @@ const config = {
       { text: '指南', link: '/guide/quickStart', activeMatch: '/guide/' },
       {
         text: '组件',
-        link: '/components/button/',
+        link: '/components/base/button/',
         activeMatch: '/components/'
       },
       { text: '工具', link: '/utils/common/main/', activeMatch: '/utils/' },
@@ -58,16 +57,16 @@ const config = {
         {
           text: '基础组件',
           items: [
-            { text: 'Button 按钮', link: '/components/button/' },
-            { text: 'FileSelector 文件选择', link: '/components/file/' },
-            { text: 'Switch 开关', link: '/components/switch/' },
-            { text: 'Tabs 标签页', link: '/components/tabs/' },
-            { text: 'Loading 加载', link: '/components/loading/' },
-            { text: 'Slider 滑块', link: '/components/slider/' },
-            { text: 'Radio 单选框', link: '/components/radio/' },
-            { text: 'Checkbox 复选框', link: '/components/checkbox/' },
-            { text: 'Carousel 走马灯', link: '/components/carousel/' },
-            { text: 'AutoScroll 自动滚动', link: '/components/auto-scroll/' },
+            { text: 'Button 按钮', link: '/components/base/button/' },
+            { text: 'FileSelector 文件选择', link: '/components/base/file/' },
+            { text: 'Switch 开关', link: '/components/base/switch/' },
+            { text: 'Tabs 标签页', link: '/components/base/tabs/' },
+            { text: 'Loading 加载', link: '/components/base/loading/' },
+            { text: 'Slider 滑块', link: '/components/base/slider/' },
+            { text: 'Radio 单选框', link: '/components/base/radio/' },
+            { text: 'Checkbox 复选框', link: '/components/base/checkbox/' },
+            { text: 'Carousel 走马灯', link: '/components/base/carousel/' },
+            { text: 'AutoScroll 自动滚动', link: '/components/base/auto-scroll/' },
           ]
         },
         {
@@ -75,6 +74,7 @@ const config = {
           items: [
             { text: 'VueAMap 地图', link: '/components/other/vuemap/' },
             { text: 'AliPayForm', link: '/components/other/alipay-code/' },
+            { text: 'Gantt 甘特图', link: '/components/other/gantt/' }
           ]
         }
       ],

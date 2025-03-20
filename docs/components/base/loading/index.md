@@ -3,7 +3,7 @@
 加载中状态组件，自动居中显示，支持设置是否显示遮罩层与其颜色。
 
 ::: details 组件源码
-<<< ../../../packages/components/src/BaseLoader/BaseLoader.vue
+<<< ../../../../packages/components/src/BaseLoader/BaseLoader.vue
 :::
 
 ## 基础用法

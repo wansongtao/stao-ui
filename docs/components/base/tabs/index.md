@@ -3,7 +3,7 @@
 标签页组件，用于在不同的内容区域之间进行切换。
 
 ::: details 组件源码
-<<< ../../../packages/components/src/BaseTabs/BaseTabs.vue
+<<< ../../../../packages/components/src/BaseTabs/BaseTabs.vue
 :::
 
 ## 基本用法

@@ -1,12 +1,12 @@
-# Radio 单选框
+# Checkbox 复选框
 
-单选框组件，用于在多个备选项中选中单个状态。
+复选框组件，用于在多个备选项中选中多个状态。
 
 ::: details 组件源码
-<<< ../../../packages/components/src/BaseRadio/BaseRadio.vue
+<<< ../../../../packages/components/src/BaseCheckbox/BaseCheckbox.vue
 :::
 
-## 基础用法
+## 基本用法
 
 <script lang="ts" setup>
 import ExampleView from './ExampleView.vue'

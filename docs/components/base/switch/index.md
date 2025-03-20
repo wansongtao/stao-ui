@@ -3,7 +3,7 @@
 开关选择组件，支持自定义选中值、自定义文本、自定义颜色、禁用。
 
 ::: details 组件源码
-<<< ../../../packages/components/src/BaseSwitch/BaseSwitch.vue
+<<< ../../../../packages/components/src/BaseSwitch/BaseSwitch.vue
 :::
 
 ## 基本用法

@@ -3,10 +3,10 @@
 轮播组件，用于循环播放一组图片或卡片。
 
 ::: details Carousel 源码
-<<< ../../../packages/components/src/SCarousel/index.vue
+<<< ../../../../packages/components/src/SCarousel/index.vue
 :::
 ::: details CarouselItem 源码
-<<< ../../../packages/components/src/SCarouselItem/index.vue
+<<< ../../../../packages/components/src/SCarouselItem/index.vue
 :::
 
 ## 基本用法

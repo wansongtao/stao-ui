@@ -3,7 +3,7 @@
 文件选择器组件，用于选择文件。支持多选、拖拽上传等功能。
 
 ::: details 组件源码
-<<< ../../../packages/components/src/FileSelector/FileSelector.vue
+<<< ../../../../packages/components/src/FileSelector/FileSelector.vue
 :::
 
 ## 基本用法

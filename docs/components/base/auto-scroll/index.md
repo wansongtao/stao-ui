@@ -3,7 +3,7 @@
 自动(无缝)滚动组件，支持水平和垂直方向。
 
 ::: details 组件源码
-<<< ../../../packages/components/src/AutoScroll/AutoScroll.vue
+<<< ../../../../packages/components/src/AutoScroll/AutoScroll.vue
 :::
 
 ::: details vue2.x 版本
