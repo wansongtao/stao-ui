@@ -352,7 +352,7 @@ function transformData(
         'gantt-content-menu--bottom': contextmenuInfo.direction === 'bottom'
       }"
       :style="{ left: contextmenuInfo.left, top: contextmenuInfo.top }">
-      <slot name="contextMenu" :data="contextmenuInfo.data"></slot>
+      <slot name="context-menu" :data="contextmenuInfo.data"></slot>
     </div>
   </teleport>
 </template>
