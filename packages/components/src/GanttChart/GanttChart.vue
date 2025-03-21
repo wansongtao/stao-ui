@@ -182,7 +182,7 @@ const initGanttChart = () => {
   onCloseContextMenu();
   initMountRange();
   ganttChartList.value = [];
-  
+
   if (!$props.data?.length) {
     horizontalScrollElement.value?.scroll({ left: 0 });
     verticalScrollElement.value?.scroll({ top: 0 });
@@ -298,7 +298,7 @@ function transformData(
               ">
               <div
                 v-for="(v, i) in item"
-                :key="v.id || i"
+                :key="v.id.toString() + i"
                 :style="v.style"
                 class="chart"
                 :class="{
@@ -343,16 +343,18 @@ function transformData(
     </div>
   </div>
 
-  <div
-    v-show="contextmenuInfo.show"
-    ref="contextRef"
-    class="gantt-context-menu"
-    :class="{
-      'gantt-content-menu--bottom': contextmenuInfo.direction === 'bottom'
-    }"
-    :style="{ left: contextmenuInfo.left, top: contextmenuInfo.top }">
-    <slot name="contextMenu" :data="contextmenuInfo.data"></slot>
-  </div>
+  <teleport to="body">
+    <div
+      v-show="contextmenuInfo.show"
+      ref="contextRef"
+      class="gantt-context-menu"
+      :class="{
+        'gantt-content-menu--bottom': contextmenuInfo.direction === 'bottom'
+      }"
+      :style="{ left: contextmenuInfo.left, top: contextmenuInfo.top }">
+      <slot name="contextMenu" :data="contextmenuInfo.data"></slot>
+    </div>
+  </teleport>
 </template>
 
 <style lang="scss" scoped>
