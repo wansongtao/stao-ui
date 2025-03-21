@@ -182,7 +182,7 @@ const initGanttChart = () => {
   onCloseContextMenu();
   initMountRange();
   ganttChartList.value = [];
-  checkList.value = new Set();
+  
   if (!$props.data?.length) {
     horizontalScrollElement.value?.scroll({ left: 0 });
     verticalScrollElement.value?.scroll({ top: 0 });
