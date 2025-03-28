@@ -18,16 +18,18 @@
   "license": "ISC",
   "dependencies": {
     "@ant-design/icons-vue": "^7.0.1",
+    "@element-plus/icons-vue": "^2.3.1",
     "@vuemap/vue-amap": "^2.0.18",
     "ant-design-vue": "^4.2.1",
     "axios": "^1.7.2",
     "dayjs": "^1.11.9",
     "echarts": "^5.4.3",
+    "element-plus": "^2.9.7",
     "exceljs": "^4.3.0",
     "file-saver": "^2.0.5",
     "nprogress": "^0.2.0",
     "pinia": "^2.0.32",
-    "vue": "^3.4.27",
+    "vue": "^3.5.13",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
