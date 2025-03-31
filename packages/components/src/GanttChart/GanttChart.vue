@@ -1,5 +1,5 @@
 <script lang="ts" generic="T extends IGanttChartItem" setup>
-import { type Ref, computed, ref, watch } from 'vue';
+import { type Ref, computed, ref, watch, onMounted } from 'vue';
 import dayjs from 'dayjs';
 import { getTimeLineList, timeRangeToWidth } from './utils';
 import { useGuideline } from './hooks/useGuideLine';
@@ -84,7 +84,12 @@ const DEFAULT_GANTT_CHART_HEIGHT = 400;
 const DEFAULT_LINE_HEIGHT = 35;
 const DEFAULT_PAGESIZE = 40;
 const HOUR_WIDTH_RATIO = 30;
-const MAX_WIDTH = document.body.clientWidth;
+const MAX_WIDTH = ref(1000); // default value
+
+// Use onMounted to access window safely after client-side hydration
+onMounted(() => {
+  MAX_WIDTH.value = window.document.body.clientWidth;
+});
 
 const { onSetGuideLine, guidelines } = useGuideline();
 
