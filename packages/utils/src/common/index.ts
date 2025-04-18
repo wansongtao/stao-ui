@@ -473,3 +473,26 @@ export const followSystemTheme = (
   });
 };
 // #endregion followSystemTheme
+
+// #region deepMap
+export const deepMap = <T extends Record<any, any>>(
+  data: T[],
+  callback: (value: T) => T,
+  childrenKey = 'children'
+) => {
+  return data.map((v) => {
+    const newValue = callback(v);
+    if (newValue[childrenKey]?.length) {
+      (newValue[childrenKey] as T[]) = deepMap(
+        newValue[childrenKey],
+        callback,
+        childrenKey
+      );
+    }
+
+    return {
+      ...newValue
+    };
+  });
+};
+// #endregion deepMap
