@@ -148,24 +148,24 @@ idle.startDetection() // 用户空闲1秒后输出 idle
 <<< ../../../../packages/utils/src/common/index.ts#idleDetection
 :::
 
-## deepFind
+## deepFindItem
 
-该方法用于深度查找某项，接收一个数组对象、一个查找函数与一个子元素键名，返回查找到的值。
+深度查找树形结构中的某个节点，接收一个数组对象、一个查找函数与一个子元素键名，返回查找到的第一个节点。
 
 ```ts
-import { deepFind } from '...'
+import { deepFindItem } from '...'
 
 const arr = [{ a: 1, children: [{ a: 2 }] }]
-deepFind(arr, (item) => item.a === 2, 'children') // { a: 2 }
+deepFindItem(arr, (item) => item.a === 2, 'children') // { a: 2 }
 ```
 
 ::: details 方法源码
-<<< ../../../../packages/utils/src/common/index.ts#deepFind
+<<< ../../../../packages/utils/src/common/index.ts#deepFindItem
 :::
 
 ## deepMap
 
-该方法用于深度修改数组中的每一项，接收一个数组对象、一个修改函数与一个子元素键名，返回修改后的数组。
+深度遍历树形结构，接收一个数组对象、一个映射函数与一个子元素键名，返回一个新的数组对象。映射函数接收一个参数：当前节点。
 
 ```ts
 import { deepMap } from '...'
@@ -182,6 +182,23 @@ const newArr = deepMap(arr, (v) => {
 
 ::: details 方法源码
 <<< ../../../../packages/utils/src/common/index.ts#deepMap
+:::
+
+## deepForeach
+
+树结构的广度优先遍历，接收一个数组对象、一个遍历函数与一个子元素键名。遍历函数接收一个参数：当前节点。
+
+```ts
+import { deepForeach } from '...'
+
+const arr = [{ a: 1, b: 2, children: [{ a: 2, b: 4 }]}]
+deepForeach(arr, (v) => {
+  console.log(v) // { a: 1, b: 2, children: [...] } => { a: 2, b: 4 }
+})
+```
+
+::: details 方法源码
+<<< ../../../../packages/utils/src/common/index.ts#deepForeach
 :::
 
 ## getSystemTheme
