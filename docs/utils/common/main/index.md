@@ -163,6 +163,27 @@ deepFind(arr, (item) => item.a === 2, 'children') // { a: 2 }
 <<< ../../../../packages/utils/src/common/index.ts#deepFind
 :::
 
+## deepMap
+
+该方法用于深度修改数组中的每一项，接收一个数组对象、一个修改函数与一个子元素键名，返回修改后的数组。
+
+```ts
+import { deepMap } from '...'
+
+const arr = [{ a: 1, b: 2, children: [{ a: 2, b: 4 }]}]
+const newArr = deepMap(arr, (v) => {
+  return {
+    a: v.a * 2,
+    b: v.b * 2,
+    children: v.children
+  }
+}) // result: [{ a: 2, b: 4, children: [{ a: 4, b: 8 }]}]
+```
+
+::: details 方法源码
+<<< ../../../../packages/utils/src/common/index.ts#deepMap
+:::
+
 ## getSystemTheme
 
 该方法用于获取系统主题，返回字符串`light`或`dark`。
