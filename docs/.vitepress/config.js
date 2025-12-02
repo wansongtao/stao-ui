@@ -74,7 +74,7 @@ const config = {
           items: [
             { text: 'VueAMap 地图', link: '/components/other/vuemap/' },
             { text: 'AliPayForm', link: '/components/other/alipay-code/' },
-            { text: 'Gantt 甘特图', link: '/components/other/gantt/' }
+            { text: 'Virtual List', link: '/components/other/virtual-list/' }
           ]
         }
       ],
