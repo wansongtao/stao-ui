@@ -3,6 +3,7 @@ import { throttle } from '@utils/common';
 import { fillArray } from '@utils/special';
 import { useVirtualList } from './hooks/use-virtual-list';
 import { computed, onMounted, shallowRef, useTemplateRef, watch } from 'vue';
+import { useResizeObserver } from './hooks/use-resize-observer';
 
 const {
   dataList,
@@ -65,6 +66,13 @@ const { renderRange, topHeight, setRenderRange, pagesize } = useVirtualList(
   }
 );
 
+const visibleList = computed(() => {
+  return list.value.slice(
+    renderRange.value.beginIndex,
+    renderRange.value.endIndex + 1
+  );
+});
+
 watch(
   renderRange,
   (range) => {
@@ -92,7 +100,8 @@ watch(
       ...data,
       ...fillArray(pagesize.value - data.length, () => null as T)
     ];
-  }
+  },
+  { immediate: true, deep: true }
 );
 
 const handleContextmenu = (event: MouseEvent) => {
@@ -108,7 +117,7 @@ const handleRowClick = (data: T | null, index: number) => {
 const handleVirtualListScroll = throttle<Event>((e) => {
   setRenderRange();
   $emits('scroll', e);
-}, scrollThrottleTime);
+}, scrollThrottleTime, { leading: true, trailing: true });
 
 onMounted(() => {
   if (virtualListRef.value) {
@@ -124,6 +133,23 @@ onMounted(() => {
 
   setRenderRange();
 });
+
+useResizeObserver(virtualListRef, () => {
+  if (!virtualListRef.value) {
+    return
+  }
+
+  const size = Math.floor(virtualListRef.value.clientHeight / itemHeight)
+  if (size === pagesize.value) {
+    return
+  }
+  pagesize.value = size
+  if (list.value.length < pagesize.value) {
+    list.value.push(...fillArray(pagesize.value - dataList.length, () => null as T))
+  }
+
+  setRenderRange()
+})
 
 defineExpose({
   handleScroll,
@@ -142,10 +168,7 @@ defineExpose({
     <div v-if="list.length" :style="`height: ${scrollHeight}px;`">
       <div :style="`height: ${topHeight}px;`"></div>
       <template
-        v-for="(item, itemIndex) in list.slice(
-          renderRange.beginIndex,
-          renderRange.endIndex + 1
-        )"
+        v-for="(item, itemIndex) in visibleList"
         :key="item ? getItemKey(item) : itemIndex">
         <div
           :style="`height: ${itemHeight}px; ${itemStyle}`"
