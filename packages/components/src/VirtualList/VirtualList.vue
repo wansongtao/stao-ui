@@ -1,8 +1,7 @@
 <script lang="ts" generic="T" setup>
 import { throttle } from '@utils/common';
-import { fillArray } from '@utils/special';
 import { useVirtualList } from './hooks/use-virtual-list';
-import { computed, onMounted, shallowRef, useTemplateRef, watch } from 'vue';
+import { computed, onMounted, useTemplateRef, watch } from 'vue';
 import { useResizeObserver } from './hooks/use-resize-observer';
 
 const {
@@ -53,9 +52,8 @@ const handleScrollTo = (index: number) => {
   }
 };
 
-const list = shallowRef<T[]>([]);
 const scrollHeight = computed(() => {
-  return list.value.length * itemHeight;
+  return dataList.length * itemHeight;
 });
 
 const { renderRange, topHeight, setRenderRange, pagesize } = useVirtualList(
@@ -67,7 +65,7 @@ const { renderRange, topHeight, setRenderRange, pagesize } = useVirtualList(
 );
 
 const visibleList = computed(() => {
-  return list.value.slice(
+  return dataList.slice(
     renderRange.value.beginIndex,
     renderRange.value.endIndex + 1
   );
@@ -78,7 +76,7 @@ watch(
   (range) => {
     $emits(
       'change',
-      list.value.slice(range.beginIndex, range.endIndex + 1),
+      dataList.slice(range.beginIndex, range.endIndex + 1),
       range.beginIndex,
       range.endIndex
     );
@@ -90,16 +88,11 @@ watch(
   () => dataList,
   (data) => {
     if (dataList.length >= pagesize.value) {
-      list.value = [...data];
       setRenderRange(data.length);
       return;
     }
 
     virtualListRef.value?.scrollTo({ top: 0, behavior: 'instant' });
-    list.value = [
-      ...data,
-      ...fillArray(pagesize.value - data.length, () => null as T)
-    ];
   },
   { immediate: true, deep: true }
 );
@@ -108,27 +101,21 @@ const handleContextmenu = (event: MouseEvent) => {
   event.preventDefault();
   $emits('contextmenu', event);
 };
-const handleRowClick = (data: T | null, index: number) => {
-  if (!data) {
-    return;
-  }
+const handleRowClick = (data: T, index: number) => {
   $emits('rowClick', data, index);
 };
-const handleVirtualListScroll = throttle<Event>((e) => {
-  setRenderRange();
-  $emits('scroll', e);
-}, scrollThrottleTime, { leading: true, trailing: true });
+const handleVirtualListScroll = throttle<Event>(
+  (e) => {
+    setRenderRange();
+    $emits('scroll', e);
+  },
+  scrollThrottleTime,
+  { leading: true, trailing: true }
+);
 
 onMounted(() => {
   if (virtualListRef.value) {
     pagesize.value = Math.floor(virtualListRef.value.clientHeight / itemHeight);
-  }
-
-  list.value = [...dataList];
-  if (dataList.length < pagesize.value) {
-    list.value.push(
-      ...fillArray(pagesize.value - dataList.length, () => null as T)
-    );
   }
 
   setRenderRange();
@@ -136,20 +123,16 @@ onMounted(() => {
 
 useResizeObserver(virtualListRef, () => {
   if (!virtualListRef.value) {
-    return
+    return;
   }
 
-  const size = Math.floor(virtualListRef.value.clientHeight / itemHeight)
+  const size = Math.floor(virtualListRef.value.clientHeight / itemHeight);
   if (size === pagesize.value) {
-    return
+    return;
   }
-  pagesize.value = size
-  if (list.value.length < pagesize.value) {
-    list.value.push(...fillArray(pagesize.value - dataList.length, () => null as T))
-  }
-
-  setRenderRange()
-})
+  pagesize.value = size;
+  setRenderRange();
+});
 
 defineExpose({
   handleScroll,
@@ -165,21 +148,20 @@ defineExpose({
     :style="`height: ${containerHeight};` + containerStyle"
     @contextmenu="handleContextmenu"
     @scroll="handleVirtualListScroll">
-    <div v-if="list.length" :style="`height: ${scrollHeight}px;`">
-      <div :style="`height: ${topHeight}px;`"></div>
+    <div :style="`height: ${scrollHeight}px; min-height: ${containerHeight};`">
+      <div v-if="visibleList.length" :style="`height: ${topHeight}px;`"></div>
       <template
         v-for="(item, itemIndex) in visibleList"
-        :key="item ? getItemKey(item) : itemIndex">
+        :key="getItemKey(item) ?? itemIndex">
         <div
           :style="`height: ${itemHeight}px; ${itemStyle}`"
           class="virtual-list__item"
           @click="handleRowClick(item, itemIndex + renderRange.beginIndex)">
-          <template v-if="item !== null">
-            <slot
-              :item="item"
-              :itemIndex="itemIndex + renderRange.beginIndex" />
-          </template>
+          <slot :item="item" :itemIndex="itemIndex + renderRange.beginIndex" />
         </div>
+      </template>
+      <template v-if="!visibleList.length">
+        <slot name="empty" />
       </template>
     </div>
   </div>
