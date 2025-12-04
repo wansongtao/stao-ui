@@ -45,22 +45,51 @@ export const debounce = <T = unknown>(
  * @description 节流函数，触发一次后，下次触发需要间隔一定的时间
  * @param fn 需要执行的函数
  * @param delay 间隔时间，默认1s，单位ms
+ * @param options
  * @returns
  */
 export const throttle = <T = unknown>(
   fn: (...args: T[]) => void,
-  delay: number = 1000
+  delay: number = 1000,
+  options: { leading?: boolean; trailing?: boolean } = { leading: true, trailing: false }
 ) => {
-  let lastTime = 0;
-  return function (this: any, ...args: T[]) {
-    const nowTime = Date.now();
+  let timer: NodeJS.Timeout | null = null;
+  let previous = 0;
+  let context: any = null;
+  let argsCache: T[] | null = null;
 
-    if (nowTime - lastTime < delay) {
-      return;
+  const leading = options.leading !== undefined ? options.leading : true;
+  const trailing = options.trailing !== undefined ? options.trailing : false;
+
+  return function (this: any, ...args: T[]) {
+    const now = Date.now();
+
+    if (!previous && !leading) {
+      previous = now;
     }
 
-    lastTime = nowTime;
-    fn.apply(this, args);
+    const remaining = delay - (now - previous);
+    context = this;
+    argsCache = args;
+
+    if (remaining <= 0 || remaining > delay) {
+      if (timer) {
+        clearTimeout(timer);
+        timer = null;
+      }
+      previous = now;
+      fn.apply(context, args);
+      argsCache = null;
+    } else if (!timer && trailing) {
+      timer = setTimeout(() => {
+        timer = null;
+        previous = leading ? Date.now() : 0;
+        if (argsCache) {
+          fn.apply(context, argsCache);
+          argsCache = null;
+        }
+      }, remaining);
+    }
   };
 };
 // #endregion throttle
