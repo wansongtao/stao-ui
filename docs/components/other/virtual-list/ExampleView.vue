@@ -3,7 +3,7 @@ import VirtualList from '@/VirtualList/VirtualList.vue';
 import { ref } from 'vue';
 
 const list = ref<number[]>([]);
-for (let i = 0; i < 120; i++) {
+for (let i = 0; i < 50; i++) {
   list.value.push(i);
 }
 </script>
@@ -29,6 +29,7 @@ for (let i = 0; i < 120; i++) {
   display: flex;
   gap: 40px;
   height: 210px;
+  box-sizing: border-box;
   border: 1px dotted #000;
 }
 </style>

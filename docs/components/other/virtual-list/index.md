@@ -54,6 +54,7 @@ import ExampleView from './ExampleView.vue'
 | 插槽名 | 说明 | 参数 |
 | --- | --- | --- |
 | default | 行内容 | _{ item: T, itemIndex: number }_ |
+| empty | 空状态内容 | _ |
 
 ### Methods
 
