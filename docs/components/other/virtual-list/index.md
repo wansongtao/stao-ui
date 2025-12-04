@@ -1,6 +1,6 @@
 # Virtual List 虚拟列表
 
-简易虚拟列表泛型组件。支持固定滚动条、固定行号。
+简易虚拟列表泛型组件。
 
 ::: details 组件源码
 <<< ../../../../packages/components/src/VirtualList/VirtualList.vue
@@ -34,7 +34,7 @@ import ExampleView from './ExampleView.vue'
 | itemHeight | 每项高度 | _number_ | - |
 | containerHeight | 容器高度 | _string_ | - |
 | getItemKey | 每一项的 key | _(item: T) => string \| number \| void_ | - |
-| overscan | 额外渲染数量 | _number_ | 5 |
+| overscan | 预渲染的额外项目数量，提升滚动流畅度 | _number_ | 5 |
 | containerStyle | 容器样式 | _string_ | - |
 | itemStyle | 每项样式 | _string_ | - |
 | hiddenScrollbar | 是否隐藏滚动条 | _boolean_ | false |
